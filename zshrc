@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/ideanova/.oh-my-zsh"
+export ZSH="/Users/mingshiwang/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -103,6 +103,7 @@ source $ZSH/oh-my-zsh.sh
 alias hosts='sudo vim /etc/hosts'
 alias git_sort="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
 "
+alias v='nvim'
 alias npmg='npm list -g --depth 0'
 export PATH="/usr/local/opt/node@14/bin:$PATH"
 export PATH="/usr/local/opt/ruby/bin:$PATH"
