@@ -83,3 +83,6 @@ inoremap <Down>  <ESC>:echoe "Use j"<CR>
 " my custom changes
 nnoremap Q @@
 set noswapfile
+set tabstop=2
+set shiftwidth=2
+set expandtab

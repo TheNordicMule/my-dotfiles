@@ -9,3 +9,5 @@ coreutils?
 docker
 homebrew
 node
+neovim
+pt - platinum searcher
