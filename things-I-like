@@ -11,3 +11,9 @@ homebrew
 node
 neovim
 pt - platinum searcher
+
+
+----------vim----------
+install vim-code-dark theme
+q/ q: search list and command list
+ctrl-r ctrl-w to complete search result
