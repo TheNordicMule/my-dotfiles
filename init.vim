@@ -87,3 +87,31 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 colorscheme codedark
+let mapleader = " "
+
+
+" map <space>p and <space>y to copy to system clipboard
+nnoremap <leader>p "+p
+vnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>P "+P
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+nnoremap <leader>Y "+y$
+
+" Go to tab by number
+nnoremap <leader>t :tabnew<cr>
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<cr>
+
+" map <leader>o to open a new and resume normal mode
+nnoremap <leader>o o<ESC>k$
+nnoremap <leader>O O<ESC>j$
