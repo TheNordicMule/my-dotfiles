@@ -104,6 +104,8 @@ alias hosts='sudo vim /etc/hosts'
 alias git_sort="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
 "
 alias v='nvim'
+alias vi='nvim'
+alias vim='nvim'
 alias npmg='npm list -g --depth 0'
 export PATH="/usr/local/opt/node@14/bin:$PATH"
 export PATH="/usr/local/opt/ruby/bin:$PATH"
