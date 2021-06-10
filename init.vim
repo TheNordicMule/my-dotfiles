@@ -115,3 +115,6 @@ noremap <leader>0 :tablast<cr>
 " map <leader>o to open a new and resume normal mode
 nnoremap <leader>o o<ESC>k$
 nnoremap <leader>O O<ESC>j$
+
+" setpath to be all 
+set path+=**
