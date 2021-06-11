@@ -118,3 +118,10 @@ nnoremap <leader>O O<ESC>j$
 
 " setpath to be all 
 set path+=**
+
+" map up and down
+cnoremap <C-p> <Up> 
+cnoremap <C-n> <Down>
+
+" enlarge history
+set history=100
