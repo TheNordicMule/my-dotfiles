@@ -79,6 +79,16 @@ inoremap <Right> <ESC>:echoe "Use l"<CR>
 inoremap <Up>    <ESC>:echoe "Use k"<CR>
 inoremap <Down>  <ESC>:echoe "Use j"<CR>
 
+" Plugins will be downloaded under the specified directory.
+" vim-plug stuff
+call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
+
+" Declare the list of plugins.
+Plug 'tomasiser/vim-code-dark'
+Plug 'vim-airline/vim-airline'
+
+" List ends here. Plugins become visible to Vim after this call.
+call plug#end()
 
 " my custom changes
 nnoremap Q @@
@@ -125,3 +135,4 @@ cnoremap <C-n> <Down>
 
 " enlarge history
 set history=100
+
