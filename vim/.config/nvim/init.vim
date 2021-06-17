@@ -88,6 +88,9 @@ Plug 'tomasiser/vim-code-dark'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
+Plug 'valloric/youcompleteme'
+Plug 'tpope/vim-fugitive'
+Plug 'dense-analysis/ale'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -130,6 +133,7 @@ nnoremap <leader>O O<ESC>j$
 
 " setpath to be all 
 set path+=**
+set wildignore+=**/node_modules/**
 
 " map up and down
 cnoremap <C-p> <Up> 
@@ -137,6 +141,7 @@ cnoremap <C-n> <Down>
 
 " enlarge history
 set history=100
+" change updatetime
 set updatetime=750
 
 
