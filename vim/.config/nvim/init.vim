@@ -87,6 +87,7 @@ call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 Plug 'tomasiser/vim-code-dark'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-commentary'
+Plug 'airblade/vim-gitgutter'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -136,4 +137,6 @@ cnoremap <C-n> <Down>
 
 " enlarge history
 set history=100
+set updatetime=750
+
 
