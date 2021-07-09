@@ -153,3 +153,8 @@ else
     set grepprg=grep\ --line-number\ --ignore-case\ -H\ --exclude=tags*
 endif
 
+
+" setup ale hotkeys
+nmap <silent> <leader>k <Plug>(ale_previous_wrap)
+nmap <silent> <leader>j <Plug>(ale_next_wrap)
+nmap <silent> <leader>f :ALEFix<CR>
