@@ -144,3 +144,12 @@ set updatetime=750
 set foldmethod=indent
 set foldlevelstart=999
 
+" setup grep for vim to use rg
+if executable('rg')
+    set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ --follow\ --multiline-dotall
+elseif executable('ag')
+    set grepprg=ag\ --vimgrep\ --smart-case\ --hidden\ --follow
+else
+    set grepprg=grep\ --line-number\ --ignore-case\ -H\ --exclude=tags*
+endif
+
