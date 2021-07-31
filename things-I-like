@@ -10,7 +10,7 @@ docker
 homebrew
 node
 neovim
-pt - platinum searcher
+ripgrep
 stow
 
 
