@@ -88,9 +88,9 @@ Plug 'tomasiser/vim-code-dark'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
-Plug 'valloric/youcompleteme'
 Plug 'tpope/vim-fugitive'
-Plug 'dense-analysis/ale'
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-compe'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -154,11 +154,6 @@ else
 endif
 
 
-" setup ale hotkeys
-nmap <silent> <leader>k <Plug>(ale_previous_wrap)
-nmap <silent> <leader>j <Plug>(ale_next_wrap)
-nmap <silent> <leader>f :ALEFix<CR>
-
 
 
 " folding in vscode support
@@ -173,3 +168,7 @@ nnoremap <silent> zC <Cmd>call VSCodeNotify('editor.foldRecursively')<CR>
 nmap j gj
 nmap k gk
 endif
+
+
+source ~/.config/nvim/plug-config/lsp-config.vim
+luafile ~/.config/nvim/lua/plugins/compe-config.lua
