@@ -84,6 +84,8 @@ inoremap <Down>  <ESC>:echoe "Use j"<CR>
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 
 " Declare the list of plugins.
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'tomasiser/vim-code-dark'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-commentary'
@@ -182,3 +184,7 @@ inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
 " tree sitter stuff
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+
+" fzf remap
+cnoremap <C-p> <ESC>:Files<CR>
+nnoremap <C-p> <ESC>:Files<CR>
