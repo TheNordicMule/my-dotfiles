@@ -171,7 +171,14 @@ endif
 
 " lsp stuff
 source ~/.config/nvim/plug-config/lsp-config.vim
-luafile ~/.config/nvim/lua/plugins/compe-config.lua
 
-"tree sitter stuff
+" completion stuff
+luafile ~/.config/nvim/lua/plugins/compe-config.lua
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+
+" tree sitter stuff
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
