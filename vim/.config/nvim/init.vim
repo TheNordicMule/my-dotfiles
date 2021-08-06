@@ -169,6 +169,9 @@ nmap j gj
 nmap k gk
 endif
 
-
+" lsp stuff
 source ~/.config/nvim/plug-config/lsp-config.vim
 luafile ~/.config/nvim/lua/plugins/compe-config.lua
+
+"tree sitter stuff
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
