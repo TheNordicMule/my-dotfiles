@@ -186,7 +186,6 @@ inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 
 " fzf remap
-cnoremap <C-p> <ESC>:Files<CR>
 nnoremap <C-p> <ESC>:Files<CR>
 
 " center search results
@@ -195,3 +194,8 @@ nnoremap <silent> N Nzz
 nnoremap <silent> * *zz
 nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
+
+" use default very magic
+nnoremap ? ?\v
+nnoremap / /\v
+cnoremap %s/ %sm/
