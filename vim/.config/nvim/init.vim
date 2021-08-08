@@ -93,6 +93,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
+" tree sitter stuff
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -174,6 +176,15 @@ endif
 " lsp stuff
 luafile ~/.config/nvim/lua/lsp-config.lua
 
+" treesitter stuff
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+  },
+}
+EOF
+
 " completion stuff
 luafile ~/.config/nvim/lua/plugins/compe-config.lua
 inoremap <silent><expr> <C-Space> compe#complete()
@@ -182,11 +193,9 @@ inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
-" tree sitter stuff
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 
 " fzf remap
-nnoremap <C-p> <ESC>:Files<CR>
+nnoremap <C-p> <ESC>:GFiles<CR>
 
 " center search results
 nnoremap <silent> n nzz
