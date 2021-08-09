@@ -58,10 +58,6 @@ opt.mouse:append('a')
 
 -- custom
 opt.swapfile = false
-opt.tabstop = 2
-opt.shiftwidth = 2
-opt.expandtab = true
-
 
 -- setpath to be all
 opt.path:append('**')

@@ -91,16 +91,6 @@ nmap j gj
 nmap k gk
 endif
 
-" lsp stuff
-luafile ~/.config/nvim/lua/plugin-config/lsp-config.lua
-
-" treesitter stuff
-luafile ~/.config/nvim/lua/plugin-config/treesitter-config.lua
-
-" completion stuff
-luafile ~/.config/nvim/lua/plugin-config/compe-config.lua
-
-
 inoremap <silent><expr> <C-Space> compe#complete()
 inoremap <silent><expr> <CR>      compe#confirm('<CR>')
 inoremap <silent><expr> <C-e>     compe#close('<C-e>')
@@ -123,8 +113,3 @@ nnoremap ? ?\v
 nnoremap / /\v
 cnoremap %s/ %sm/
 
-
-
-lua <<EOF
-require('options')
-EOF
