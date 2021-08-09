@@ -17,8 +17,6 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
-" my custom changes
-nnoremap Q @@
 colorscheme codedark
 let mapleader = " "
 
@@ -71,16 +69,6 @@ nnoremap <silent> zC <Cmd>call VSCodeNotify('editor.foldRecursively')<CR>
 nmap j gj
 nmap k gk
 endif
-
-inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
-
-
-" fzf remap
-nnoremap <C-p> <ESC>:GFiles<CR>
 
 " center search results
 nnoremap <silent> n nzz
