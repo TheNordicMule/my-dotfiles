@@ -1,25 +1,8 @@
-" Plugins will be downloaded under the specified directory.
-" vim-plug stuff
-call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
-
-" Declare the list of plugins.
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'tomasiser/vim-code-dark'
-Plug 'vim-airline/vim-airline'
-Plug 'tpope/vim-commentary'
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
-Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/nvim-compe'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  
-
-" List ends here. Plugins become visible to Vim after this call.
-call plug#end()
-
 colorscheme codedark
 let mapleader = " "
 
+lua require 'bootstrap'
+lua require 'plugins'
 
 " map <space>p and <space>y to copy to system clipboard
 nnoremap <leader>p "+p
