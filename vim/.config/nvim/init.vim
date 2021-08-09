@@ -1,7 +1,6 @@
 colorscheme codedark
 let mapleader = " "
 
-lua require 'bootstrap'
 lua require 'plugins'
 
 " map <space>p and <space>y to copy to system clipboard
