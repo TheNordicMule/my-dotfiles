@@ -27,10 +27,6 @@ noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
 
 
-" map up and down
-cnoremap <C-p> <Up> 
-cnoremap <C-n> <Down>
-
 " setup grep for vim to use rg
 if executable('rg')
     set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ --follow\ --multiline-dotall
@@ -52,16 +48,4 @@ nnoremap <silent> zC <Cmd>call VSCodeNotify('editor.foldRecursively')<CR>
 nmap j gj
 nmap k gk
 endif
-
-" center search results
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
-nnoremap <silent> g* g*zz
-
-" use default very magic
-nnoremap ? ?\v
-nnoremap / /\v
-cnoremap %s/ %sm/
 

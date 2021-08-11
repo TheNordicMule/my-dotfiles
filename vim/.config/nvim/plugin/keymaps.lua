@@ -30,3 +30,17 @@ buf_set_keymap('i','<Down>','<cmd>echoe \'--use j--\'<CR>', noremap)
 buf_set_keymap('n','<leader>ga','<cmd>Git add %<CR>', noremap)
 buf_set_keymap('n','<leader>gd','<cmd>Git diff<CR>', noremap)
 buf_set_keymap('n','<leader>gs','<cmd>Git status<CR>', noremap)
+
+
+-- center search results
+buf_set_keymap('n','n','nzz',silent_opts)
+buf_set_keymap('n','N','Nzz',silent_opts)
+buf_set_keymap('n','*','*zz',silent_opts)
+buf_set_keymap('n','#','#zz',silent_opts)
+buf_set_keymap('n','g*','g*zz',silent_opts)
+
+-- use default very magic
+buf_set_keymap('n','?','?\\v', noremap)
+buf_set_keymap('n','/','/\\v', noremap)
+buf_set_keymap('c','%s/','%sm/', noremap)
+
