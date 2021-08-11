@@ -16,9 +16,14 @@ return require('packer').startup(function()
     use 'tomasiser/vim-code-dark'
     use 'vim-airline/vim-airline'
     use 'tpope/vim-commentary'
-    use 'airblade/vim-gitgutter'
     use 'tpope/vim-fugitive'
     use 'neovim/nvim-lspconfig'
+    use {
+      'lewis6991/gitsigns.nvim',
+      requires = {
+        'nvim-lua/plenary.nvim'
+      }
+    }
     use 'hrsh7th/nvim-compe'
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}  
 end)

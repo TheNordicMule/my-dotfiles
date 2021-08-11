@@ -27,3 +27,6 @@ buf_set_keymap('i','<Up>','<cmd>echoe \'--use k--\'<CR>', noremap)
 buf_set_keymap('i','<Down>','<cmd>echoe \'--use j--\'<CR>', noremap)
 
 
+buf_set_keymap('n','<leader>ga','<cmd>Git add %<CR>', noremap)
+buf_set_keymap('n','<leader>gd','<cmd>Git diff<CR>', noremap)
+buf_set_keymap('n','<leader>gs','<cmd>Git status<CR>', noremap)
