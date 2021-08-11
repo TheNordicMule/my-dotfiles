@@ -2,6 +2,7 @@ colorscheme codedark
 let mapleader = " "
 
 lua require 'plugins'
+lua require 'utils'
 
 " map <space>p and <space>y to copy to system clipboard
 nnoremap <leader>p "+p
