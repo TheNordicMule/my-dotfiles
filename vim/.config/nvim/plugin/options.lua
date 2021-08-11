@@ -3,7 +3,10 @@ local opt = vim.opt
 -- compatible mode
 opt.compatible = false
 
--- syntax highlighting
+-- Do not do Wrap
+opt.wrap = false
+
+-- Syntax highlighting
 opt.syntax = 'on'
 
 -- Disable the default Vim startup message.
