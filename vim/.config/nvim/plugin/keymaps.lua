@@ -44,3 +44,26 @@ buf_set_keymap('n','?','?\\v', noremap)
 buf_set_keymap('n','/','/\\v', noremap)
 buf_set_keymap('c','%s/','%sm/', noremap)
 
+
+-- map <space>p and <space>y to copy to system clipboard
+buf_set_keymap('n','<leader>p','"+p', noremap)
+buf_set_keymap('v','<leader>p','"+p', noremap)
+buf_set_keymap('n','<leader>P','"+P', noremap)
+buf_set_keymap('v','<leader>P','"+P', noremap)
+buf_set_keymap('n','<leader>y','"+y', noremap)
+buf_set_keymap('v','<leader>y','"+y', noremap)
+buf_set_keymap('n','<leader>Y','"+y$', noremap)
+
+-- Go to tab by number
+buf_set_keymap('n','<leader>t','<cmd>tabnew<cr>', noremap)
+buf_set_keymap('','<leader>1','1gt', noremap)
+buf_set_keymap('','<leader>2','2gt', noremap)
+buf_set_keymap('','<leader>3','3gt', noremap)
+buf_set_keymap('','<leader>4','4gt', noremap)
+buf_set_keymap('','<leader>5','5gt', noremap)
+buf_set_keymap('','<leader>6','6gt', noremap)
+buf_set_keymap('','<leader>7','7gt', noremap)
+buf_set_keymap('','<leader>8','8gt', noremap)
+buf_set_keymap('','<leader>9','9gt', noremap)
+buf_set_keymap('','<leader>0','<cmd>tablast<CR>', noremap)
+
