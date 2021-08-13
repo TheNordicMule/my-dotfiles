@@ -1,4 +1,5 @@
 local nvim_lsp = require('lspconfig')
+local languages = require('format')
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -38,9 +39,66 @@ end
 local servers = { "tsserver", "flow" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
-    on_attach = on_attach,
+    on_attach = function(client)
+    on_attach(client, bufnr)
+    if client.config.flags then
+          client.config.flags.allow_incremental_sync = true
+        end
+        client.resolved_capabilities.document_formatting = false
+    end,
     flags = {
       debounce_text_changes = 150,
     }
   }
+end
+
+
+-- efm stuff for eslint stuff
+local eslint = {
+  lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
+  lintStdin = true,
+  lintFormats = {"%f:%l:%c: %m"},
+  lintIgnoreExitCode = true,
+  formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
+  formatStdin = true
+}
+
+nvim_lsp['efm'].setup {
+  on_attach = function(client)
+    on_attach(client, bufnr)
+    client.resolved_capabilities.document_formatting = true
+    client.resolved_capabilities.goto_definition = false
+  end,
+    root_dir = function() return vim.fn.getcwd() end,
+    settings = {
+        languages = languages,
+    },
+    filetypes = {
+      "javascript",
+      "javascriptreact",
+      "javascript.jsx",
+      "typescript",
+      "typescript.tsx",
+      "typescriptreact",
+      "less",
+      "scss",
+      "css",
+      "lua"
+    },
+}
+
+local function eslint_config_exists()
+  local eslintrc = vim.fn.glob(".eslintrc*", 0, 1)
+
+  if not vim.tbl_isempty(eslintrc) then
+    return true
+  end
+
+  if vim.fn.filereadable("package.json") then
+    if vim.fn.json_decode(vim.fn.readfile("package.json"))["eslintConfig"] then
+      return true
+    end
+  end
+
+  return false
 end
