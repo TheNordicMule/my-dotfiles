@@ -18,6 +18,7 @@ return require('packer').startup(function()
     use 'tpope/vim-commentary'
     use 'tpope/vim-fugitive'
     use 'neovim/nvim-lspconfig'
+    use 'steelsojka/pears.nvim'
     use 'morhetz/gruvbox'
     use 'iamcco/markdown-preview.nvim'
     use {
