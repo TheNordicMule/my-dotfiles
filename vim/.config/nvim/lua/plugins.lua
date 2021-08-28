@@ -18,6 +18,8 @@ return require('packer').startup(function()
     use 'tpope/vim-commentary'
     use 'tpope/vim-fugitive'
     use 'neovim/nvim-lspconfig'
+    use 'morhetz/gruvbox'
+    use 'iamcco/markdown-preview.nvim'
     use {
       'lewis6991/gitsigns.nvim',
       requires = {

@@ -1,14 +1,10 @@
+require 'plugins'
+require 'utils'
 
 vim.cmd([[colorscheme codedark]])
 vim.g.mapleader = " "
 
-
-require 'plugins'
-require 'utils'
-
-
 vim.cmd([[
-
 " setup grep for vim to use rg
 if executable('rg')
     set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ --follow\ --multiline-dotall

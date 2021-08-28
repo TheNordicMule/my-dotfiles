@@ -30,6 +30,7 @@ buf_set_keymap('i','<Down>','<cmd>echoe \'--use j--\'<CR>', noremap)
 buf_set_keymap('n','<leader>ga','<cmd>Git add %<CR>', noremap)
 buf_set_keymap('n','<leader>gd','<cmd>Git diff<CR>', noremap)
 buf_set_keymap('n','<leader>gs','<cmd>Git status<CR>', noremap)
+buf_set_keymap('n','<leader>v','<Plug>MarkdownPreviewToggle', {})
 
 
 -- center search results
@@ -53,6 +54,8 @@ buf_set_keymap('v','<leader>P','"+P', noremap)
 buf_set_keymap('n','<leader>y','"+y', noremap)
 buf_set_keymap('v','<leader>y','"+y', noremap)
 buf_set_keymap('n','<leader>Y','"+y$', noremap)
+buf_set_keymap('n','<leader>d','"_d', noremap)
+buf_set_keymap('v','<leader>d','"_d', noremap)
 
 -- Go to tab by number
 buf_set_keymap('n','<leader>t','<cmd>tabnew<cr>', noremap)
@@ -67,3 +70,6 @@ buf_set_keymap('','<leader>8','8gt', noremap)
 buf_set_keymap('','<leader>9','9gt', noremap)
 buf_set_keymap('','<leader>0','<cmd>tablast<CR>', noremap)
 
+-- Quickfix list stuff
+buf_set_keymap('n','<leader>cn','<cmd>cn<CR>', noremap)
+buf_set_keymap('n','<leader>cp','<cmd>cp<CR>', noremap)
