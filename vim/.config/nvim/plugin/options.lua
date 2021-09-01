@@ -3,6 +3,9 @@ local opt = vim.opt
 -- compatible mode
 opt.compatible = false
 
+-- term gui color
+opt.termguicolors = true
+
 -- Do not do Wrap
 opt.wrap = false
 
