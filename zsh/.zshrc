@@ -107,6 +107,7 @@ alias v='nvim'
 alias vi='nvim'
 alias vim='nvim'
 alias npmg='npm list -g --depth 0'
+alias cat='bat'
 export PATH="/usr/local/opt/node@14/bin:$PATH"
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
