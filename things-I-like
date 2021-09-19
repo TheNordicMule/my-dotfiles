@@ -12,12 +12,9 @@ neovim
 ripgrep
 stow
 source code pro for powerline
-nord dir
-nord tmux
 
 
 ----------vim----------
 need to map caps to <ESC> and function to control
-install vim-code-dark theme
 q/ q: search list and command list
 ctrl-r ctrl-w to complete search result
