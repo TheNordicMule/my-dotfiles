@@ -124,3 +124,10 @@ export NVM_DIR="$HOME/.nvm"
 
 source "$HOME/.git-prompt.sh"
 source "$HOME/.snow.zsh"
+
+PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH"
+
+alias ls="ls --color"
+
+test -e ~/.dir_colors && eval `dircolors -b ~/.dir_colors`
