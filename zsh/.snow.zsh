@@ -248,15 +248,15 @@ prompt_igloo_setup() {
   # +--------------------------------+
   # By default the name of the host is only shown for remote/SSH sessions.
   # When set to `true` the name will always be shown independent of the current session type.
-  IGLOO_ZSH_PROMPT_THEME_ALWAYS_SHOW_HOST=${IGLOO_ZSH_PROMPT_THEME_ALWAYS_SHOW_HOST:-true}
+  IGLOO_ZSH_PROMPT_THEME_ALWAYS_SHOW_HOST=${IGLOO_ZSH_PROMPT_THEME_ALWAYS_SHOW_HOST:-false}
 
   # By default the name of the user is only shown for remote/SSH sessions.
   # When set to `true` the name will always be shown independent of the current session type.
-  IGLOO_ZSH_PROMPT_THEME_ALWAYS_SHOW_USER=${IGLOO_ZSH_PROMPT_THEME_ALWAYS_SHOW_USER:-true}
+  IGLOO_ZSH_PROMPT_THEME_ALWAYS_SHOW_USER=${IGLOO_ZSH_PROMPT_THEME_ALWAYS_SHOW_USER:-false}
 
   # By default the time is always shown.
   # When set to `true` the segment won't be rendered.
-  IGLOO_ZSH_PROMPT_THEME_HIDE_TIME=${IGLOO_ZSH_PROMPT_THEME_HIDE_TIME:-false}
+  IGLOO_ZSH_PROMPT_THEME_HIDE_TIME=${IGLOO_ZSH_PROMPT_THEME_HIDE_TIME:-true}
 
   # +-----------------+
   # + Style Constants +

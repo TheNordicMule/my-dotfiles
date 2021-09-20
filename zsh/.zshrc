@@ -71,7 +71,7 @@ DISABLE_UPDATE_PROMPT="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-plugins=(zsh-syntax-highlighting zsh-autosuggestions colored-man-pages nvm git)
+plugins=(zsh-syntax-highlighting zsh-autosuggestions colored-man-pages git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -116,12 +116,6 @@ export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
 bindkey -v
 bindkey '^n' autosuggest-accept
 
-
-# nvm stuff
-export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
 source "$HOME/.git-prompt.sh"
 source "$HOME/.snow.zsh"
 
@@ -131,3 +125,4 @@ MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH"
 alias ls="ls --color"
 
 test -e ~/.dir_colors && eval `dircolors -b ~/.dir_colors`
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#b48ead'
