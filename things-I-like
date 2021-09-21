@@ -18,3 +18,9 @@ source code pro for powerline
 need to map caps to <ESC> and function to control
 q/ q: search list and command list
 ctrl-r ctrl-w to complete search result
+
+remap rectangle and macos workspace
+option+hjkl = left,down,right,up
+shift+option+hjkl = quarters
+control + number = workspace
+control + hl = left and right workspace
