@@ -29,5 +29,6 @@ return require('packer').startup(function()
       }
     }
     use 'hrsh7th/nvim-compe'
+    use 'puremourning/vimspector'
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}  
 end)
