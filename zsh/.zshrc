@@ -127,4 +127,4 @@ alias ls="ls --color"
 test -e ~/.dir_colors && eval `dircolors -b ~/.dir_colors`
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#b48ead'
 export BAT_THEME="Nord"
-
+export EDITOR=nvim
