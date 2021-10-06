@@ -33,6 +33,9 @@ window:
     columns: 80
     lines: 24
 
+
+  opacity: 0.9
+
   # Window position (changes require restart)
   #
   # Specified in number of pixels.
@@ -372,7 +375,6 @@ colors:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 0.9
 
 #selection:
   # This string contains all characters that are used as separators for
