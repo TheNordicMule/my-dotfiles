@@ -111,6 +111,7 @@ alias cat='bat'
 export PATH="/usr/local/opt/node@14/bin:$PATH"
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
 # use vim binding
 bindkey -v
