@@ -56,6 +56,7 @@ buf_set_keymap('v','<leader>y','"+y', noremap)
 buf_set_keymap('n','<leader>Y','"+y$', noremap)
 buf_set_keymap('n','<leader>d','"_d', noremap)
 buf_set_keymap('v','<leader>d','"_d', noremap)
+buf_set_keymap('n','Y','y$', noremap)
 
 -- Go to tab by number
 buf_set_keymap('n','<leader>t','<cmd>tabnew<cr>', noremap)
