@@ -10,3 +10,5 @@ vim.api.nvim_set_keymap('n', "<Leader>dr", "<Plug>VimspectorRestart", {})
 vim.api.nvim_set_keymap('n', "<Leader>dh", "<Plug>VimspectorStepOut", {})
 vim.api.nvim_set_keymap('n', "<Leader>dl", "<Plug>VimspectorStepInto", {})
 vim.api.nvim_set_keymap('n', "<Leader>dj", "<Plug>VimspectorStepOver", {})
+
+vim.api.nvim_set_keymap('n', "<leader>m", "<cmd>:MaximizerToggle!<CR>", opts)

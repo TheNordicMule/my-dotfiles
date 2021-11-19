@@ -13,13 +13,11 @@ return require('packer').startup(function()
     use 'wbthomason/packer.nvim'
     use { 'junegunn/fzf', run = 'fzf#install()' }
     use 'junegunn/fzf.vim'
-    -- use 'tomasiser/vim-code-dark'
     use 'vim-airline/vim-airline'
     use 'tpope/vim-commentary'
     use 'tpope/vim-fugitive'
     use 'neovim/nvim-lspconfig'
-    use 'steelsojka/pears.nvim'
-    -- use 'morhetz/gruvbox'
+    use 'windwp/nvim-autopairs'
     use 'arcticicestudio/nord-vim'
     use 'iamcco/markdown-preview.nvim'
     use {
@@ -31,4 +29,5 @@ return require('packer').startup(function()
     use 'hrsh7th/nvim-compe'
     use 'puremourning/vimspector'
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}  
+    use 'szw/vim-maximizer'
 end)
