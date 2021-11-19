@@ -71,7 +71,7 @@ DISABLE_UPDATE_PROMPT="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-plugins=(zsh-syntax-highlighting zsh-autosuggestions colored-man-pages git)
+plugins=(zsh-syntax-highlighting zsh-autosuggestions colored-man-pages git vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -114,7 +114,6 @@ export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
 # use vim binding
-bindkey -v
 bindkey '^n' autosuggest-accept
 
 source "$HOME/.git-prompt.sh"
