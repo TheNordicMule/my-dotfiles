@@ -59,16 +59,6 @@ buf_set_keymap('v','<leader>d','"_d', noremap)
 
 -- Go to tab by number
 buf_set_keymap('n','<leader>t','<cmd>tabnew<cr>', noremap)
-buf_set_keymap('','<leader>1','1gt', noremap)
-buf_set_keymap('','<leader>2','2gt', noremap)
-buf_set_keymap('','<leader>3','3gt', noremap)
-buf_set_keymap('','<leader>4','4gt', noremap)
-buf_set_keymap('','<leader>5','5gt', noremap)
-buf_set_keymap('','<leader>6','6gt', noremap)
-buf_set_keymap('','<leader>7','7gt', noremap)
-buf_set_keymap('','<leader>8','8gt', noremap)
-buf_set_keymap('','<leader>9','9gt', noremap)
-buf_set_keymap('','<leader>0','<cmd>tablast<CR>', noremap)
 
 -- Quickfix list stuff
 buf_set_keymap('n','<leader>cn','<cmd>cn<CR>', noremap)
