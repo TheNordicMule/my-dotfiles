@@ -67,9 +67,8 @@ for _, lsp in ipairs(servers) do
     }
 end
 
-nvim_lsp['clangd'].setup {
-    on_attach = function(client) on_attach(client, bufnr) end
-}
+nvim_lsp['clangd'].setup {on_attach = function(client) on_attach(client) end}
+nvim_lsp['gopls'].setup {on_attach = function(client) on_attach(client) end}
 
 nvim_lsp['efm'].setup {
     on_attach = function(client)
