@@ -1,31 +1,9 @@
 oh-my-zsh
-chrome
-alfred
-amethyst
-docker
-tldr
-coreutils?
-docker
 homebrew
-node
-neovim
-ripgrep
-stow
-source code pro for powerline
 
 
 ----------vim----------
 need to map caps to <ESC> and function to control
-q/ q: search list and command list
-ctrl-r ctrl-w to complete search result
 
 remap amethyst and macos workspace
 disable auto rearrange in mission control
-option + number          = go to workspace(macbook settings)
-option + number + shift  = throw to workspace
-option + L               = clockwise focus
-option + h               = counterclockwise focus
-option + L  + shift      = shrink main pane
-option + h  + shift      = expand main pane
-
-
