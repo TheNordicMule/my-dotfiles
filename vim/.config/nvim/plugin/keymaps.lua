@@ -30,6 +30,11 @@ buf_set_keymap('i','<Down>','<cmd>echoe \'--use j--\'<CR>', noremap)
 buf_set_keymap('n','<leader>ga','<cmd>Git add %<CR>', noremap)
 buf_set_keymap('n','<leader>gd','<cmd>Git diff<CR>', noremap)
 buf_set_keymap('n','<leader>gs','<cmd>Git status<CR>', noremap)
+buf_set_keymap('n','<leader>gb','<cmd>Git blame<CR>', noremap)
+buf_set_keymap('n','<leader>gc','<cmd>Git commit<CR>', noremap)
+buf_set_keymap('n','<leader>gr','<cmd>Git restore %<CR>', noremap)
+buf_set_keymap('n','<leader>gl','<cmd>Git log<CR>', noremap)
+buf_set_keymap('n','<leader>gv','<cmd>Gvdiffsplit!<CR>', noremap)
 buf_set_keymap('n','<leader>v','<Plug>MarkdownPreviewToggle', {})
 
 
@@ -63,3 +68,7 @@ buf_set_keymap('n','<leader>t','<cmd>tabnew<cr>', noremap)
 -- Quickfix list stuff
 buf_set_keymap('n','<leader>cn','<cmd>cn<CR>', noremap)
 buf_set_keymap('n','<leader>cp','<cmd>cp<CR>', noremap)
+
+-- quick move
+buf_set_keymap('v','J',':m \'>+1<CR>gv=gv', noremap)
+buf_set_keymap('v','K',':m \'<-2<CR>gv=gv', noremap)

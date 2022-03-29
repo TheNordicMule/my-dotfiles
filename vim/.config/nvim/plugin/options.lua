@@ -67,7 +67,7 @@ opt.swapfile = false
 
 -- setpath to be all
 opt.path:append('**')
-opt.wildignore:append('**/node_modules/**')
+opt.wildignore:append('**/node_modules/**', '.git**')
 
 -- enlarge history
 opt.history = 100
