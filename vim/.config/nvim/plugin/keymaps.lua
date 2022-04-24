@@ -72,3 +72,7 @@ buf_set_keymap('n','<leader>cp','<cmd>cp<CR>', noremap)
 -- quick move
 buf_set_keymap('v','J',':m \'>+1<CR>gv=gv', noremap)
 buf_set_keymap('v','K',':m \'<-2<CR>gv=gv', noremap)
+
+-- add resize
+buf_set_keymap('n','<leader>+',':vertical resize +5<CR>', noremap)
+buf_set_keymap('n','<leader>-',':vertical resize -5<CR>', noremap)
