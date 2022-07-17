@@ -11,8 +11,10 @@ end
 
 return require('packer').startup(function()
     use 'wbthomason/packer.nvim'
-    use { 'junegunn/fzf', run = 'fzf#install()' }
-    use 'junegunn/fzf.vim'
+    use {
+      'nvim-telescope/telescope.nvim', tag = '0.1.0',
+      requires = { {'nvim-lua/plenary.nvim'} }
+    }
     use 'vim-airline/vim-airline'
     use 'tpope/vim-commentary'
     use 'tpope/vim-fugitive'
