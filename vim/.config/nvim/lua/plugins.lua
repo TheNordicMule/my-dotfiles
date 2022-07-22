@@ -10,6 +10,13 @@ end
 
 
 return require('packer').startup(function()
+    use {
+      "startup-nvim/startup.nvim",
+      requires = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"},
+      config = function()
+        require"startup".setup({theme = "startify"})
+      end
+    }
     use 'wbthomason/packer.nvim'
     use {
       'nvim-telescope/telescope.nvim', tag = '0.1.0',
