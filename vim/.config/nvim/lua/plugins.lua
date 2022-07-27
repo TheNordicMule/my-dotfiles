@@ -48,7 +48,8 @@ return require('packer').startup(function(use)
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 
     -- debugger
-    use 'puremourning/vimspector'
+    use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+    use 'theHamsta/nvim-dap-virtual-text'
     use 'szw/vim-maximizer'
 
     -- utils
