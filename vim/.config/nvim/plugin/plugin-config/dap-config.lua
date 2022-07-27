@@ -2,7 +2,6 @@ local opts = {noremap = true}
 local dap, dapui = require("dap"), require("dapui")
 require("nvim-dap-virtual-text").setup()
 
-
 require("dapui").setup({
     layouts = {
         {elements = {"console"}, size = 7, position = "bottom"}, {
@@ -16,20 +15,18 @@ require("dapui").setup({
     }
 })
 
-dap.listeners.after.event_initialized["dapui_config"] = function()
-  dapui.open()
-end
+dap.listeners.after.event_initialized["dapui_config"] =
+    function() dapui.open(1) end
 dap.listeners.before.event_terminated["dapui_config"] = function()
-  dapui.close()
+    dapui.close({})
 end
-dap.listeners.before.event_exited["dapui_config"] = function()
-  dapui.close()
-end
+dap.listeners.before.event_exited["dapui_config"] =
+    function() dapui.close({}) end
 
 vim.api.nvim_set_keymap('n', "<Leader>dd",
                         "<cmd>:lua require('dapui').open()<CR>", opts)
 vim.api.nvim_set_keymap('n', "<Leader>de",
-                        "<cmd>:lua require('dap').close()<CR>", opts)
+                        "<cmd>:lua require('dap').terminate()<CR>", opts)
 vim.api.nvim_set_keymap('n', "<Leader>dc",
                         "<cmd>:lua require('dap').continue()<CR>", opts)
 vim.api.nvim_set_keymap('n', "<Leader>dt",
