@@ -20,3 +20,11 @@ vim.api.nvim_set_keymap('n', '<Leader>tq',
 vim.api.nvim_set_keymap('n', '<Leader>tr',
                         '<cmd>lua require("telescope.builtin").registers()<CR>',
                         {noremap = true})
+
+require("telescope").setup({
+	defaults = {
+		file_sorter = require("telescope.sorters").get_fzy_sorter,
+		prompt_prefix = " >",
+		color_devicons = true,
+	},
+})
