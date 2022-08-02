@@ -1,7 +1,7 @@
 local opt = vim.opt
 
 -- compatible mode
-opt.compatible = false
+-- opt.compatible = false
 
 -- term gui color
 opt.termguicolors = true
@@ -10,10 +10,10 @@ opt.termguicolors = true
 opt.wrap = false
 
 -- Syntax highlighting
-opt.syntax = 'on'
+-- opt.syntax = 'on'
 
 -- Disable the default Vim startup message.
-opt.shortmess:append({ I = true })
+-- opt.shortmess:append({ I = true })
 
 -- Show line numbers.
 opt.number = true
@@ -27,20 +27,20 @@ opt.number = true
 opt.relativenumber = true
 
 -- Always show the status line at the bottom, even if you only have one window open.
-opt.laststatus=2
+-- opt.laststatus=2
 
 -- The backspace key has slightly unintuitive behavior by default. For example,
 -- by default, you can't backspace before the insertion point opt.with 'i'.
 -- This configuration makes backspace behave more reasonably, in that you can
 -- backspace over anything.
-opt.backspace:append({indent,eol,start})
+-- opt.backspace:append({indent,eol,start})
 
 -- By default, Vim doesn't let you hide a buffer (i.e. have a buffer that isn't
 -- shown in any window) that has unsaved changes. This is to prevent you from "
 -- forgetting about unsaved changes and then quitting e.g. via `:qa!`. We find
 -- hidden buffers helpful enough to disable this protection. See `:help hidden`
 -- for more information on this.
-opt.hidden = true
+-- opt.hidden = true
 
 -- This setting makes search case-insensitive when all characters in the string
 -- being searched are lowercase. However, the search becomes case-sensitive if
@@ -49,11 +49,11 @@ opt.ignorecase = true
 opt.smartcase = true
 
 -- Enable searching as you type, rather than waiting till you press enter.
-opt.incsearch = true
+-- opt.incsearch = true
 
 -- Disable audible bell because it's annoying.
-opt.errorbells=false
-opt.visualbell=false
+-- opt.errorbells=false
+-- opt.visualbell=false
 -- opt.t_vb=false
 
 -- Enable mouse support. You should avoid relying on this too much, but it can
@@ -70,10 +70,11 @@ opt.path:append('**')
 opt.wildignore:append('**/node_modules/**', '.git**')
 
 -- enlarge history
-opt.history = 100
+-- opt.history = 100
 -- change update time
 opt.updatetime = 300
 
 -- change fold method
 opt.foldmethod = 'indent'
 opt.foldlevelstart = 999
+
