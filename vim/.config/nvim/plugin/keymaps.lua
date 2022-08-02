@@ -76,3 +76,9 @@ buf_set_keymap('v','K',':m \'<-2<CR>gv=gv', noremap)
 -- add resize
 buf_set_keymap('n','<leader>+',':vertical resize +5<CR>', noremap)
 buf_set_keymap('n','<leader>-',':vertical resize -5<CR>', noremap)
+
+-- swap j and gj, k and gk
+buf_set_keymap('n','j','gj', noremap)
+buf_set_keymap('n','k','gk', noremap)
+buf_set_keymap('n','gj','j', noremap)
+buf_set_keymap('n','gk','k', noremap)
