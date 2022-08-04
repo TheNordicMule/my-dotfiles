@@ -1,8 +1,16 @@
-require 'plugins'
-require 'utils'
-
 vim.cmd([[colorscheme nord]])
 vim.g.mapleader = " "
+
+require 'plugins'
+require 'utils'
+require 'plugin-config.cmp-config'
+require 'plugin-config.dap-config'
+require 'plugin-config.gitsigns-config'
+require 'plugin-config.lsp-config'
+require 'plugin-config.nvim-autopairs-config'
+require 'plugin-config.telescope-config'
+require 'plugin-config.treesitter-config'
+
 
 vim.cmd([[
 " setup grep for vim to use rg
