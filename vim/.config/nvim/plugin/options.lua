@@ -64,6 +64,7 @@ opt.mouse:append('a')
 
 -- custom
 opt.swapfile = false
+opt.undofile = true
 
 -- setpath to be all
 opt.path:append('**')
