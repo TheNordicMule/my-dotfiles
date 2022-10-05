@@ -65,7 +65,7 @@ for _, lsp in ipairs(servers) do
             if client.config.flags then
                 client.config.flags.allow_incremental_sync = true
             end
-            client.resolved_capabilities.document_formatting = false
+            client.server_capabilities.document_formatting = false
         end,
         flags = {debounce_text_changes = 150}
     }
@@ -78,8 +78,8 @@ nvim_lsp['rust_analyzer'].setup {on_attach = function(client) on_attach(client) 
 nvim_lsp['efm'].setup {
     on_attach = function(client)
         on_attach(client, bufnr)
-        client.resolved_capabilities.document_formatting = true
-        client.resolved_capabilities.goto_definition = false
+        client.server_capabilities.document_formatting = true
+        client.server_capabilities.goto_definition = false
     end,
     root_dir = function() return vim.fn.getcwd() end,
     settings = {languages = languages},
