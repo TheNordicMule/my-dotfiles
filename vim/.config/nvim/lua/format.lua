@@ -8,11 +8,9 @@ local eslint = {
 }
 
 local prettier = {
-  formatCommand = 'prettier --stdin-filepath ${INPUT}',
+  formatCommand = 'prettierd --stdin-filepath ${INPUT}',
   formatStdin = true
 }
-
-local luaformatter = { formatCommand = 'lua-format -i', formatStdin = true }
 
 return {
   less = { prettier },
@@ -21,7 +19,6 @@ return {
   javascript = { prettier, eslint },
   javascriptreact = { prettier, eslint },
   json = { prettier },
-  lua = { luaformatter },
   markdown = { prettier },
   scss = { prettier },
   typescript = { prettier, eslint },
