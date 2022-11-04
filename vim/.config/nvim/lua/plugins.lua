@@ -46,7 +46,6 @@ return require('packer').startup(function(use)
   use("saadparwaiz1/cmp_luasnip")
   use "rafamadriz/friendly-snippets"
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
- 	use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
 
   -- debugger
   use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
