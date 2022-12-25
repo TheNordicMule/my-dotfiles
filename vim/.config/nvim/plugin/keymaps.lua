@@ -29,7 +29,7 @@ buf_set_keymap('i', '<Down>', '<cmd>echoe \'--use j--\'<CR>', noremap)
 
 buf_set_keymap('n', '<leader>ga', '<cmd>Git add %<CR>', noremap)
 buf_set_keymap('n', '<leader>gd', '<cmd>Git diff<CR>', noremap)
-buf_set_keymap('n', '<leader>gs', '<cmd>Git status<CR>', noremap)
+buf_set_keymap('n', '<leader>gs', '<cmd>Git<CR>', noremap)
 buf_set_keymap('n', '<leader>gb', '<cmd>Git blame<CR>', noremap)
 buf_set_keymap('n', '<leader>gc', '<cmd>Git commit<CR>', noremap)
 buf_set_keymap('n', '<leader>gr', '<cmd>Git restore %<CR>', noremap)
