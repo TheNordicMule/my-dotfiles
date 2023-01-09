@@ -34,6 +34,11 @@ require("telescope").setup({
     prompt_prefix = " >",
     color_devicons = true,
   },
+  pickers = {
+    find_files = {
+      hidden = true
+    },
+  },
 })
 
 
