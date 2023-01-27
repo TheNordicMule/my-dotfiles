@@ -87,4 +87,4 @@ buf_set_keymap('n', 'k', 'gk', noremap)
 buf_set_keymap('n', 'gj', 'j', noremap)
 buf_set_keymap('n', 'gk', 'k', noremap)
 
-buf_set_keymap('n', '<leader>e', ':Ex<CR>', noremap)
+buf_set_keymap('n', '<leader>fe', ':Ex<CR>', noremap)
