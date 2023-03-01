@@ -15,6 +15,11 @@ require("dapui").setup({
     }
 })
 
+function ToggleDap()
+  dapui.toggle({ reset = true })
+end
+
+
 dap.listeners.after.event_initialized["dapui_config"] =
     function() dapui.open(1) end
 dap.listeners.before.event_terminated["dapui_config"] = function()
@@ -24,7 +29,7 @@ dap.listeners.before.event_exited["dapui_config"] =
     function() dapui.close({}) end
 
 vim.api.nvim_set_keymap('n', "<Leader>dd",
-                        "<cmd>:lua require('dapui').open()<CR>", opts)
+                        "<cmd>:lua ToggleDap()<CR>", opts)
 vim.api.nvim_set_keymap('n', "<Leader>de",
                         "<cmd>:lua require('dap').terminate()<CR>", opts)
 vim.api.nvim_set_keymap('n', "<Leader>dc",
@@ -34,8 +39,10 @@ vim.api.nvim_set_keymap('n', "<Leader>dt",
 vim.api.nvim_set_keymap('n', "<Leader>dT",
                         "<cmd>:lua require'dap'.clear_breakpoints()<CR>", opts)
 
+vim.api.nvim_set_keymap('n', "<Leader>df",
+                        "<cmd>:lua require('dapui').float_element()<CR>", opts)
 vim.api.nvim_set_keymap('n', "<Leader>dk",
-                        "<cmd>:lua require('dap').reverse_continue()<CR>", opts)
+                        "<cmd>:lua require('dapui').eval()<CR>", opts)
 vim.api.nvim_set_keymap('n', "<Leader>dh",
                         "<cmd>:lua require('dap').step_out()<CR>", opts)
 vim.api.nvim_set_keymap('n', "<Leader>dl",
