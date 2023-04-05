@@ -113,6 +113,7 @@ export PATH="/usr/local/opt/ruby/bin:$PATH"
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/$HOME/.cargo/bin:$PATH"
 export GOPATH=$HOME/go
 export PATH="$GOPATH/bin:$PATH"
 
