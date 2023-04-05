@@ -1,10 +1,10 @@
 -- telescope remap
 vim.api.nvim_set_keymap('n', '<C-p>', '<cmd>Telescope git_files<cr>',
   { noremap = true })
-vim.api.nvim_set_keymap('n', '<Leader>tp', '<cmd>Telescope find_files<cr>',
+vim.api.nvim_set_keymap('n', '<Leader>tp', '<cmd>lua require("telescope.builtin").find_files({ hidden=true })<CR>',
   { noremap = true })
 vim.api.nvim_set_keymap('n', '<Leader>ts',
-  '<cmd>lua require("telescope.builtin").grep_string({ search = vim.fn.input("Grep For > ")})<CR>',
+  '<cmd>lua require("telescope.builtin").grep_string({ search = vim.fn.input("Grep For > "), use_regex=true})<CR>',
   { noremap = true })
 
 vim.api.nvim_set_keymap('n', '<Leader>tw',

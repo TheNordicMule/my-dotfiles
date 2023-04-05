@@ -67,7 +67,7 @@ buf_set_keymap('n', '<leader>d', '"_d', noremap)
 buf_set_keymap('v', '<leader>d', '"_d', noremap)
 
 -- Go to tab by number
-buf_set_keymap('n', '<leader>t', '<cmd>tabnew<cr>', noremap)
+buf_set_keymap('n', '<leader>tt', '<cmd>tabnew<cr>', noremap)
 
 -- Quickfix list stuff
 buf_set_keymap('n', '<leader>cn', '<cmd>cn<CR>', noremap)
