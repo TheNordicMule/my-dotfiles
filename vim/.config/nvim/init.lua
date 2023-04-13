@@ -4,6 +4,7 @@ vim.g.mapleader = " "
 require 'plugins'
 require 'utils'
 require 'plugin-config.cmp-config'
+require 'plugin-config.refactor-config'
 require 'plugin-config.dap-config'
 require 'plugin-config.gitsigns-config'
 require 'plugin-config.lsp-config'
