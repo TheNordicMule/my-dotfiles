@@ -120,6 +120,7 @@ export PATH="$HOME/my-dotfiles/bins:$PATH"
 
 # use vim binding
 bindkey '^n' autosuggest-accept
+bindkey -s '^f' 'tmux-sessionizer\n'
 
 source "$HOME/.git-prompt.sh"
 source "$HOME/.snow.zsh"
