@@ -100,7 +100,6 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias hosts='sudo vim /etc/hosts'
 alias git_sort="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
 "
 alias v='nvim'
@@ -128,11 +127,9 @@ source "$HOME/.snow.zsh"
 PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH"
 
-alias ls="ls --color"
-
-test -e ~/.dir_colors && eval `dircolors -b ~/.dir_colors`
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#b48ead'
 export BAT_THEME="Nord"
 export EDITOR=nvim
 
 alias grep='rg'
+alias ls='lsd'
