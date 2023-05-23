@@ -88,3 +88,4 @@ buf_set_keymap('n', 'gj', 'j', noremap)
 buf_set_keymap('n', 'gk', 'k', noremap)
 
 buf_set_keymap('n', '<leader>fe', ':Ex<CR>', noremap)
+buf_set_keymap('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>', noremap)
