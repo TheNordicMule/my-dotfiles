@@ -18,7 +18,7 @@ return require('packer').startup(function(use)
   use {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.0',
-    requires = { { 'nvim-lua/plenary.nvim' } }
+    requires = { { 'nvim-lua/plenary.nvim', "debugloop/telescope-undo.nvim" } }
   }
 
   -- looks
@@ -63,5 +63,4 @@ return require('packer').startup(function(use)
     }
   }
   use 'iamcco/markdown-preview.nvim'
-
 end)
