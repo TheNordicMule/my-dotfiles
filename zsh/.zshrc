@@ -71,7 +71,7 @@ DISABLE_UPDATE_PROMPT="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-plugins=(zsh-syntax-highlighting zsh-autosuggestions colored-man-pages git vi-mode)
+plugins=(zsh-syntax-highlighting zsh-autosuggestions colored-man-pages git vi-mode fzf)
 
 source $ZSH/oh-my-zsh.sh
 
