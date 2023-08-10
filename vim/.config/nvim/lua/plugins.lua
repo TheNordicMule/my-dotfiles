@@ -46,6 +46,7 @@ return require('packer').startup(function(use)
   use("saadparwaiz1/cmp_luasnip")
   use "rafamadriz/friendly-snippets"
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use "onsails/lspkind.nvim"
 
   -- debugger
   use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }

@@ -2,6 +2,7 @@ vim.o.completeopt = "menu,menuone,noselect"
 
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
+local lspkind = require('lspkind')
 
 cmp.setup({
   snippet = {
@@ -44,13 +45,18 @@ cmp.setup({
     end, { "i", "s" }),
   }),
   sources = cmp.config.sources({
-    -- {name = 'vsnip'} -- For vsnip users.
     { name = "nvim_lsp" },
     { name = 'nvim_lua' },
     { name = 'luasnip' }, -- For luasnip users.
-    -- { name = 'ultisnips' }, -- For ultisnips users.
-    -- { name = 'snippy' }, -- For snippy users.
-  }, { { name = 'buffer' } })
+    { name = 'buffer' },
+  }),
+  formatting = {
+    format = lspkind.cmp_format({
+      mode = 'symbol',       -- show only symbol annotations
+      maxwidth = 50,         -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+      ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+    })
+  }
 })
 
 require("luasnip.loaders.from_vscode").lazy_load()
