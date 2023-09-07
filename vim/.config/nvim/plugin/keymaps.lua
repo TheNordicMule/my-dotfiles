@@ -70,8 +70,8 @@ buf_set_keymap('v', '<leader>d', '"_d', noremap)
 buf_set_keymap('n', '<leader>tt', '<cmd>tabnew<cr>', noremap)
 
 -- Quickfix list stuff
-buf_set_keymap('n', '<C-j>', '<cmd>cn<CR>', noremap)
-buf_set_keymap('n', '<C-k>', '<cmd>cp<CR>', noremap)
+buf_set_keymap('n', ']q', '<cmd>cn<CR>', noremap)
+buf_set_keymap('n', '[q', '<cmd>cp<CR>', noremap)
 
 -- quick move
 buf_set_keymap('v', 'J', ':m \'>+1<CR>gv=gv', noremap)
