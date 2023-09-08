@@ -1,4 +1,3 @@
-vim.cmd([[colorscheme nord]])
 vim.g.mapleader = " "
 
 require 'plugins'
@@ -12,6 +11,7 @@ require 'plugin-config.nvim-autopairs-config'
 require 'plugin-config.telescope-config'
 require 'plugin-config.treesitter-config'
 
+vim.cmd([[colorscheme nord]])
 
 vim.cmd([[
 " setup grep for vim to use rg
