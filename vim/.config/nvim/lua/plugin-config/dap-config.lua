@@ -37,6 +37,8 @@ vim.api.nvim_set_keymap('n', "<Leader>dt",
   "<cmd>:lua require('dap').toggle_breakpoint()<CR>", opts)
 vim.api.nvim_set_keymap('n', "<Leader>dT",
   "<cmd>:lua require'dap'.clear_breakpoints()<CR>", opts)
+vim.api.nvim_set_keymap('n', "<Leader>dr",
+  "<cmd>:lua require'dap'.run_to_cursor()<CR>", opts)
 
 vim.api.nvim_set_keymap('n', "<Leader>df",
   "<cmd>:lua require('dapui').float_element()<CR>", opts)
@@ -61,6 +63,28 @@ dap.adapters.node2 = {
     home ..
     '/.local/share/nvim/mason/packages/node-debug2-adapter/out/src/nodeDebug.js'
   }
+}
+
+dap.adapters.codelldb = {
+  type = 'server',
+  port = "${port}",
+  executable = {
+    command = '/Users/mingshiwang/.local/share/nvim/mason/packages/codelldb/codelldb',
+    args = { "--port", "${port}" },
+  }
+}
+
+dap.configurations.cpp = {
+  {
+    name = "Launch file",
+    type = "codelldb",
+    request = "launch",
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/build/test/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+  },
 }
 
 dap.configurations.javascript = {
