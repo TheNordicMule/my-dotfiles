@@ -124,7 +124,7 @@ dap.configurations.typescript = {
     request = "launch",
     cwd = vim.loop.cwd(),
     runtimeArgs = {
-      "--inspect", "${workspaceFolder}/node_modules/.bin/jest"
+      "--inspect-brk", "${workspaceFolder}/node_modules/.bin/jest"
     },
     runtimeExecutable = "node",
     args = { "${file}", "--runInBand", "--coverage", "false" },
