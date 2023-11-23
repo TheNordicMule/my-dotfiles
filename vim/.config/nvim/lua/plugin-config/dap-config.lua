@@ -80,7 +80,7 @@ dap.configurations.cpp = {
     type = "codelldb",
     request = "launch",
     program = function()
-      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/build/test/', 'file')
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/build/test/lru_k_replacer_test')
     end,
     cwd = '${workspaceFolder}',
     stopOnEntry = false,
@@ -117,18 +117,19 @@ dap.configurations.typescript = {
     args = { "--inspect", "${file}" },
     sourceMaps = true,
     skipFiles = { "<node_internals>/**", "node_modules/**" }
-  }, {
-  name = "Jest (Node2 with ts-node)",
-  type = "node2",
-  request = "launch",
-  cwd = vim.loop.cwd(),
-  runtimeArgs = {
-    "--inspect-brk", "${workspaceFolder}/node_modules/.bin/jest"
   },
-  runtimeExecutable = "node",
-  args = { "${file}", "--runInBand", "--coverage", "false" },
-  sourceMaps = true,
-  port = 9229,
-  skipFiles = { "<node_internals>/**", "node_modules/**" }
-}
+  {
+    name = "Jest (Node2 with ts-node)",
+    type = "node2",
+    request = "launch",
+    cwd = vim.loop.cwd(),
+    runtimeArgs = {
+      "--inspect", "${workspaceFolder}/node_modules/.bin/jest"
+    },
+    runtimeExecutable = "node",
+    args = { "${file}", "--runInBand", "--coverage", "false" },
+    sourceMaps = true,
+    port = 9229,
+    skipFiles = { "<node_internals>/**", "node_modules/**" }
+  }
 }
