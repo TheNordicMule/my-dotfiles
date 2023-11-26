@@ -1,10 +1,5 @@
 local languages = require('format')
 
--- setup needed for lua_ls
-local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
-
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(_, bufnr)
@@ -65,6 +60,10 @@ require("mason-lspconfig").setup {
 
     -- lua ls setup
     ['lua_ls'] = function(server_name)
+      -- setup needed for lua_ls
+      local runtime_path = vim.split(package.path, ';')
+      table.insert(runtime_path, "lua/?.lua")
+      table.insert(runtime_path, "lua/?/init.lua")
       require("lspconfig")[server_name].setup {
         cmd = { '/opt/homebrew/bin/lua-language-server' },
         on_attach = function(client) on_attach(client) end,
