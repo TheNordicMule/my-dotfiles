@@ -35,6 +35,7 @@ buf_set_keymap('n', '<leader>gc', '<cmd>Git commit<CR>', noremap)
 buf_set_keymap('n', '<leader>gr', '<cmd>Git restore %<CR>', noremap)
 buf_set_keymap('n', '<leader>gl', '<cmd>Git log<CR>', noremap)
 buf_set_keymap('n', '<leader>gv', '<cmd>Gvdiffsplit!<CR>', noremap)
+buf_set_keymap('n', '<leader>gh', '<cmd>GBrowse<CR>', noremap)
 buf_set_keymap('n', '<leader>v', '<Plug>MarkdownPreviewToggle', {})
 
 

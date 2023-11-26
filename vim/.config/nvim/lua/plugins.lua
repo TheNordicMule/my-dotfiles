@@ -26,20 +26,29 @@ return require("lazy").setup(
     'arcticicestudio/nord-vim',
 
     -- git
-    'tpope/vim-fugitive',
+    { 'tpope/vim-fugitive',      dependencies = { 'tpope/vim-rhubarb', } },
     { 'lewis6991/gitsigns.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
 
     -- lsp
-    'neovim/nvim-lspconfig',
+    {
+      'neovim/nvim-lspconfig',
+      dependencies = {
+        -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
+        { 'j-hui/fidget.nvim', opts = {} },
+
+        -- Additional lua configuration, makes nvim stuff amazing!
+        'folke/neodev.nvim',
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-path',
+        'hrsh7th/cmp-cmdline',
+        'hrsh7th/nvim-cmp',
+        "L3MON4D3/LuaSnip",
+        "saadparwaiz1/cmp_luasnip",
+        "rafamadriz/friendly-snippets",
+      }
+    },
     { "williamboman/mason.nvim" },
-    'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-buffer',
-    'hrsh7th/cmp-path',
-    'hrsh7th/cmp-cmdline',
-    'hrsh7th/nvim-cmp',
-    "L3MON4D3/LuaSnip",
-    "saadparwaiz1/cmp_luasnip",
-    "rafamadriz/friendly-snippets",
     { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
     "onsails/lspkind.nvim",
 
