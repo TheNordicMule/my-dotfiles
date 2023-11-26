@@ -49,6 +49,7 @@ return require("lazy").setup(
         -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
         { 'j-hui/fidget.nvim',                opts = {} },
         { "williamboman/mason.nvim" },
+        { "williamboman/mason-lspconfig.nvim" },
 
         -- Additional lua configuration, makes nvim stuff amazing!
         'folke/neodev.nvim',
