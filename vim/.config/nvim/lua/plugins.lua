@@ -22,7 +22,17 @@ return require("lazy").setup(
     },
 
     -- looks
-    'vim-airline/vim-airline',
+    {
+      'nvim-lualine/lualine.nvim',
+      opts = {
+        options = {
+          icons_enabled = false,
+          theme = 'nord',
+          component_separators = '|',
+          section_separators = '',
+        },
+      },
+    },
     'arcticicestudio/nord-vim',
 
     -- git
@@ -34,23 +44,29 @@ return require("lazy").setup(
       'neovim/nvim-lspconfig',
       dependencies = {
         -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-        { 'j-hui/fidget.nvim', opts = {} },
+        { 'j-hui/fidget.nvim',      opts = {} },
+        { "williamboman/mason.nvim" },
 
         -- Additional lua configuration, makes nvim stuff amazing!
         'folke/neodev.nvim',
+      }
+    },
+    {
+      'hrsh7th/nvim-cmp',
+      dependencies = {
+        -- Additional lua configuration, makes nvim stuff amazing!
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-path',
         'hrsh7th/cmp-cmdline',
-        'hrsh7th/nvim-cmp',
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
         "rafamadriz/friendly-snippets",
+        "onsails/lspkind.nvim",
       }
     },
-    { "williamboman/mason.nvim" },
+
     { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
-    "onsails/lspkind.nvim",
 
     -- debugger
     {
@@ -61,7 +77,7 @@ return require("lazy").setup(
     'szw/vim-maximizer',
 
     -- utils
-    'tpope/vim-commentary',
+    { 'numToStr/Comment.nvim',           opts = {} },
     'windwp/nvim-autopairs',
     {
       "ThePrimeagen/refactoring.nvim",
