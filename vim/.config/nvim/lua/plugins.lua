@@ -26,14 +26,17 @@ return require("lazy").setup(
       'nvim-lualine/lualine.nvim',
       opts = {
         options = {
-          icons_enabled = false,
           theme = 'nord',
-          component_separators = '|',
-          section_separators = '',
         },
       },
     },
-    'arcticicestudio/nord-vim',
+    {
+      'arcticicestudio/nord-vim',
+      priority = 1000,
+      config = function()
+        vim.cmd.colorscheme 'nord'
+      end,
+    },
 
     -- git
     { 'tpope/vim-fugitive',      dependencies = { 'tpope/vim-rhubarb', } },
@@ -44,7 +47,7 @@ return require("lazy").setup(
       'neovim/nvim-lspconfig',
       dependencies = {
         -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-        { 'j-hui/fidget.nvim',      opts = {} },
+        { 'j-hui/fidget.nvim',                opts = {} },
         { "williamboman/mason.nvim" },
 
         -- Additional lua configuration, makes nvim stuff amazing!
