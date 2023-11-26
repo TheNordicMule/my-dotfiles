@@ -7,7 +7,7 @@ table.insert(runtime_path, "lua/?/init.lua")
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   -- TODO: uncomment
   -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -36,7 +36,7 @@ require("mason").setup()
 require("mason-lspconfig").setup {
   ensure_installed = { "tsserver", "pyright", "clangd", "gopls", "rust_analyzer", "lua_ls", "efm" },
   handlers = {
-    function(server_name)   -- default handler (optional)
+    function(server_name) -- default handler (optional)
       require("lspconfig")[server_name].setup {
         on_attach = function(client, bufnr)
           on_attach(client, bufnr)
