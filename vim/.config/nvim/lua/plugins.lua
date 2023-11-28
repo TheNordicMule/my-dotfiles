@@ -72,6 +72,11 @@ return require("lazy").setup(
 
     { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
 
+
+    -- lint & format
+    'stevearc/conform.nvim',
+    'mfussenegger/nvim-lint',
+
     -- debugger
     {
       "rcarriga/nvim-dap-ui",

@@ -1,5 +1,3 @@
-local languages = require('format')
-
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(_, bufnr)
@@ -24,37 +22,17 @@ local on_attach = function(_, bufnr)
   vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<leader>ff', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
 require("mason").setup()
 require("mason-lspconfig").setup {
-  ensure_installed = { "tsserver", "pyright", "clangd", "gopls", "rust_analyzer", "lua_ls", "efm" },
+  ensure_installed = { "tsserver", "pyright", "clangd", "gopls", "rust_analyzer", "lua_ls" },
   handlers = {
     function(server_name) -- default handler (optional)
       require("lspconfig")[server_name].setup {
         on_attach = function(client, bufnr)
           on_attach(client, bufnr)
         end,
-      }
-    end,
-
-    -- efm setup
-    ['efm'] = function(server_name)
-      require("lspconfig")[server_name].setup {
-
-        on_attach = function(client, bufnr)
-          on_attach(client, bufnr)
-          client.server_capabilities.documentFormattingProvider = true
-          client.server_capabilities.document_formatting = true
-          client.server_capabilities.goto_definition = false
-        end,
-        root_dir = function() return vim.fn.getcwd() end,
-        settings = { languages = languages },
-        filetypes = {
-          "javascript", "javascriptreact", "javascript.jsx", "typescript",
-          "typescript.tsx", "typescriptreact", "less", "scss", "css"
-        }
       }
     end,
 
@@ -102,3 +80,11 @@ vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+local conform = require("conform")
+vim.keymap.set({ "n", "v" }, "<Leader>ff", function()
+  conform.format({
+    lsp_fallback = true,
+    async = false,
+    timeout_ms = 1000,
+  })
+end, {})

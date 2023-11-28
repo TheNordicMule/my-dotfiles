@@ -10,6 +10,8 @@ require 'plugin-config.lsp-config'
 require 'plugin-config.nvim-autopairs-config'
 require 'plugin-config.telescope-config'
 require 'plugin-config.treesitter-config'
+require 'plugin-config.conform-config'
+require 'plugin-config.linter-config'
 
 vim.cmd([[
 set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ --follow\ --multiline-dotall
