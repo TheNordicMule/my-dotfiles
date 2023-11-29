@@ -61,21 +61,3 @@ require("telescope").setup({
     }
   }
 })
-
-
--- setup dotfile search
-vim.api.nvim_set_keymap('n', '<Leader>td',
-  "<cmd>lua require('plugin-config.telescope-config').search_dotfiles()<CR>",
-  { noremap = true })
-
-local M = {}
-
-M.search_dotfiles = function()
-  require("telescope.builtin").find_files({
-    prompt_title = "dotfiles",
-    cwd = "~/my-dotfiles",
-    hidden = true,
-  })
-end
-
-return M
