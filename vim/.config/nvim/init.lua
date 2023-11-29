@@ -2,16 +2,16 @@ vim.g.mapleader = " "
 
 require 'plugins'
 require 'utils'
-require 'plugin-config.cmp-config'
-require 'plugin-config.refactor-config'
-require 'plugin-config.dap-config'
-require 'plugin-config.gitsigns-config'
-require 'plugin-config.lsp-config'
-require 'plugin-config.nvim-autopairs-config'
-require 'plugin-config.telescope-config'
-require 'plugin-config.treesitter-config'
-require 'plugin-config.conform-config'
-require 'plugin-config.linter-config'
+require 'plugin-config.cmp'
+require 'plugin-config.refactor'
+require 'plugin-config.dap'
+require 'plugin-config.gitsigns'
+require 'plugin-config.lsp'
+require 'plugin-config.nvim-autopairs'
+require 'plugin-config.telescope'
+require 'plugin-config.treesitter'
+require 'plugin-config.conform'
+require 'plugin-config.linter'
 
 vim.cmd([[
 set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ --follow\ --multiline-dotall
