@@ -37,6 +37,10 @@ return require("lazy").setup(
         vim.cmd.colorscheme 'nord'
       end,
     },
+    {
+      'stevearc/dressing.nvim',
+      opts = {},
+    },
 
     -- git
     { 'tpope/vim-fugitive',      dependencies = { 'tpope/vim-rhubarb', } },
@@ -70,7 +74,7 @@ return require("lazy").setup(
       }
     },
 
-    { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+    { 'nvim-treesitter/nvim-treesitter', dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" }, build = ':TSUpdate' },
 
 
     -- lint & format
