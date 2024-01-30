@@ -17,8 +17,8 @@ return require("lazy").setup(
     -- fuzzy
     {
       'nvim-telescope/telescope.nvim',
-      tag = '0.1.2',
-      dependencies = { 'nvim-lua/plenary.nvim', "debugloop/telescope-undo.nvim" },
+      tag = '0.1.5',
+      dependencies = { 'nvim-lua/plenary.nvim' },
     },
 
     -- looks
@@ -92,6 +92,7 @@ return require("lazy").setup(
     -- utils
     { 'numToStr/Comment.nvim',           opts = {} },
     'windwp/nvim-autopairs',
+    'mbbill/undotree',
     {
       "ThePrimeagen/refactoring.nvim",
       dependencies = {
