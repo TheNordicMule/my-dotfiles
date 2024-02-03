@@ -43,7 +43,6 @@ require("mason-lspconfig").setup {
       table.insert(runtime_path, "lua/?.lua")
       table.insert(runtime_path, "lua/?/init.lua")
       require("lspconfig")[server_name].setup {
-        cmd = { '/opt/homebrew/bin/lua-language-server' },
         on_attach = function(client) on_attach(client) end,
         settings = {
           Lua = {
