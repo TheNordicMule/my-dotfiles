@@ -27,11 +27,21 @@ vim.api.nvim_set_keymap('n', '<Leader>th',
   '<cmd>lua require("telescope.builtin").help_tags()<CR>',
   { noremap = true })
 
+local actions = require "telescope.actions"
+
 require("telescope").setup({
   defaults = {
     file_sorter = require("telescope.sorters").get_fzy_sorter,
     prompt_prefix = " >",
     color_devicons = true,
+    mappings = {
+      n = {
+        ["<C-CR>"] = actions.send_selected_to_qflist + actions.open_qflist,
+      },
+      i = {
+        ["<C-CR>"] = actions.send_selected_to_qflist + actions.open_qflist,
+      }
+    }
   },
   pickers = {
     find_files = {
