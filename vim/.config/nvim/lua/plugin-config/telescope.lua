@@ -23,6 +23,10 @@ vim.api.nvim_set_keymap('n', '<Leader>tr',
   '<cmd>lua require("telescope.builtin").registers()<CR>',
   { noremap = true })
 
+vim.api.nvim_set_keymap('n', '<Leader>td',
+  '<cmd>lua require("telescope.builtin").diagnostics()<CR>',
+  { noremap = true })
+
 vim.api.nvim_set_keymap('n', '<Leader>th',
   '<cmd>lua require("telescope.builtin").help_tags()<CR>',
   { noremap = true })
