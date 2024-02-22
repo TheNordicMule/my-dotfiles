@@ -37,14 +37,15 @@ return require("lazy").setup(
         vim.cmd.colorscheme 'nord'
       end,
     },
+    { 'nvim-tree/nvim-web-devicons' },
     {
       'stevearc/dressing.nvim',
       opts = {},
     },
 
     -- git
-    { 'tpope/vim-fugitive',      dependencies = { 'tpope/vim-rhubarb', } },
-    { 'lewis6991/gitsigns.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
+    { 'tpope/vim-fugitive',         dependencies = { 'tpope/vim-rhubarb', } },
+    { 'lewis6991/gitsigns.nvim',    dependencies = { 'nvim-lua/plenary.nvim' } },
 
     -- lsp
     {
