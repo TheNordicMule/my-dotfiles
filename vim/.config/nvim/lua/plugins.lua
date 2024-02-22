@@ -42,6 +42,11 @@ return require("lazy").setup(
       'stevearc/dressing.nvim',
       opts = {},
     },
+    {
+      "folke/todo-comments.nvim",
+      dependencies = { "nvim-lua/plenary.nvim" },
+      opts = {}
+    },
 
     -- git
     { 'tpope/vim-fugitive',         dependencies = { 'tpope/vim-rhubarb', } },
