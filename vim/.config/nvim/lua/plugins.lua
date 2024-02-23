@@ -17,8 +17,12 @@ return require("lazy").setup(
     -- fuzzy
     {
       'nvim-telescope/telescope.nvim',
-      tag = '0.1.5',
-      dependencies = { 'nvim-lua/plenary.nvim' },
+      event = 'VeryLazy',
+      branch = '0.1.x',
+      dependencies = {
+        'nvim-lua/plenary.nvim',
+        'nvim-telescope/telescope-ui-select.nvim'
+      },
     },
 
     -- looks
@@ -38,10 +42,6 @@ return require("lazy").setup(
       end,
     },
     { 'nvim-tree/nvim-web-devicons' },
-    {
-      'stevearc/dressing.nvim',
-      opts = {},
-    },
     {
       "folke/todo-comments.nvim",
       dependencies = { "nvim-lua/plenary.nvim" },
@@ -67,6 +67,7 @@ return require("lazy").setup(
     },
     {
       'hrsh7th/nvim-cmp',
+      event = 'InsertEnter',
       dependencies = {
         -- Additional lua configuration, makes nvim stuff amazing!
         'hrsh7th/cmp-nvim-lsp',
