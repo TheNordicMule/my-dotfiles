@@ -1,4 +1,11 @@
 require('gitsigns').setup {
+  signs = {
+    add = { text = '+' },
+    change = { text = '~' },
+    delete = { text = '_' },
+    topdelete = { text = '‾' },
+    changedelete = { text = '~' },
+  },
   on_attach = function(bufnr)
     local gs = package.loaded.gitsigns
 
@@ -35,4 +42,3 @@ require('gitsigns').setup {
     map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
   end
 }
-
