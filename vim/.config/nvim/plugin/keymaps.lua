@@ -85,11 +85,8 @@ buf_set_keymap('v', 'K', ':m \'<-2<CR>gv=gv', noremap)
 buf_set_keymap('n', '<leader>+', ':vertical resize +5<CR>', noremap)
 buf_set_keymap('n', '<leader>-', ':vertical resize -5<CR>', noremap)
 
--- swap j and gj, k and gk
-buf_set_keymap('n', 'j', 'gj', noremap)
-buf_set_keymap('n', 'k', 'gk', noremap)
-buf_set_keymap('n', 'gj', 'j', noremap)
-buf_set_keymap('n', 'gk', 'k', noremap)
+buf_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+buf_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 buf_set_keymap('n', '<leader>fe', ':Ex<CR>', noremap)
 buf_set_keymap('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>', noremap)

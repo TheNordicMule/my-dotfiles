@@ -79,3 +79,7 @@ opt.updatetime = 300
 opt.foldmethod = 'indent'
 opt.foldlevelstart = 999
 
+
+-- inccomand preview
+opt.inccommand = 'split'
+
