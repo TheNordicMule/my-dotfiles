@@ -83,3 +83,7 @@ opt.foldlevelstart = 999
 -- inccomand preview
 opt.inccommand = 'split'
 
+
+-- show the line you are on
+opt.cursorline = true
+
