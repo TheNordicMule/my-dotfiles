@@ -21,7 +21,8 @@ return require("lazy").setup(
       branch = '0.1.x',
       dependencies = {
         'nvim-lua/plenary.nvim',
-        'nvim-telescope/telescope-ui-select.nvim'
+        'nvim-telescope/telescope-ui-select.nvim',
+        'nvim-tree/nvim-web-devicons'
       },
     },
 
@@ -41,7 +42,6 @@ return require("lazy").setup(
         vim.cmd.colorscheme 'nord'
       end,
     },
-    { 'nvim-tree/nvim-web-devicons' },
     {
       "folke/todo-comments.nvim",
       dependencies = { "nvim-lua/plenary.nvim" },
@@ -49,8 +49,8 @@ return require("lazy").setup(
     },
 
     -- git
-    { 'tpope/vim-fugitive',         dependencies = { 'tpope/vim-rhubarb', } },
-    { 'lewis6991/gitsigns.nvim',    dependencies = { 'nvim-lua/plenary.nvim' } },
+    { 'tpope/vim-fugitive',      dependencies = { 'tpope/vim-rhubarb', } },
+    { 'lewis6991/gitsigns.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
 
     -- lsp
     {
@@ -100,13 +100,7 @@ return require("lazy").setup(
     { 'numToStr/Comment.nvim',           opts = {} },
     'windwp/nvim-autopairs',
     'mbbill/undotree',
-    {
-      "ThePrimeagen/refactoring.nvim",
-      dependencies = {
-        { "nvim-lua/plenary.nvim" },
-        { "nvim-treesitter/nvim-treesitter" }
-      }
-    },
+
     -- install without yarn or npm
     {
       "iamcco/markdown-preview.nvim",
