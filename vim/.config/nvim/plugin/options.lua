@@ -27,7 +27,7 @@ opt.number = true
 opt.relativenumber = true
 
 -- Always show the status line at the bottom, even if you only have one window open.
--- opt.laststatus=2
+opt.laststatus = 3
 
 -- The backspace key has slightly unintuitive behavior by default. For example,
 -- by default, you can't backspace before the insertion point opt.with 'i'.
@@ -86,4 +86,3 @@ opt.inccommand = 'split'
 
 -- show the line you are on
 opt.cursorline = true
-
