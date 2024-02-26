@@ -100,6 +100,21 @@ return require("lazy").setup(
     { 'numToStr/Comment.nvim',           opts = {} },
     'windwp/nvim-autopairs',
     'mbbill/undotree',
+    {
+      'stevearc/oil.nvim',
+      opts = {},
+      config = function()
+        require("oil").setup({
+          default_file_explorer = false,
+          keymaps = {
+            ["C-v"] = "actions.select_vsplit",
+            ["C-s"] = "actions.select_split",
+            ["C-p"] = false
+          }
+
+        })
+      end
+    },
 
     -- install without yarn or npm
     {
