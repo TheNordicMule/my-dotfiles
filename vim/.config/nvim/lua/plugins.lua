@@ -45,7 +45,9 @@ return require("lazy").setup(
     {
       "folke/todo-comments.nvim",
       dependencies = { "nvim-lua/plenary.nvim" },
-      opts = {}
+      opts = {
+        signs = false
+      }
     },
 
     -- git
@@ -56,7 +58,6 @@ return require("lazy").setup(
     {
       'neovim/nvim-lspconfig',
       dependencies = {
-        -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
         { 'j-hui/fidget.nvim',                opts = {} },
         { "williamboman/mason.nvim" },
         { "williamboman/mason-lspconfig.nvim" },
@@ -102,18 +103,14 @@ return require("lazy").setup(
     'mbbill/undotree',
     {
       'stevearc/oil.nvim',
-      opts = {},
-      config = function()
-        require("oil").setup({
-          default_file_explorer = false,
-          keymaps = {
-            ["C-v"] = "actions.select_vsplit",
-            ["C-s"] = "actions.select_split",
-            ["C-p"] = false
-          }
-
-        })
-      end
+      opts = {
+        default_file_explorer = false,
+        keymaps = {
+          ["C-v"] = "actions.select_vsplit",
+          ["C-s"] = "actions.select_split",
+          ["C-p"] = false
+        }
+      },
     },
 
     -- install without yarn or npm
