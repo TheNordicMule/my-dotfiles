@@ -106,9 +106,9 @@ return require("lazy").setup(
       opts = {
         default_file_explorer = false,
         keymaps = {
-          ["C-v"] = "actions.select_vsplit",
-          ["C-s"] = "actions.select_split",
-          ["C-p"] = false
+          ["<C-v>"] = "actions.select_vsplit",
+          ["<C-s>"] = "actions.select_split",
+          ["<C-p>"] = false
         }
       },
     },
