@@ -19,7 +19,7 @@ local on_attach = function(_, bufnr)
   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', '<space>ds', builtin.lsp_document_symbols, bufopts)
   vim.keymap.set('n', '<space>ws', builtin.lsp_dynamic_workspace_symbols, bufopts)
-  vim.keymap.set('n', 'gr', builtin.lsp_references, bufopts)
+  vim.keymap.set('n', 'gr', function() builtin.lsp_references({ show_line = false }) end, bufopts)
 end
 
 require("mason").setup()
