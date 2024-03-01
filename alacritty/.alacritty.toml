@@ -54,7 +54,7 @@ cursor = "#d8dee9"
 text = "#2e3440"
 
 [font]
-size = 19.0
+size = 16.0
 
 [font.normal]
 family = "SauceCodePro NF"
