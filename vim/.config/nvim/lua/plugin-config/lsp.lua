@@ -58,7 +58,10 @@ require("mason-lspconfig").setup {
             },
             workspace = {
               -- Make the server aware of Neovim runtime files
-              library = vim.api.nvim_get_runtime_file("", true),
+              library = {
+                '${3rd}/luv/library',
+                unpack(vim.api.nvim_get_runtime_file('', true)),
+              },
               -- disable the workspace prompt
               checkThirdParty = false,
             },
