@@ -2,12 +2,9 @@ local builtin = require('telescope.builtin');
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-  callback = function(ev)
-    -- Enable completion triggered by <c-x><c-o>
-    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-    local bufopts = { buffer = ev.buf }
+  group = vim.api.nvim_create_augroup('UserLspConfig', { clear = true }),
+  callback = function(event)
+    local bufopts = { buffer = event.buf }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', builtin.lsp_definitions, bufopts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
