@@ -1,4 +1,3 @@
-local opts = { noremap = true }
 local dap, dapui = require("dap"), require("dapui")
 require("nvim-dap-virtual-text").setup()
 
@@ -27,33 +26,33 @@ end
 dap.listeners.before.event_exited["dapui_config"] =
     function() dapui.close({}) end
 
-vim.api.nvim_set_keymap('n', "<Leader>dd",
-  "<cmd>:lua ToggleDap()<CR>", opts)
-vim.api.nvim_set_keymap('n', "<Leader>de",
-  "<cmd>:lua require('dap').terminate()<CR>", opts)
-vim.api.nvim_set_keymap('n', "<Leader>dc",
-  "<cmd>:lua require('dap').continue()<CR>", opts)
-vim.api.nvim_set_keymap('n', "<Leader>dt",
-  "<cmd>:lua require('dap').toggle_breakpoint()<CR>", opts)
-vim.api.nvim_set_keymap('n', "<Leader>dT",
-  "<cmd>:lua require'dap'.clear_breakpoints()<CR>", opts)
-vim.api.nvim_set_keymap('n', "<Leader>dr",
-  "<cmd>:lua require'dap'.run_to_cursor()<CR>", opts)
+vim.keymap.set('n', "<Leader>dd",
+  "<cmd>:lua ToggleDap()<CR>")
+vim.keymap.set('n', "<Leader>de",
+  "<cmd>:lua require('dap').terminate()<CR>")
+vim.keymap.set('n', "<Leader>dc",
+  "<cmd>:lua require('dap').continue()<CR>")
+vim.keymap.set('n', "<Leader>dt",
+  "<cmd>:lua require('dap').toggle_breakpoint()<CR>")
+vim.keymap.set('n', "<Leader>dT",
+  "<cmd>:lua require'dap'.clear_breakpoints()<CR>")
+vim.keymap.set('n', "<Leader>dr",
+  "<cmd>:lua require'dap'.run_to_cursor()<CR>")
 
-vim.api.nvim_set_keymap('n', "<Leader>df",
-  "<cmd>:lua require('dapui').float_element()<CR>", opts)
-vim.api.nvim_set_keymap('n', "<Leader>dk",
-  "<cmd>:lua require('dapui').eval()<CR>", opts)
-vim.api.nvim_set_keymap('n', "<Leader>dh",
-  "<cmd>:lua require('dap').step_out()<CR>", opts)
-vim.api.nvim_set_keymap('n', "<Leader>dl",
-  "<cmd>:lua require('dap').step_into()<CR>", opts)
-vim.api.nvim_set_keymap('n', "<Leader>dj",
-  "<cmd>:lua require('dap').step_over()<CR>", opts)
-vim.api.nvim_set_keymap('n', "<Leader>dx",
-  "<cmd>:lua require('dap').set_exception_breakpoints()<CR>", opts)
+vim.keymap.set('n', "<Leader>df",
+  "<cmd>:lua require('dapui').float_element()<CR>")
+vim.keymap.set('n', "<Leader>dk",
+  "<cmd>:lua require('dapui').eval()<CR>")
+vim.keymap.set('n', "<Leader>dh",
+  "<cmd>:lua require('dap').step_out()<CR>")
+vim.keymap.set('n', "<Leader>dl",
+  "<cmd>:lua require('dap').step_into()<CR>")
+vim.keymap.set('n', "<Leader>dj",
+  "<cmd>:lua require('dap').step_over()<CR>")
+vim.keymap.set('n', "<Leader>dx",
+  "<cmd>:lua require('dap').set_exception_breakpoints()<CR>")
 
-vim.api.nvim_set_keymap('n', "<leader>m", "<cmd>:MaximizerToggle!<CR>", opts)
+vim.keymap.set('n', "<leader>m", "<cmd>:MaximizerToggle!<CR>")
 
 dap.adapters.codelldb = {
   type = 'server',
