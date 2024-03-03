@@ -24,12 +24,17 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+
 require("mason").setup()
 require("mason-lspconfig").setup {
   ensure_installed = { "tsserver", "pyright", "clangd", "gopls", "rust_analyzer", "lua_ls" },
   handlers = {
     function(server_name) -- default handler (optional)
-      require("lspconfig")[server_name].setup {}
+      require("lspconfig")[server_name].setup {
+        capabilities = capabilities
+      }
     end,
 
     -- lua ls setup
