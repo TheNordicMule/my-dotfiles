@@ -49,6 +49,8 @@ cmp.setup({
     { name = 'nvim_lua' },
     { name = 'luasnip' }, -- For luasnip users.
     { name = 'buffer' },
+    { name = 'path' },
+    { name = 'cmdline' },
   }),
   formatting = {
     format = lspkind.cmp_format({
