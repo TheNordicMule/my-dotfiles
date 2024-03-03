@@ -17,7 +17,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, bufopts)
     vim.keymap.set('n', '<space>D', builtin.lsp_type_definitions, bufopts)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-    vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, bufopts)
     vim.keymap.set('n', '<space>ds', builtin.lsp_document_symbols, bufopts)
     vim.keymap.set('n', '<space>ws', builtin.lsp_dynamic_workspace_symbols, bufopts)
     vim.keymap.set('n', 'gr', function() builtin.lsp_references({ show_line = false }) end, bufopts)
