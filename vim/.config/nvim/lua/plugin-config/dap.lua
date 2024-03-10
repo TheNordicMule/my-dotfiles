@@ -54,9 +54,9 @@ vim.keymap.set('n', "<Leader>dx",
 
 vim.keymap.set('n', "<leader>m", "<cmd>:MaximizerToggle!<CR>")
 
-vim.fn.sign_define('DapBreakPoint', {text=' '})
-vim.fn.sign_define('DapStopped', {text='󰁕 '})
-vim.fn.sign_define('DapBreakpointRejected', {text=' '})
+vim.fn.sign_define("DapBreakpoint", { text = " ", texthl = "DiagnosticInfo", linehl = nil, numhl = nil })
+vim.fn.sign_define('DapStopped', { text = '󰁕 ', texthl = 'DapStopped', linehl = nil, numhl = nil })
+vim.fn.sign_define('DapBreakpointRejected', { text = ' ', texthl = 'DapBreakpointRejected', linehl = nil, numhl = nil })
 
 dap.adapters.codelldb = {
   type = 'server',
