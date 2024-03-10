@@ -54,6 +54,6 @@ neotest.setup({
   status = { virtual_text = true },
   output = { open_on_run = true },
   quickfix = {
-    open = vim.cmd("copen")
+    open = function() vim.cmd("copen") end
   },
 })
