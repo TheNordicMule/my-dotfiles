@@ -54,6 +54,10 @@ vim.keymap.set('n', "<Leader>dx",
 
 vim.keymap.set('n', "<leader>m", "<cmd>:MaximizerToggle!<CR>")
 
+vim.fn.sign_define('DapBreakPoint', {text=' '})
+vim.fn.sign_define('DapStopped', {text='󰁕 '})
+vim.fn.sign_define('DapBreakpointRejected', {text=' '})
+
 dap.adapters.codelldb = {
   type = 'server',
   port = "${port}",
