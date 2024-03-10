@@ -39,36 +39,35 @@ require("mason-lspconfig").setup {
 
     -- lua ls setup
     ['lua_ls'] = function(server_name)
-      -- setup needed for lua_ls
-      local runtime_path = vim.split(package.path, ';')
-      table.insert(runtime_path, "lua/?.lua")
-      table.insert(runtime_path, "lua/?/init.lua")
       require("lspconfig")[server_name].setup {
         settings = {
           Lua = {
-            runtime = {
-              -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-              version = 'LuaJIT',
-              -- Setup your lua path
-              path = runtime_path
-            },
+            runtime = { version = 'LuaJIT' },
             diagnostics = {
               -- Get the language server to recognize the `vim` global
-              globals = { 'vim' }
+              globals = {
+                'vim',
+                'require'
+              },
             },
             workspace = {
-              -- Make the server aware of Neovim runtime files
+              checkThirdParty = false,
+              -- Tells lua_ls where to find all the Lua files that you have loaded
+              -- for your neovim configuration.
               library = {
                 '${3rd}/luv/library',
                 unpack(vim.api.nvim_get_runtime_file('', true)),
               },
-              -- disable the workspace prompt
-              checkThirdParty = false,
+              -- If lua_ls is really slow on your computer, you can try this instead:
+              -- library = { vim.env.VIMRUNTIME },
             },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = { enable = false }
-          }
-        }
+            completion = {
+              callSnippet = 'Replace',
+            },
+            -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+            -- diagnostics = { disable = { 'missing-fields' } },
+          },
+        },
       }
     end
   }

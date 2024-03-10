@@ -95,6 +95,14 @@ return require("lazy").setup(
     },
     'theHamsta/nvim-dap-virtual-text',
     'szw/vim-maximizer',
+    {
+      "nvim-neotest/neotest",
+      dependencies = {
+        "nvim-lua/plenary.nvim",
+        "nvim-treesitter/nvim-treesitter",
+        "alfaix/neotest-gtest"
+      }
+    },
 
     -- utils
     { 'numToStr/Comment.nvim',           opts = {} },

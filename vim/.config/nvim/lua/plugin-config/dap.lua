@@ -53,25 +53,3 @@ vim.keymap.set('n', "<Leader>dx",
   "<cmd>:lua require('dap').set_exception_breakpoints()<CR>")
 
 vim.keymap.set('n', "<leader>m", "<cmd>:MaximizerToggle!<CR>")
-
-dap.adapters.codelldb = {
-  type = 'server',
-  port = "${port}",
-  executable = {
-    command = '/Users/mingshiwang/.local/share/nvim/mason/packages/codelldb/codelldb',
-    args = { "--port", "${port}" },
-  }
-}
-
-dap.configurations.cpp = {
-  {
-    name = "Launch file",
-    type = "codelldb",
-    request = "launch",
-    program = function()
-      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/build/test/lru_k_replacer_test')
-    end,
-    cwd = '${workspaceFolder}',
-    stopOnEntry = false,
-  },
-}

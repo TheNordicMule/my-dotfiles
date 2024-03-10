@@ -11,6 +11,7 @@ require 'plugin-config.telescope'
 require 'plugin-config.treesitter'
 require 'plugin-config.conform'
 require 'plugin-config.linter'
+require 'plugin-config.neotest'
 
 vim.cmd([[
 set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ --follow\ --multiline-dotall
