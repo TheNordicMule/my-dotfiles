@@ -53,3 +53,12 @@ vim.keymap.set('n', "<Leader>dx",
   "<cmd>:lua require('dap').set_exception_breakpoints()<CR>")
 
 vim.keymap.set('n', "<leader>m", "<cmd>:MaximizerToggle!<CR>")
+
+dap.adapters.codelldb = {
+  type = 'server',
+  port = "${port}",
+  executable = {
+    command = '/Users/mingshiwang/.local/share/nvim/mason/packages/codelldb/codelldb',
+    args = { "--port", "${port}" },
+  }
+}
