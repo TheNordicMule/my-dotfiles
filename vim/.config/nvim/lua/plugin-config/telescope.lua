@@ -31,10 +31,10 @@ require("telescope").setup({
     color_devicons = true,
     mappings = {
       n = {
-        ["<C-CR>"] = actions.send_selected_to_qflist + actions.open_qflist,
+        ["<C-S-Q>"] = actions.send_selected_to_qflist + actions.open_qflist,
       },
       i = {
-        ["<C-CR>"] = actions.send_selected_to_qflist + actions.open_qflist,
+        ["<C-S-Q>"] = actions.send_selected_to_qflist + actions.open_qflist,
       }
     }
   },

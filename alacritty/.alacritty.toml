@@ -70,6 +70,11 @@ chars = "\u001B[13;5u"
 key = "Return"
 mods = "Control"
 
+[[keyboard.bindings]]
+chars = "\u001B[81;6u"
+key = "q"
+mods = "Control|Shift"
+
 [window]
 decorations = "buttonless"
 dynamic_title = true
