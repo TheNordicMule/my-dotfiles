@@ -25,6 +25,9 @@ vim.keymap.set('n', '<Leader>th',
 vim.keymap.set('n', '<Leader>tc',
   '<cmd>lua require("telescope.builtin").commands()<CR>')
 
+vim.keymap.set('n', '<Leader>tg',
+  '<cmd>lua require("telescope.builtin").git_branches()<CR>')
+
 local actions = require "telescope.actions"
 
 require("telescope").setup({
