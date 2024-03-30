@@ -122,9 +122,6 @@ export PATH="$HOME/my-dotfiles/bins:$PATH"
 bindkey '^n' autosuggest-accept
 bindkey -s '^f' 'tmux-sessionizer\n'
 
-source "$HOME/.git-prompt.sh"
-source "$HOME/.snow.zsh"
-
 PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH"
 
@@ -138,3 +135,4 @@ alias ls='lsd'
 export FZF_DEFAULT_COMMAND='fd'
 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+eval "$(starship init zsh)"
