@@ -66,6 +66,44 @@ dap.adapters.codelldb = {
     args = { "--port", "${port}" },
   }
 }
+
+vim.cmd([[
+" Using Nord Theme Colors Directly
+hi link DapUINormal Normal
+hi link DapUIVariable Normal
+hi DapUIScope guifg=#8FBCBB
+hi DapUIType guifg=#B48EAD
+hi link DapUIValue Normal
+hi DapUIModifiedValue guifg=#88C0D0 gui=bold
+hi DapUIDecoration guifg=#8FBCBB
+hi DapUIThread guifg=#A3BE8C
+hi DapUIStoppedThread guifg=#88C0D0
+hi link DapUIFrameName Normal
+hi DapUISource guifg=#B48EAD
+hi DapUILineNumber guifg=#8FBCBB
+hi link DapUIFloatNormal NormalFloat
+hi DapUIFloatBorder guifg=#8FBCBB
+hi DapUIWatchesEmpty guifg=#BF616A
+hi DapUIWatchesValue guifg=#A3BE8C
+hi DapUIWatchesError guifg=#BF616A
+hi DapUIBreakpointsPath guifg=#8FBCBB
+hi DapUIBreakpointsInfo guifg=#A3BE8C
+hi DapUIBreakpointsCurrentLine guifg=#A3BE8C gui=bold
+hi link DapUIBreakpointsLine DapUILineNumber
+hi DapUIBreakpointsDisabledLine guifg=#4C566A
+hi link DapUICurrentFrameName DapUIBreakpointsCurrentLine
+hi DapUIStepOver guifg=#8FBCBB
+hi DapUIStepInto guifg=#8FBCBB
+hi DapUIStepBack guifg=#8FBCBB
+hi DapUIStepOut guifg=#8FBCBB
+hi DapUIStop guifg=#BF616A
+hi DapUIPlayPause guifg=#A3BE8C
+hi DapUIRestart guifg=#A3BE8C
+hi DapUIUnavailable guifg=#4C566A
+hi DapUIWinSelect ctermfg=Cyan guifg=#8FBCBB gui=bold
+hi link DapUIEndofBuffer EndofBuffer
+]])
+
 dap.configurations.rust = {
   {
     name = "Launch file",
