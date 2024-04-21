@@ -32,6 +32,8 @@ vim.keymap.set('n', "<Leader>de",
   "<cmd>:lua require('dap').terminate()<CR>")
 vim.keymap.set('n', "<Leader>dc",
   "<cmd>:lua require('dap').continue()<CR>")
+vim.keymap.set('n', "<Leader>dC",
+  "<cmd>:lua require('dap').set_breakpoint(vim.fn.input('Conditional Breakpoint > '))<CR>")
 vim.keymap.set('n', "<Leader>dt",
   "<cmd>:lua require('dap').toggle_breakpoint()<CR>")
 vim.keymap.set('n', "<Leader>dT",
