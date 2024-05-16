@@ -114,7 +114,6 @@ return require("lazy").setup(
     },
 
     -- utils
-    { 'numToStr/Comment.nvim',           opts = {} },
     'windwp/nvim-autopairs',
     'mbbill/undotree',
     {
