@@ -159,36 +159,6 @@ swap-ccw:
 
 # Move focus to the n-th screen in the list; e.g., focus-screen-3 will move mouse focus to the 3rd screen. Note that the main window in the given screen will be focused.
 #focus-screen-n:
-focus-screen-1:
-  mod: mod1
-  key: 1
-focus-screen-2:
-  mod: mod1
-  key: 2
-focus-screen-3:
-  mod: mod1
-  key: 3
-focus-screen-4:
-  mod: mod1
-  key: 4
-focus-screen-5:
-  mod: mod1
-  key: 5
-focus-screen-6:
-  mod: mod1
-  key: 6
-focus-screen-7:
-  mod: mod1
-  key: 7
-focus-screen-8:
-  mod: mod1
-  key: 8
-focus-screen-9:
-  mod: mod1
-  key: 9
-focus-screen-10:
-  mod: mod1
-  key: 0
 # Move the currently focused window to the n-th screen; e.g., throw-screen-3 will move the window to the 3rd screen.
 # throw-screen-n:
 # throw-screen-<screen-number>:
@@ -199,34 +169,34 @@ focus-screen-10:
 #   mod: mod1
 #   key: i
 
-throw-screen-1:
+throw-space-1:
   mod: mod2
   key: 1
-throw-screen-2:
+throw-space-2:
   mod: mod2
   key: 2
-throw-screen-3:
+throw-space-3:
   mod: mod2
   key: 3
-throw-screen-4:
+throw-space-4:
   mod: mod2
   key: 4
-throw-screen-5:
+throw-space-5:
   mod: mod2
   key: 5
-throw-screen-6:
+throw-space-6:
   mod: mod2
   key: 6
-throw-screen-7:
+throw-space-7:
   mod: mod2
   key: 7
-throw-screen-8:
+throw-space-8:
   mod: mod2
   key: 8
-throw-screen-9:
+throw-space-9:
   mod: mod2
   key: 9
-throw-screen-10:
+throw-space-10:
   mod: mod2
   key: 0
 # Select tall layout
