@@ -3,7 +3,7 @@ require("nvim-dap-virtual-text").setup()
 
 require("dapui").setup({
   layouts = {
-    { elements = { "console" }, size = 7, position = "bottom" }, {
+    { elements = { "console", "repl" }, size = 7, position = "bottom" }, {
     elements = {
       -- Elements can be strings or table with id and size keys.
       { id = "scopes", size = 0.25 }, "watches"
@@ -40,8 +40,12 @@ vim.keymap.set('n', "<Leader>dT",
   "<cmd>:lua require'dap'.clear_breakpoints()<CR>")
 vim.keymap.set('n', "<Leader>dr",
   "<cmd>:lua require'dap'.run_to_cursor()<CR>")
+
+-- new addition to experiment
 vim.keymap.set('n', "<Leader>dn",
   "<cmd>:lua require('dap').run_last()<CR>")
+vim.keymap.set('n', "<Leader>dp",
+  function() require('dap').toggle_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
 
 vim.keymap.set('n', "<Leader>df",
   "<cmd>:lua require('dapui').float_element()<CR>")
