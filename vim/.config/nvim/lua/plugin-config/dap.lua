@@ -40,6 +40,8 @@ vim.keymap.set('n', "<Leader>dT",
   "<cmd>:lua require'dap'.clear_breakpoints()<CR>")
 vim.keymap.set('n', "<Leader>dr",
   "<cmd>:lua require'dap'.run_to_cursor()<CR>")
+vim.keymap.set('n', "<Leader>dn",
+  "<cmd>:lua require('dap').run_last()<CR>")
 
 vim.keymap.set('n', "<Leader>df",
   "<cmd>:lua require('dapui').float_element()<CR>")
