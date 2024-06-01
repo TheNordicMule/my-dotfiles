@@ -100,22 +100,14 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias git_sort="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
-"
 alias v='nvim'
-alias vi='nvim'
-alias vim='nvim'
 alias npmg='npm list -g --depth 0'
 alias cat='bat'
-export PATH="/usr/local/opt/node@14/bin:$PATH"
-export PATH="/usr/local/opt/ruby/bin:$PATH"
-export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
 export PATH="/opt/homebrew/opt/llvm@14/bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export GOPATH=$HOME/go
 export PATH="$GOPATH/bin:$PATH"
-export PATH="$HOME/my-dotfiles/bins:$PATH"
 
 # use vim binding
 bindkey '^n' autosuggest-accept
