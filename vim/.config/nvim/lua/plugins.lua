@@ -63,9 +63,10 @@ return require("lazy").setup(
     {
       'neovim/nvim-lspconfig',
       dependencies = {
-        { 'j-hui/fidget.nvim',                opts = {} },
+        { 'j-hui/fidget.nvim',                        opts = {} },
         { "williamboman/mason.nvim" },
         { "williamboman/mason-lspconfig.nvim" },
+        { "WhoIsSethDaniel/mason-tool-installer.nvim" },
 
         -- Additional lua configuration, makes nvim stuff amazing!
         'folke/neodev.nvim',

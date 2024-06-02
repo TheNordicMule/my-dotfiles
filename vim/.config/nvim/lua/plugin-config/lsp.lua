@@ -27,8 +27,19 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
 require("mason").setup()
+
+local ensure_installed = { "tsserver", "pyright", "clangd", "gopls", "rust_analyzer", "lua_ls" }
+
+vim.list_extend(ensure_installed, {
+  'stylua', -- Used to format Lua code
+  'js-debug-adapter',
+  'eslint_d',
+  'prettierd'
+})
+
+require('mason-tool-installer').setup { ensure_installed = ensure_installed, auto_update = true }
+
 require("mason-lspconfig").setup {
-  ensure_installed = { "tsserver", "pyright", "clangd", "gopls", "rust_analyzer", "lua_ls" },
   handlers = {
     function(server_name) -- default handler (optional)
       require("lspconfig")[server_name].setup {
