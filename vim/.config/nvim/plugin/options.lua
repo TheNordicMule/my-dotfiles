@@ -59,16 +59,15 @@ opt.smartcase = true
 -- Enable mouse support. You should avoid relying on this too much, but it can
 -- sometimes be convenient.
 -- opt.mouse.append({a = true}
-opt.mouse:append('a')
-
+opt.mouse:append("a")
 
 -- custom
 opt.swapfile = false
 opt.undofile = true
 
 -- setpath to be all
-opt.path:append('**')
-opt.wildignore:append('**/node_modules/**', '.git**')
+opt.path:append("**")
+opt.wildignore:append("**/node_modules/**", ".git**")
 
 -- enlarge history
 -- opt.history = 100
@@ -76,13 +75,11 @@ opt.wildignore:append('**/node_modules/**', '.git**')
 opt.updatetime = 300
 
 -- change fold method
-opt.foldmethod = 'indent'
+opt.foldmethod = "indent"
 opt.foldlevelstart = 999
 
-
 -- inccomand preview
-opt.inccommand = 'split'
-
+opt.inccommand = "split"
 
 -- show the line you are on
 opt.cursorline = true
