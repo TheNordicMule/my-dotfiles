@@ -336,7 +336,7 @@ screen-padding-left: 10
 screen-padding-right: 10
 
 # Padding to apply between windows and the top edge of the screen (in px, default 0).
-screen-padding-top: 35
+screen-padding-top: 22
 
 # Padding to apply between windows and the bottom edge of the screen (in px, default 0).
 screen-padding-bottom: 10

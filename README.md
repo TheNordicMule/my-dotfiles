@@ -1,4 +1,5 @@
 - need to map caps to <ESC> and function to control
+- disable native top bar in control center
 - remap macos workspace(make sure you do it after you remap)
 - disable auto rearrange in mission control
 - display battery optimization for aldente
