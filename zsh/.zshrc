@@ -101,6 +101,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias v='nvim'
+alias vim='nvim'
 alias npmg='npm list -g --depth 0'
 alias cat='bat'
 export PATH="/opt/homebrew/opt/llvm@14/bin:$PATH"
