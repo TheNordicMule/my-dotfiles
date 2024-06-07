@@ -81,3 +81,4 @@ buf_set_keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 buf_set_keymap("n", "<leader>fe", ":Ex<CR>")
 buf_set_keymap("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+buf_set_keymap("n", "gp", "<cmd>!Git pull<CR>")
