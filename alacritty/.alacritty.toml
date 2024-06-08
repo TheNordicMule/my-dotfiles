@@ -78,7 +78,7 @@ mods = "Control|Shift"
 [window]
 decorations = "buttonless"
 dynamic_title = true
-opacity = 0.9
+opacity = 0.95
 startup_mode = "Maximized"
 
 [window.dimensions]
