@@ -117,7 +117,7 @@ bindkey -s '^f' 'tmux-sessionizer\n'
 PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH"
 
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#b48ead'
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#EBCB8B'
 export BAT_THEME="Nord"
 export EDITOR=nvim
 
