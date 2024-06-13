@@ -7,16 +7,18 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs }:
-  let
-    configuration = { pkgs, ... }: {
+  outputs = inputs @ {
+    self,
+    nix-darwin,
+    nixpkgs,
+  }: let
+    configuration = {pkgs, ...}: {
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
-      environment.systemPackages =
-        [ 
-          pkgs.pom
-          pkgs.alejandra
-        ];
+      environment.systemPackages = [
+        pkgs.pom
+        pkgs.alejandra
+      ];
 
       # Auto upgrade nix package and the daemon service.
       services.nix-daemon.enable = true;
@@ -26,7 +28,7 @@
       nix.settings.experimental-features = "nix-command flakes";
 
       # Create /etc/zshrc that loads the nix-darwin environment.
-      programs.zsh.enable = true;  # default shell on catalina
+      programs.zsh.enable = true; # default shell on catalina
 
       # Set Git commit hash for darwin-version.
       system.configurationRevision = self.rev or self.dirtyRev or null;
@@ -45,12 +47,11 @@
 
       homebrew.brews.sketchybar.start_service = true;
     };
-  in
-  {
+  in {
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#Mac-that-vim
     darwinConfigurations."Mac-that-vim" = nix-darwin.lib.darwinSystem {
-      modules = [ configuration ];
+      modules = [configuration];
     };
 
     # Expose the package set, including overlays, for convenience.
