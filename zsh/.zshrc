@@ -109,6 +109,7 @@ export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export GOPATH=$HOME/go
 export PATH="$GOPATH/bin:$PATH"
+export PATH="$HOME/my-dotfiles/bins:$PATH"
 
 # use vim binding
 bindkey '^n' autosuggest-accept
