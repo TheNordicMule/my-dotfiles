@@ -15,6 +15,7 @@
       environment.systemPackages =
         [ 
           pkgs.pom
+          pkgs.dust
         ];
 
       # Auto upgrade nix package and the daemon service.
