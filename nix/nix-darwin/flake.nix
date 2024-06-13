@@ -15,7 +15,6 @@
       environment.systemPackages =
         [ 
           pkgs.pom
-          pkgs.dust
         ];
 
       # Auto upgrade nix package and the daemon service.
@@ -37,8 +36,13 @@
 
       system.defaults.dock.autohide = true;
 
+      system.keyboard.enableKeyMapping = true;
+      system.keyboard.remapCapsLockToEscape = true;
+
       # The platform the configuration will be used on.
       nixpkgs.hostPlatform = "aarch64-darwin";
+
+      homebrew.brews.sketchybar.start_service = true;
     };
   in
   {
