@@ -18,6 +18,7 @@
       environment.systemPackages = [
         pkgs.pom
         pkgs.alejandra
+        pkgs.dust
       ];
 
       # Auto upgrade nix package and the daemon service.
