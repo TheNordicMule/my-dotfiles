@@ -47,8 +47,11 @@
       system.defaults.dock.mru-spaces = false;
       system.defaults.NSGlobalDomain._HIHideMenuBar = true;
 
-      system.keyboard.enableKeyMapping = true;
-      system.keyboard.remapCapsLockToEscape = true;
+      system.keyboard = {
+        enableKeyMapping = true;
+        remapCapsLockToEscape = true;
+        swapLeftCommandAndLeftAlt = true;
+      };
 
       # The platform the configuration will be used on.
       nixpkgs.hostPlatform = "aarch64-darwin";

@@ -1,4 +1,3 @@
-- need to map function to control
 - remap macos workspace(make sure you do it after you remap)
 - display battery optimization for aldente
 - run clone_dependencies.sh to pull down dependencies
@@ -7,6 +6,7 @@
 things deprecated using nix-darwin:
 
 - map caps to <ESC>
+- need to map function to control
 - disable native top bar in control center
 - disable auto rearrange in mission control
 - download https://github.com/kvndrsslr/sketchybar-app-font
