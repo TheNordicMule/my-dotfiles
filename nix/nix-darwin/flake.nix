@@ -19,6 +19,9 @@
         pkgs.pom
         pkgs.alejandra
         pkgs.dust
+      ];
+
+      fonts.fonts = [
         pkgs.sketchybar-app-font
       ];
 
