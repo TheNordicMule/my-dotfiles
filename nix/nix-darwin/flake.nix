@@ -19,6 +19,7 @@
         pkgs.pom
         pkgs.alejandra
         pkgs.dust
+        pkgs.sketchybar-app-font
       ];
 
       # Auto upgrade nix package and the daemon service.
