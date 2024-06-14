@@ -18,24 +18,19 @@ require("gitsigns").setup({
 		-- Navigation
 		map("n", "]c", function()
 			if vim.wo.diff then
-				return "]c"
+				vim.cmd.normal({ "]c", bang = true })
+			else
+				gs.nav_hunk("next")
 			end
-			vim.schedule(function()
-				gs.next_hunk()
-			end)
-			return "<Ignore>"
-		end, { expr = true })
+		end)
 
 		map("n", "[c", function()
 			if vim.wo.diff then
-				return "[c"
+				vim.cmd.normal({ "[c", bang = true })
+			else
+				gs.nav_hunk("prev")
 			end
-			vim.schedule(function()
-				gs.prev_hunk()
-			end)
-			return "<Ignore>"
-		end, { expr = true })
-
+		end)
 		-- Actions
 		map("n", "<leader>ha", gs.stage_hunk)
 		map("n", "<leader>hr", gs.reset_hunk)
