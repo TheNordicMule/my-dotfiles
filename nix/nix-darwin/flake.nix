@@ -44,6 +44,8 @@
       system.stateVersion = 4;
 
       system.defaults.dock.autohide = true;
+      system.defaults.dock.mru-spaces = false;
+      system.defaults.NSGlobalDomain._HIHideMenuBar = true;
 
       system.keyboard.enableKeyMapping = true;
       system.keyboard.remapCapsLockToEscape = true;
