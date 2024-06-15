@@ -16,5 +16,6 @@ conform.setup({
 		json = { "prettierd" },
 		markdown = { "prettierd" },
 		lua = { "stylua" },
+		nix = { "alejandra" },
 	},
 })
