@@ -30,7 +30,7 @@ capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp"
 
 require("mason").setup()
 
-local ensure_installed = { "tsserver", "pyright", "clangd", "gopls", "rust_analyzer", "lua_ls" }
+local ensure_installed = { "tsserver", "pyright", "clangd", "gopls", "rust_analyzer", "lua_ls", "nil" }
 
 vim.list_extend(ensure_installed, {
 	"stylua", -- Used to format Lua code
