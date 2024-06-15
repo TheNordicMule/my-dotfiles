@@ -1,6 +1,6 @@
 #!/bin/zsh
 set -e
-pushd ~/my-dotfiles/nix/nix-darwin
+pushd ~/my-dotfiles/nix
 alejandra . &>/dev/null
 git diff -U0 *.nix
 echo "NixOS Rebuilding..."
