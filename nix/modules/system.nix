@@ -15,9 +15,15 @@
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
 
-  system.defaults.dock.autohide = true;
-  # disable rearrange workspace based on MRU algo
-  system.defaults.dock.mru-spaces = false;
+  system.defaults.dock = {
+    autohide = true;
+    # disable rearrange workspace based on MRU algo
+    mru-spaces = false;
+    orientation = "left";
+    # show only open apps
+    static-only = true;
+  };
+
   # hide the menu bar for sketchybar
   system.defaults.NSGlobalDomain._HIHideMenuBar = true;
 }
