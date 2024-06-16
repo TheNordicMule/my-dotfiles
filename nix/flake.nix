@@ -29,15 +29,13 @@
 
       # Create /etc/zshrc that loads the nix-darwin environment.
       programs.zsh.enable = true; # default shell on catalina
-
-      # Set Git commit hash for darwin-version.
-      system.configurationRevision = self.rev or self.dirtyRev or null;
     };
   in {
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#Mac-that-vim
     darwinConfigurations."Mac-that-vim" = nix-darwin.lib.darwinSystem {
       modules = [configuration ./modules/apps.nix ./modules/system.nix];
+      specialArgs = {inherit self;};
     };
 
     # Expose the package set, including overlays, for convenience.

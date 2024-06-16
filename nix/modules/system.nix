@@ -1,8 +1,9 @@
-{...}: {
+{self, ...}: {
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "aarch64-darwin";
   # enable touch id for sudo
   security.pam.enableSudoTouchIdAuth = true;
+  system.configurationRevision = self.rev or self.dirtyRev or null;
 
   system.keyboard = {
     enableKeyMapping = true;
