@@ -13,8 +13,6 @@
     nixpkgs,
   }: let
     configuration = {pkgs, ...}: {
-      imports = [./modules/apps.nix];
-
       services.sketchybar.enable = true;
 
       fonts.fonts = [
@@ -34,33 +32,13 @@
 
       # Set Git commit hash for darwin-version.
       system.configurationRevision = self.rev or self.dirtyRev or null;
-
-      # Used for backwards compatibility, please read the changelog before changing.
-      # $ darwin-rebuild changelog
-      system.stateVersion = 4;
-
-      system.defaults.dock.autohide = true;
-      # disable rearrange workspace based on MRU algo
-      system.defaults.dock.mru-spaces = false;
-      # hide the menu bar for sketchybar
-      system.defaults.NSGlobalDomain._HIHideMenuBar = true;
-      # enable touch id for sudo
-      security.pam.enableSudoTouchIdAuth = true;
-
-      system.keyboard = {
-        enableKeyMapping = true;
-        remapCapsLockToEscape = true;
-        swapLeftCommandAndLeftAlt = true;
-      };
-
-      # The platform the configuration will be used on.
-      nixpkgs.hostPlatform = "aarch64-darwin";
     };
   in {
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#Mac-that-vim
     darwinConfigurations."Mac-that-vim" = nix-darwin.lib.darwinSystem {
-      modules = [configuration];
+      specialArgs = self;
+      modules = [configuration ./modules/apps.nix ./modules/system.nix];
     };
 
     # Expose the package set, including overlays, for convenience.
