@@ -67,8 +67,12 @@
       system.stateVersion = 4;
 
       system.defaults.dock.autohide = true;
+      # disable rearrange workspace based on MRU algo
       system.defaults.dock.mru-spaces = false;
+      # hide the menu bar for sketchybar
       system.defaults.NSGlobalDomain._HIHideMenuBar = true;
+      # enable touch id for sudo
+      security.pam.enableSudoTouchIdAuth = true;
 
       system.keyboard = {
         enableKeyMapping = true;
