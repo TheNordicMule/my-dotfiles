@@ -19,7 +19,30 @@
         pkgs.pom
         pkgs.alejandra
         pkgs.dust
+        pkgs.bat
+        pkgs.bottom
+        pkgs.cmake
+        pkgs.coreutils
+        pkgs.fd
+        pkgs.fzf
+        pkgs.gh
+        pkgs.delta
+        pkgs.go
+        pkgs.jq
+        pkgs.lsd
+        pkgs.luajit
+        pkgs.neovim
+        pkgs.nodejs
+        pkgs.ripgrep
+        pkgs.starship
+        pkgs.stow
+        pkgs.tealdeer
+        pkgs.tmux
+        pkgs.tokei
+        pkgs.wget
       ];
+
+      services.sketchybar.enable = true;
 
       fonts.fonts = [
         pkgs.sketchybar-app-font
@@ -55,8 +78,6 @@
 
       # The platform the configuration will be used on.
       nixpkgs.hostPlatform = "aarch64-darwin";
-
-      homebrew.brews.sketchybar.start_service = true;
     };
   in {
     # Build darwin flake using:
