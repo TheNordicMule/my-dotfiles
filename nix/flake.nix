@@ -15,10 +15,9 @@
     configuration = {pkgs, ...}: {
       services.sketchybar.enable = true;
 
-      fonts.fonts = [
+      fonts.packages = [
         pkgs.sketchybar-app-font
       ];
-      fonts.fontDir.enable = true;
 
       # Auto upgrade nix package and the daemon service.
       services.nix-daemon.enable = true;
