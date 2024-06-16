@@ -37,7 +37,6 @@
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#Mac-that-vim
     darwinConfigurations."Mac-that-vim" = nix-darwin.lib.darwinSystem {
-      specialArgs = self;
       modules = [configuration ./modules/apps.nix ./modules/system.nix];
     };
 
