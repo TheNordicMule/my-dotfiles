@@ -13,34 +13,7 @@
     nixpkgs,
   }: let
     configuration = {pkgs, ...}: {
-      # List packages installed in system profile. To search by name, run:
-      # $ nix-env -qaP | grep wget
-      environment.systemPackages = [
-        pkgs.pom
-        pkgs.alejandra
-        pkgs.dust
-        pkgs.bat
-        pkgs.bottom
-        pkgs.cmake
-        pkgs.coreutils
-        pkgs.fd
-        pkgs.fzf
-        pkgs.gh
-        pkgs.delta
-        pkgs.go
-        pkgs.jq
-        pkgs.lsd
-        pkgs.luajit
-        pkgs.neovim
-        pkgs.nodejs
-        pkgs.ripgrep
-        pkgs.starship
-        pkgs.stow
-        pkgs.tealdeer
-        pkgs.tmux
-        pkgs.tokei
-        pkgs.wget
-      ];
+      imports = [./modules/apps.nix];
 
       services.sketchybar.enable = true;
 
