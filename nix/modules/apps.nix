@@ -24,6 +24,7 @@
     tmux
     tokei
     wget
+    alacritty
   ];
 
   # you still need to install brew manually
@@ -43,7 +44,6 @@
     ];
 
     casks = [
-      "alacritty"
       "aldente"
       "amethyst"
       "anki"
