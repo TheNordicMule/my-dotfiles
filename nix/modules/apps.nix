@@ -1,30 +1,32 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    pom
+    alacritty
     alejandra
-    dust
     bat
     bottom
+    cargo
     cmake
     coreutils
+    delta
+    dust
     fd
     fzf
     gh
-    delta
     go
     jq
     lsd
     luajit
     neovim
     nodejs
+    pom
     ripgrep
+    rustc
     starship
     stow
     tealdeer
     tmux
     tokei
     wget
-    alacritty
   ];
 
   # you still need to install brew manually
