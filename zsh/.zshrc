@@ -104,19 +104,11 @@ alias v='nvim'
 alias vim='nvim'
 alias npmg='npm list -g --depth 0'
 alias cat='bat'
-export PATH="/opt/homebrew/opt/llvm@14/bin:$PATH"
-export PATH="/opt/homebrew/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-export GOPATH=$HOME/go
-export PATH="$GOPATH/bin:$PATH"
 export PATH="$HOME/my-dotfiles/bins:$PATH"
 
 # use vim binding
 bindkey '^n' autosuggest-accept
 bindkey -s '^f' 'tmux-sessionizer\n'
-
-PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
-MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH"
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#EBCB8B'
 export BAT_THEME="Nord"
