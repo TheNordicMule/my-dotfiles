@@ -79,6 +79,6 @@ buf_set_keymap("n", "<leader>-", ":vertical resize -5<CR>")
 buf_set_keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 buf_set_keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-buf_set_keymap("n", "<leader>fe", ":Ex<CR>")
+buf_set_keymap("n", "<leader>fe", ":Oil<CR>")
 buf_set_keymap("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 buf_set_keymap("n", "gp", "<cmd>!Git pull<CR>")
