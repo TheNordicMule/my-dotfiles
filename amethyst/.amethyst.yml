@@ -240,9 +240,9 @@ toggle-float:
 #   key: i
 
 # Turn on or off tiling entirely.
-# toggle-tiling:
-#   mod: mod1
-#   key: t
+toggle-tiling:
+  mod: mod1
+  key: t
 
 # Rerun the current layout's algorithm.
 # reevaluate-windows:
@@ -255,9 +255,9 @@ toggle-float:
 #   key: x
 
 # Automatically quit and reopen Amethyst.
-relaunch-amethyst:
-  mod: mod1
-  key: r
+# relaunch-amethyst:
+#   mod: mod1
+#   key: r
 
 # disable screen padding on builtin display
 disable-padding-on-builtin-display: false
