@@ -230,9 +230,9 @@ throw-space-10:
 #   key: right
 
 # Toggle the floating state of the currently focused window; i.e., if it was floating make it tiled and if it was tiled make it floating.
-toggle-float:
-  mod: mod1
-  key: t
+# toggle-float:
+#   mod: mod1
+#   key: t
 
 # Display the layout HUD with the current layout on each screen.
 # display-current-layout:
