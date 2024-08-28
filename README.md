@@ -1,5 +1,4 @@
 - remap macos workspace(make sure you do it after you remap)
-- disable battery optimization for aldente
 - run clone_dependencies.sh to pull down dependencies
 - run reset_config.sh to use gnu stow to generate symlinks
 

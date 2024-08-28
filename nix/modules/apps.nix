@@ -46,7 +46,6 @@
     ];
 
     casks = [
-      "aldente"
       "amethyst"
       "anki"
       "bitwarden"
