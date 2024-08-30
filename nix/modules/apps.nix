@@ -62,7 +62,6 @@
       "visual-studio-code"
       "vlc"
       "wechat"
-      "zed"
     ];
   };
 }
