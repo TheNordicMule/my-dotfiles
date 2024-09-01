@@ -46,6 +46,7 @@ cmp.setup({
 		{ name = "luasnip" }, -- For luasnip users.
 		{ name = "buffer" },
 		{ name = "path" },
+		{ name = "lazydev", group_index = 0 },
 	}),
 	formatting = {
 		format = lspkind.cmp_format({
