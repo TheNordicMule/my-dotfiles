@@ -1,35 +1,39 @@
 {pkgs, ...}: {
-  environment.systemPackages = with pkgs; [
-    alacritty
-    alejandra
-    bat
-    bottom
-    cargo
-    cmake
-    coreutils
-    delta
-    dust
-    fd
-    fzf
-    gh
-    go
-    jq
-    lsd
-    luajit
-    neovim
-    nodejs
-    pom
-    ripgrep
-    rustc
-    rust-analyzer
-    rustfmt
-    starship
-    stow
-    tealdeer
-    tmux
-    tokei
-    wget
-  ];
+  environment.systemPackages = with pkgs;
+    [
+      alacritty
+      alejandra
+      bat
+      bottom
+      cmake
+      coreutils
+      delta
+      dust
+      fd
+      fzf
+      gh
+      go
+      jq
+      lsd
+      luajit
+      neovim
+      nodejs
+      pom
+      ripgrep
+      starship
+      stow
+      tealdeer
+      tmux
+      tokei
+      wget
+    ]
+    ++ [
+      # rust related stuff
+      cargo
+      rust-analyzer
+      rustc
+      rustfmt
+    ];
 
   # you still need to install brew manually
   homebrew = {
