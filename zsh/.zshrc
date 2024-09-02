@@ -105,6 +105,7 @@ alias vim='nvim'
 alias npmg='npm list -g --depth 0'
 alias cat='bat'
 export PATH="$HOME/my-dotfiles/bins:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
 
 # use vim binding
 bindkey '^n' autosuggest-accept
