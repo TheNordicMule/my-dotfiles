@@ -21,6 +21,7 @@
     pom
     ripgrep
     rustc
+    rust-analyzer
     starship
     stow
     tealdeer
