@@ -22,6 +22,7 @@
     ripgrep
     rustc
     rust-analyzer
+    rustfmt
     starship
     stow
     tealdeer
