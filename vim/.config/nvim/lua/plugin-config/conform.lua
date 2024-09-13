@@ -17,5 +17,6 @@ conform.setup({
 		markdown = { "prettierd" },
 		lua = { "stylua" },
 		nix = { "alejandra" },
+		ocaml = { "ocamlformat" },
 	},
 })

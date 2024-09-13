@@ -32,7 +32,7 @@ require("mason").setup({
 	PATH = "append",
 })
 
-local ensure_installed = { "tsserver", "pyright", "clangd", "gopls", "rust_analyzer", "lua_ls", "nil" }
+local ensure_installed = { "tsserver", "pyright", "clangd", "gopls", "rust_analyzer", "lua_ls", "nil", "ocamllsp" }
 
 vim.list_extend(ensure_installed, {
 	"stylua", -- Used to format Lua code
