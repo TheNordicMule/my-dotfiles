@@ -18,6 +18,7 @@
       luajit
       neovim
       nodejs
+      opam
       pom
       ripgrep
       starship
