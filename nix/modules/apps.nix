@@ -26,7 +26,6 @@
       tmux
       tokei
       wget
-      wezterm
     ]
     ++ [
       # rust related stuff
