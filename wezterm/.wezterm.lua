@@ -18,6 +18,13 @@ config.enable_tab_bar = false
 config.window_decorations = "RESIZE"
 config.window_background_opacity = 0.95
 config.macos_window_background_blur = 10
+config.keys = {
+	{
+		key = "q",
+		mods = "CTRL|SHIFT",
+		action = wezterm.action.SendString("\x1b[81;6u"),
+	},
+}
 
 -- and finally, return the configuration to wezterm
 return config
