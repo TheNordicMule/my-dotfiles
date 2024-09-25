@@ -29,6 +29,9 @@ buf_set_keymap("n", "<leader>gr", "<cmd>Git restore %<CR>")
 buf_set_keymap("n", "<leader>gl", "<cmd>Git log<CR>")
 buf_set_keymap("n", "<leader>gv", "<cmd>Gvdiffsplit!<CR>")
 buf_set_keymap("n", "<leader>gh", "<cmd>GBrowse<CR>")
+buf_set_keymap("n", "gp", "<cmd>!Git pull<CR>")
+
+-- markdown
 buf_set_keymap("n", "<leader>v", "<Plug>MarkdownPreviewToggle")
 
 -- undo tree
@@ -81,5 +84,5 @@ buf_set_keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 buf_set_keymap("n", "<leader>fe", ":Oil<CR>")
 buf_set_keymap("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
-buf_set_keymap("n", "gp", "<cmd>!Git pull<CR>")
-buf_set_keymap("n", "<space>ls", "<cmd>LspRestart<CR>")
+buf_set_keymap("n", "<leader>ls", "<cmd>LspRestart<CR>")
+buf_set_keymap("n", "<leader>to", "<cmd>e ~/todo.md<CR>")
