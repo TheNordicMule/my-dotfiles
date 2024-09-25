@@ -69,6 +69,7 @@
       "visual-studio-code"
       "vlc"
       "wechat"
+      "wezterm"
     ];
   };
 }
