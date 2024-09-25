@@ -9,7 +9,7 @@ local config = wezterm.config_builder()
 -- my coolnight colorscheme
 config.color_scheme = "nord"
 
-wezterm.font("FiraCode", { weight = "Regular", stretch = "Normal", italic = false })
+wezterm.font("Iosevka")
 
 config.font_size = 16
 

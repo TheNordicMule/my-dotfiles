@@ -16,6 +16,7 @@
       services.sketchybar.enable = true;
 
       fonts.packages = [
+        pkgs.iosevka
         pkgs.sketchybar-app-font
       ];
 
