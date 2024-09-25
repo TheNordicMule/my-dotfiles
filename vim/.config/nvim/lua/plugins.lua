@@ -35,7 +35,7 @@ return require("lazy").setup({
 		},
 	},
 	{
-		"shaunsingh/nord.nvim",
+		"arcticicestudio/nord-vim",
 		priority = 1000,
 		config = function()
 			vim.cmd.colorscheme("nord")
