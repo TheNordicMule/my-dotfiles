@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs;
     [
-      alacritty
       alejandra
       bat
       bottom
@@ -27,6 +26,7 @@
       tmux
       tokei
       wget
+      wezterm
     ]
     ++ [
       # rust related stuff
