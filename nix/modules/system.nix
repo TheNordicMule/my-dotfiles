@@ -22,5 +22,8 @@
     orientation = "left";
     # show only open apps
     static-only = true;
+
+    # aerospace perfers
+    expose-group-by-app = true;
   };
 }
