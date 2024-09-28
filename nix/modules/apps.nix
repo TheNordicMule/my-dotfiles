@@ -49,10 +49,11 @@
       "homebrew/cask-fonts"
       "homebrew/cask-versions"
       "homebrew/services"
+      "nikitabobko/tap"
     ];
 
     casks = [
-      "amethyst"
+      "aerospace"
       "anki"
       "bitwarden"
       "discord"
