@@ -23,7 +23,4 @@
     # show only open apps
     static-only = true;
   };
-
-  # hide the menu bar for sketchybar
-  system.defaults.NSGlobalDomain._HIHideMenuBar = true;
 }

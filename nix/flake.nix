@@ -13,11 +13,8 @@
     nixpkgs,
   }: let
     configuration = {pkgs, ...}: {
-      services.sketchybar.enable = true;
-
       fonts.packages = [
         pkgs.iosevka
-        pkgs.sketchybar-app-font
       ];
 
       # Auto upgrade nix package and the daemon service.
