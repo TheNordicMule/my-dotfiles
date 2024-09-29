@@ -15,6 +15,11 @@
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
 
+  system.defaults.spaces = {
+    # aerospace perfers
+    spans-displays = true;
+  };
+
   system.defaults.dock = {
     autohide = true;
     # disable rearrange workspace based on MRU algo
