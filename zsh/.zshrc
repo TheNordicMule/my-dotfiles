@@ -117,12 +117,13 @@ export EDITOR=nvim
 
 alias grep='rg'
 alias ls='lsd'
+alias cf1='caffeinate -u -t 3600'
+alias cf2='caffeinate -u -t 7200'
 
 export FZF_DEFAULT_COMMAND='fd'
 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 eval "$(starship init zsh)"
-
 
 # BEGIN opam configuration
 # This is useful if you're using opam as it adds:
