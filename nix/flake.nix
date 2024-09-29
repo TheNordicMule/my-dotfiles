@@ -15,6 +15,7 @@
     configuration = {pkgs, ...}: {
       fonts.packages = [
         pkgs.iosevka
+        pkgs.sketchybar-app-font
       ];
 
       # Auto upgrade nix package and the daemon service.
