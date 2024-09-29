@@ -118,8 +118,8 @@ alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#resize
-alt-shift-comma = 'resize smart -50'
-alt-shift-period= 'resize smart +50'
+# alt-shift-comma = 'resize smart -50'
+# alt-shift-period= 'resize smart +50'
 
 alt-minus = 'resize smart -50'
 alt-equal = 'resize smart +50'
@@ -165,5 +165,5 @@ alt-shift-h = ['join-with left', 'mode main']
 alt-shift-j = ['join-with down', 'mode main']
 alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
-h = ['resize smart +50']
-l = ['resize smart -50']
+# h = ['resize smart +50']
+# l = ['resize smart -50']
