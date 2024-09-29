@@ -4,3 +4,4 @@ htop
 gh
 **/.config/*
 !**/.config/nvim
+!**/.config/sketchybar
