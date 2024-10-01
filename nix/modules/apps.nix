@@ -57,6 +57,7 @@
       "anki"
       "bitwarden"
       "discord"
+      "displayplacer"
       "firefox"
       "font-sauce-code-pro-nerd-font"
       "font-sf-pro"
