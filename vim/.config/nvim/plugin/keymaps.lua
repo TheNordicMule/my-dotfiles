@@ -78,6 +78,8 @@ buf_set_keymap("v", "K", ":m '<-2<CR>gv=gv")
 -- add resize
 buf_set_keymap("n", "<leader>+", ":vertical resize +5<CR>")
 buf_set_keymap("n", "<leader>-", ":vertical resize -5<CR>")
+buf_set_keymap("n", "<C-w>+", ":vertical resize +5<CR>")
+buf_set_keymap("n", "<C-w>-", ":vertical resize -5<CR>")
 
 buf_set_keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 buf_set_keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
