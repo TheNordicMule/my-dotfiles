@@ -61,7 +61,6 @@
       "firefox"
       "font-sauce-code-pro-nerd-font"
       "font-sf-pro"
-      "kindle"
       "obsidian"
       "raycast"
       "sf-symbols"
