@@ -122,8 +122,6 @@ alias ls='lsd'
 
 alias cf1='caffeinate -u -t 3600'
 alias cf2='caffeinate -u -t 7200'
-alias dp1='displayplacer "id:C0EDED19-6329-4171-89C3-572D299FCC9D res:2560x1080 hz:60 color_depth:8 enabled:true scaling:on origin:(0,0) degree:0"'
-alias dp2='displayplacer "id:C0EDED19-6329-4171-89C3-572D299FCC9D res:1920x1080 hz:60 color_depth:8 enabled:true scaling:on origin:(0,0) degree:0"'
 
 export FZF_DEFAULT_COMMAND='fd'
 

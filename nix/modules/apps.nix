@@ -57,9 +57,7 @@
       "anki"
       "bitwarden"
       "discord"
-      "displayplacer"
       "firefox"
-      "font-sauce-code-pro-nerd-font"
       "font-sf-pro"
       "obsidian"
       "raycast"
@@ -67,7 +65,6 @@
       "spotify"
       "stats"
       "visual-studio-code"
-      "vlc"
       "wechat"
       "wezterm"
     ];
