@@ -25,6 +25,7 @@
       tealdeer
       tmux
       tokei
+      wezterm
       wget
     ]
     ++ [
@@ -66,7 +67,6 @@
       "stats"
       "visual-studio-code"
       "wechat"
-      "wezterm"
     ];
   };
 }
