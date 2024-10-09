@@ -8,7 +8,7 @@ local config = wezterm.config_builder()
 
 -- my coolnight colorscheme
 config.color_scheme = "nord"
-
+config.front_end = "WebGpu"
 wezterm.font("Iosevka")
 
 config.font_size = 16

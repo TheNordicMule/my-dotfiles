@@ -88,3 +88,11 @@ buf_set_keymap("n", "<leader>fe", ":Oil<CR>")
 buf_set_keymap("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 buf_set_keymap("n", "<leader>ls", "<cmd>LspRestart<CR>")
 buf_set_keymap("n", "<leader>to", "<cmd>e ~/todo.md<CR>")
+
+--mark
+buf_set_keymap("n", "mh", "mH")
+buf_set_keymap("n", "mm", "mM")
+buf_set_keymap("n", "ml", "mL")
+buf_set_keymap("n", "'h", "'H")
+buf_set_keymap("n", "'m", "'M")
+buf_set_keymap("n", "'l", "'L")
