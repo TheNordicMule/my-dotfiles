@@ -15,6 +15,8 @@ config.font_size = 16
 
 config.enable_tab_bar = false
 
+config.max_fps = 144
+
 config.window_decorations = "RESIZE"
 config.window_background_opacity = 0.95
 config.macos_window_background_blur = 10
