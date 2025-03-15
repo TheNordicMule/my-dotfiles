@@ -2,7 +2,7 @@
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "aarch64-darwin";
   # enable touch id for sudo
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
   system.configurationRevision = self.rev or self.dirtyRev or null;
 
   system.keyboard = {
@@ -24,7 +24,7 @@
     static-only = true;
 
     # aerospace perfers
-    expose-group-by-app = true;
+    expose-group-apps = true;
   };
 
   # make space for sketchybar
