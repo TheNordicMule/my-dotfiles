@@ -21,15 +21,14 @@ buf_set_keymap("i", "<Up>", "<cmd>echoe '--use k--'<CR>")
 buf_set_keymap("i", "<Down>", "<cmd>echoe '--use j--'<CR>")
 
 buf_set_keymap("n", "<leader>ga", "<cmd>Git add %<CR>")
-buf_set_keymap("n", "<leader>gd", "<cmd>Git diff<CR>")
 buf_set_keymap("n", "<leader>gs", "<cmd>Git<CR>")
 buf_set_keymap("n", "<leader>gb", "<cmd>Git blame<CR>")
-buf_set_keymap("n", "<leader>gc", "<cmd>Git commit<CR>")
 buf_set_keymap("n", "<leader>gr", "<cmd>Git restore %<CR>")
 buf_set_keymap("n", "<leader>gl", "<cmd>Git log<CR>")
-buf_set_keymap("n", "<leader>gv", "<cmd>Gvdiffsplit!<CR>")
 buf_set_keymap("n", "<leader>gh", "<cmd>GBrowse<CR>")
 buf_set_keymap("n", "gp", "<cmd>!Git pull<CR>")
+buf_set_keymap("n", "dh", "<cmd>diffget //2<CR>")
+buf_set_keymap("n", "dl", "<cmd>diffget //3<CR>")
 
 -- markdown
 buf_set_keymap("n", "<leader>v", "<Plug>MarkdownPreviewToggle")
