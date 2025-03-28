@@ -66,10 +66,6 @@ buf_set_keymap("v", "<leader>d", '"_d')
 -- Go to tab by number
 buf_set_keymap("n", "<leader>tt", "<cmd>tabnew<cr>")
 
--- Quickfix list stuff
-buf_set_keymap("n", "]q", "<cmd>cn<CR>")
-buf_set_keymap("n", "[q", "<cmd>cp<CR>")
-
 -- quick move
 buf_set_keymap("v", "J", ":m '>+1<CR>gv=gv")
 buf_set_keymap("v", "K", ":m '<-2<CR>gv=gv")
