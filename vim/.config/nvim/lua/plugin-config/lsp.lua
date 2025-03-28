@@ -41,7 +41,7 @@ vim.list_extend(ensure_installed, {
 	"prettierd",
 })
 
-require("mason-tool-installer").setup({ ensure_installed = ensure_installed, auto_update = true })
+require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 require("mason-lspconfig").setup({
 	handlers = {
