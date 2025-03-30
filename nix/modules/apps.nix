@@ -7,7 +7,6 @@
       cmake
       coreutils
       delta
-      docker
       dust
       fd
       fzf
@@ -59,6 +58,7 @@
       "anki"
       "bitwarden"
       "discord"
+      "docker"
       "firefox"
       "font-sf-pro"
       "obsidian"
