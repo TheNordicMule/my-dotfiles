@@ -7,6 +7,7 @@
       cmake
       coreutils
       delta
+      docker
       dust
       fd
       fzf
