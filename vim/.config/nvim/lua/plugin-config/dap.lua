@@ -33,9 +33,6 @@ end
 vim.keymap.set("n", "<Leader>dd", "<cmd>:lua ToggleDap()<CR>")
 vim.keymap.set("n", "<Leader>de", "<cmd>:lua require('dap').terminate()<CR>")
 vim.keymap.set("n", "<Leader>dc", function()
-	if vim.fn.filereadable(".vscode/launch.json") then
-		require("dap.ext.vscode").load_launchjs()
-	end
 	dap.continue()
 end)
 vim.keymap.set(
