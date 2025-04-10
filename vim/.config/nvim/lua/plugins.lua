@@ -152,6 +152,9 @@ return require("lazy").setup({
 				["<C-s>"] = "actions.select_split",
 				["<C-p>"] = false,
 			},
+			view_options = {
+				show_hidden = true,
+			},
 		},
 	},
 
