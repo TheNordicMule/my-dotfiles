@@ -2,7 +2,7 @@ vim.g.mapleader = " "
 
 require("plugins")
 require("utils")
-require("plugin-config.cmp")
+require("plugin-config.blink")
 require("plugin-config.conform")
 require("plugin-config.dap")
 require("plugin-config.gitsigns")
