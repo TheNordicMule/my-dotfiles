@@ -74,39 +74,31 @@ return require("lazy").setup({
 			{ "williamboman/mason.nvim" },
 			{ "williamboman/mason-lspconfig.nvim" },
 			{ "WhoIsSethDaniel/mason-tool-installer.nvim" },
-
-			-- Additional lua configuration, makes nvim stuff amazing!
-			{
-				-- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
-				-- used for completion, annotations and signatures of Neovim apis
-				"folke/lazydev.nvim",
-				ft = "lua",
-				opts = {
-					library = {
-						-- Load luvit types when the `vim.uv` word is found
-						{ path = "luvit-meta/library", words = { "vim%.uv" } },
-					},
-				},
-			},
-			{ "Bilal2453/luvit-meta", lazy = true },
+			"saghen/blink.cmp",
 		},
 	},
-	{
-		"hrsh7th/nvim-cmp",
-		event = "InsertEnter",
+	{ -- Autocompletion
+		"saghen/blink.cmp",
+		event = "VimEnter",
+		version = "1.*",
 		dependencies = {
-			-- Additional lua configuration, makes nvim stuff amazing!
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-nvim-lua",
+			-- Snippet Engine
 			{
 				"L3MON4D3/LuaSnip",
+				version = "2.*",
 				build = "make install_jsregexp",
+				dependencies = {
+					{
+						"rafamadriz/friendly-snippets",
+						config = function()
+							require("luasnip.loaders.from_vscode").lazy_load()
+						end,
+					},
+				},
+				opts = {},
 			},
-			"saadparwaiz1/cmp_luasnip",
-			"rafamadriz/friendly-snippets",
-			"onsails/lspkind.nvim",
+			"folke/lazydev.nvim",
+      "onsails/lspkind.nvim"
 		},
 	},
 
