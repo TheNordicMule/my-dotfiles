@@ -20,22 +20,6 @@ buf_set_keymap("i", "<Right>", "<cmd>echoe '--use l--'<CR>")
 buf_set_keymap("i", "<Up>", "<cmd>echoe '--use k--'<CR>")
 buf_set_keymap("i", "<Down>", "<cmd>echoe '--use j--'<CR>")
 
-buf_set_keymap("n", "<leader>ga", "<cmd>Git add %<CR>")
-buf_set_keymap("n", "<leader>gs", "<cmd>Git<CR>")
-buf_set_keymap("n", "<leader>gb", "<cmd>Git blame<CR>")
-buf_set_keymap("n", "<leader>gr", "<cmd>Git restore %<CR>")
-buf_set_keymap("n", "<leader>gl", "<cmd>Git log<CR>")
-buf_set_keymap("n", "<leader>gh", "<cmd>GBrowse<CR>")
-buf_set_keymap("n", "gp", "<cmd>!Git pull<CR>")
-buf_set_keymap("n", "dh", "<cmd>diffget //2<CR>")
-buf_set_keymap("n", "dl", "<cmd>diffget //3<CR>")
-
--- markdown
-buf_set_keymap("n", "<leader>v", "<Plug>MarkdownPreviewToggle")
-
--- undo tree
-buf_set_keymap("n", "<leader>u", "<cmd>UndotreeToggle<CR>")
-
 -- center search results
 buf_set_keymap("n", "n", "nzz")
 buf_set_keymap("n", "N", "Nzz")
@@ -79,7 +63,6 @@ buf_set_keymap("n", "<C-w>-", ":vertical resize -5<CR>")
 buf_set_keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 buf_set_keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-buf_set_keymap("n", "<leader>fe", ":Oil<CR>")
 buf_set_keymap("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 buf_set_keymap("n", "<leader>ls", "<cmd>LspRestart<CR>")
 buf_set_keymap("n", "<leader>to", "<cmd>e ~/todo.md<CR>")

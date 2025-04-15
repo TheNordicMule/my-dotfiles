@@ -2,6 +2,17 @@ return {
 	{
 		"tpope/vim-fugitive",
 		dependencies = { "tpope/vim-rhubarb" },
+		keys = {
+			{ "<leader>ga", "<cmd>Git add %<CR>" },
+			{ "<leader>gs", "<cmd>Git<CR>" },
+			{ "<leader>gb", "<cmd>Git blame<CR>" },
+			{ "<leader>gr", "<cmd>Git restore %<CR>" },
+			{ "<leader>gl", "<cmd>Git log<CR>" },
+			{ "<leader>gh", "<cmd>GBrowse<CR>" },
+			{ "gp", "<cmd>!Git pull<CR>" },
+			{ "dh", "<cmd>diffget //2<CR>" },
+			{ "dl", "<cmd>diffget //3<CR>" },
+		},
 	},
 	{
 		"lewis6991/gitsigns.nvim",

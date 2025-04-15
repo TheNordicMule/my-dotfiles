@@ -11,4 +11,7 @@ return {
 			show_hidden = true,
 		},
 	},
+	keys = {
+		{ "<leader>fe", "<cmd>Oil<CR>" },
+	},
 }
