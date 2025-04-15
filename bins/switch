@@ -2,10 +2,5 @@
 set -e
 pushd ~/my-dotfiles/nix
 alejandra . &>/dev/null
-git diff -U0 *.nix
-echo "Rebuilding..."
-darwin-rebuild switch --flake . &>nixos-switch.log || (
- cat nixos-switch.log | grep --color error && false)
-gen=$(darwin-rebuild --list-generations | grep current)
-git commit -a
+darwin-rebuild switch --flake . && git commit -a
 popd
