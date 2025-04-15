@@ -11,11 +11,4 @@ return {
 			vim.fn["mkdp#util#install"]()
 		end,
 	},
-	spec = {
-		-- import your plugins
-		{ import = "plugins" },
-	},
-	install = { colorscheme = { "nord" } },
-	-- automatically check for plugin updates
-	checker = { enabled = true },
 }
