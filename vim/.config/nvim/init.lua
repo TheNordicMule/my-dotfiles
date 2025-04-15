@@ -1,18 +1,7 @@
 vim.g.mapleader = " "
 
-require("plugins")
+require("config.lazy")
 require("utils")
-require("plugin-config.blink")
-require("plugin-config.conform")
-require("plugin-config.dap")
-require("plugin-config.gitsigns")
-require("plugin-config.harpoon")
-require("plugin-config.linter")
-require("plugin-config.lsp")
-require("plugin-config.neotest")
-require("plugin-config.nvim-autopairs")
-require("plugin-config.telescope")
-require("plugin-config.treesitter")
 
 vim.cmd([[
 set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ --follow\ --multiline-dotall
