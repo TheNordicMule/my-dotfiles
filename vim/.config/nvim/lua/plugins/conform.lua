@@ -1,14 +1,19 @@
 return {
 	"stevearc/conform.nvim",
+	keys = {
+		{
+			"<Leader>ff",
+			function()
+				require("conform").format({
+					lsp_fallback = true,
+				})
+			end,
+			mode = { "n", "v" },
+			desc = "Format file or selection",
+		},
+	},
 	config = function()
-		local conform = require("conform")
-		vim.keymap.set({ "n", "v" }, "<Leader>ff", function()
-			conform.format({
-				lsp_fallback = true,
-			})
-		end, {})
-
-		conform.setup({
+		require("conform").setup({
 			formatters_by_ft = {
 				javascript = { "prettierd" },
 				typescript = { "prettierd" },
