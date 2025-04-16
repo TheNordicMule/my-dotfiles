@@ -21,6 +21,82 @@ return {
 	},
 	keys = {
 		{
+			"<C-p>",
+			function()
+				require("snacks").picker.git_files()
+			end,
+		},
+
+		{
+			"<Leader>tp",
+			function()
+				require("snacks").picker.files({
+					hidden = true,
+				})
+			end,
+		},
+
+		{
+			"<Leader>ts",
+			function()
+				require("snacks").picker.grep({
+					search = vim.fn.input("Grep For > "),
+				})
+			end,
+		},
+
+		{
+			"<Leader>tw",
+			function()
+				require("snacks").picker.grep({
+					search = vim.fn.expand("<cword>"),
+				})
+			end,
+		},
+
+		{
+			"<Leader>tb",
+			function()
+				require("snacks").picker.buffers()
+			end,
+		},
+		{
+			"<Leader>tq",
+			function()
+				require("snacks").picker.qflist()
+			end,
+		},
+		{
+			"<Leader>tr",
+			function()
+				require("snacks").picker.registers()
+			end,
+		},
+		{
+			"<Leader>td",
+			function()
+				require("snacks").picker.diagnostics()
+			end,
+		},
+		{
+			"<Leader>th",
+			function()
+				require("snacks").picker.help()
+			end,
+		},
+		{
+			"<Leader>tc",
+			function()
+				require("snacks").picker.commands()
+			end,
+		},
+		{
+			"<Leader>tg",
+			function()
+				require("snacks").picker.git_branches()
+			end,
+		},
+		{
 			"<leader>gh",
 			function()
 				require("snacks").gitbrowse()

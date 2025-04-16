@@ -8,29 +8,40 @@ return {
 		"saghen/blink.cmp",
 	},
 	config = function()
-		local builtin = require("telescope.builtin")
 		-- Use an on_attach function to only map the following keys
 		-- after the language server attaches to the current buffer
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
 			callback = function(event)
 				local bufopts = { buffer = event.buf }
+				local snacks = require("snacks")
+
 				vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-				vim.keymap.set("n", "gd", builtin.lsp_definitions, bufopts)
-				vim.keymap.set("n", "gi", builtin.lsp_implementations, bufopts)
+				vim.keymap.set("n", "gd", function()
+					snacks.picker.lsp_definitions()
+				end, bufopts)
+				vim.keymap.set("n", "gi", function()
+					snacks.picker.lsp_implementations()
+				end, bufopts)
 				vim.keymap.set({ "i", "n" }, "<C-k>", vim.lsp.buf.signature_help, bufopts)
 				vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
 				vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
 				vim.keymap.set("n", "<space>wl", function()
 					print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 				end, bufopts)
-				vim.keymap.set("n", "<space>D", builtin.lsp_type_definitions, bufopts)
+				vim.keymap.set("n", "<space>D", function()
+					snacks.picker.lsp_type_definitions()
+				end, bufopts)
 				vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
 				vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, bufopts)
-				vim.keymap.set("n", "<space>ds", builtin.lsp_document_symbols, bufopts)
-				vim.keymap.set("n", "<space>ws", builtin.lsp_dynamic_workspace_symbols, bufopts)
+				vim.keymap.set("n", "<space>ds", function()
+					snacks.picker.lsp_symbols()
+				end, bufopts)
+				vim.keymap.set("n", "<space>ws", function()
+					snacks.picker.lsp_workspace_symbols()
+				end, bufopts)
 				vim.keymap.set("n", "gr", function()
-					builtin.lsp_references({ show_line = false })
+					snacks.picker.lsp_references()
 				end, bufopts)
 			end,
 		})
