@@ -108,7 +108,9 @@ return {
 		{
 			"<Leader>tg",
 			function()
-				require("snacks").picker.git_branches()
+				require("snacks").picker.git_branches({
+					all = true,
+				})
 			end,
 		},
 		{
