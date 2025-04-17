@@ -5,6 +5,79 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		"alfaix/neotest-gtest",
 	},
+	keys = {
+		-- Run tests for the current file
+		{
+			"<leader>nt",
+			function()
+				require("neotest").run.run(vim.fn.expand("%"))
+			end,
+			desc = "Run Tests for Current File",
+		},
+
+		-- Run tests for the current working directory
+		{
+			"<leader>nT",
+			function()
+				require("neotest").run.run(vim.loop.cwd())
+			end,
+			desc = "Run Tests for Current Directory",
+		},
+
+		-- Run all tests
+		{
+			"<leader>nn",
+			function()
+				require("neotest").run.run()
+			end,
+			desc = "Run All Tests",
+		},
+
+		-- Run tests using DAP strategy
+		{
+			"<leader>nd",
+			function()
+				require("neotest").run.run({ strategy = "dap" })
+			end,
+			desc = "Run Tests with DAP",
+		},
+
+		-- Toggle the summary of test results
+		{
+			"<leader>ns",
+			function()
+				require("neotest").summary.toggle()
+			end,
+			desc = "Toggle Test Summary",
+		},
+
+		-- Open the output of the last test run
+		{
+			"<leader>no",
+			function()
+				require("neotest").output.open({ enter = true, auto_close = true })
+			end,
+			desc = "Open Test Output",
+		},
+
+		-- Toggle the output panel for tests
+		{
+			"<leader>nO",
+			function()
+				require("neotest").output_panel.toggle()
+			end,
+			desc = "Toggle Test Output Panel",
+		},
+
+		-- Stop running tests
+		{
+			"<leader>nS",
+			function()
+				require("neotest").run.stop()
+			end,
+			desc = "Stop Running Tests",
+		},
+	},
 	config = function()
 		local opts = {}
 		local neotest_ns = vim.api.nvim_create_namespace("neotest")
@@ -47,31 +120,6 @@ return {
 		end
 
 		local neotest = require("neotest")
-
-		vim.keymap.set("n", "<leader>nt", function()
-			require("neotest").run.run(vim.fn.expand("%"))
-		end)
-		vim.keymap.set("n", "<leader>nT", function()
-			require("neotest").run.run(vim.loop.cwd())
-		end)
-		vim.keymap.set("n", "<leader>nn", function()
-			require("neotest").run.run()
-		end)
-		vim.keymap.set("n", "<leader>nd", function()
-			require("neotest").run.run({ strategy = "dap" })
-		end)
-		vim.keymap.set("n", "<leader>ns", function()
-			require("neotest").summary.toggle()
-		end)
-		vim.keymap.set("n", "<leader>no", function()
-			require("neotest").output.open({ enter = true, auto_close = true })
-		end)
-		vim.keymap.set("n", "<leader>nO", function()
-			require("neotest").output_panel.toggle()
-		end)
-		vim.keymap.set("n", "<leader>nS", function()
-			require("neotest").run.stop()
-		end)
 
 		neotest.setup({
 			adapters = {
