@@ -4,6 +4,7 @@ return {
 		event = "VimEnter",
 		version = "1.*",
 		dependencies = {
+			{ "nvim-tree/nvim-web-devicons", opts = {} },
 			-- Snippet Engine
 			{
 				"L3MON4D3/LuaSnip",

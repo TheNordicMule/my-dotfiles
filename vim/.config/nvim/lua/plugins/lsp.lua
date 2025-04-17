@@ -24,7 +24,16 @@ return {
 				vim.keymap.set("n", "gi", function()
 					snacks.picker.lsp_implementations()
 				end, bufopts)
-				vim.keymap.set({ "i", "n" }, "<C-k>", vim.lsp.buf.signature_help, bufopts)
+				vim.keymap.set({ "i", "n" }, "<C-k>", function()
+					vim.lsp.buf.signature_help({
+						border = "rounded",
+					})
+				end, bufopts)
+				vim.keymap.set({ "i", "n" }, "K", function()
+					vim.lsp.buf.hover({
+						border = "rounded",
+					})
+				end, bufopts)
 				vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
 				vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
 				vim.keymap.set("n", "<space>wl", function()
