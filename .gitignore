@@ -2,6 +2,4 @@ packer_compiled.lua
 htop
 .git
 gh
-**/.config/*
-!**/.config/nvim
-!**/.config/sketchybar
+**/.config/raycast
