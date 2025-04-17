@@ -10,6 +10,8 @@ local config = wezterm.config_builder()
 config.color_scheme = "nord"
 wezterm.font("Iosevka")
 
+config.warn_about_missing_glyphs = false
+
 config.font_size = 16
 
 config.enable_tab_bar = false
@@ -19,13 +21,6 @@ config.max_fps = 144
 config.window_decorations = "RESIZE"
 config.window_background_opacity = 0.95
 config.macos_window_background_blur = 10
-config.keys = {
-	{
-		key = "q",
-		mods = "CTRL|SHIFT",
-		action = wezterm.action.SendString("\x1b[81;6u"),
-	},
-}
 
 -- and finally, return the configuration to wezterm
 return config
