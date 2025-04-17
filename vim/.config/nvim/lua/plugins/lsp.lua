@@ -7,8 +7,7 @@ return {
 		{ "WhoIsSethDaniel/mason-tool-installer.nvim" },
 		"saghen/blink.cmp",
 	},
-	lazy = true,
-	event = { "BufReadPre", "BufNewFile" }, -- lazyload on file open
+	event = { "BufReadPost", "BufNewFile", "BufWritePre" }, -- lazyload on file open
 	config = function()
 		-- Use an on_attach function to only map the following keys
 		-- after the language server attaches to the current buffer
