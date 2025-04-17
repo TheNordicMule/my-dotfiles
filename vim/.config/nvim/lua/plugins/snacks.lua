@@ -45,6 +45,12 @@ return {
 				})
 			end,
 		},
+		{
+			"<Leader>tf",
+			function()
+				require("snacks").picker.pickers()
+			end,
+		},
 
 		{
 			"<Leader>ts",
