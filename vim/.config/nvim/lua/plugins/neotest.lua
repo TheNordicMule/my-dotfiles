@@ -4,6 +4,8 @@ return {
 		"nvim-lua/plenary.nvim",
 		"nvim-treesitter/nvim-treesitter",
 		"alfaix/neotest-gtest",
+		"marilari88/neotest-vitest",
+		"nvim-neotest/neotest-jest",
 	},
 	keys = {
 		-- Run tests for the current file
@@ -123,7 +125,8 @@ return {
 
 		neotest.setup({
 			adapters = {
-				require("neotest-gtest").setup({}),
+				require("neotest-vitest"),
+				require("neotest-jest"),
 			},
 			status = { virtual_text = true },
 			output = { open_on_run = true },

@@ -1,9 +1,19 @@
 return {
+	{
+		"saghen/blink.compat",
+		-- use the latest release, via version = '*', if you also use the latest release for blink.cmp
+		version = "*",
+		-- lazy.nvim will automatically load the plugin when it's required by blink.cmp
+		lazy = true,
+		-- make sure to set opts so that lazy.nvim calls blink.compat's setup
+		opts = {},
+	},
 	{ -- Autocompletion
 		"saghen/blink.cmp",
 		event = "VimEnter",
 		version = "1.*",
 		dependencies = {
+			"rcarriga/cmp-dap",
 			{ "nvim-tree/nvim-web-devicons", opts = {} },
 			-- Snippet Engine
 			{
@@ -92,7 +102,13 @@ return {
 
 			sources = {
 				default = { "lsp", "path", "snippets", "lazydev", "buffer" },
+				per_filetype = {
+					["dap-repl"] = { "dap" },
+					["dapui_watches"] = { "dap" },
+					["dapui_hover"] = { "dap" },
+				},
 				providers = {
+					dap = { name = "dap", module = "blink.compat.source" },
 					lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
 				},
 			},
@@ -103,5 +119,17 @@ return {
 
 			signature = { enabled = true },
 		},
+		config = function(_, opts)
+			require("blink.cmp").setup(opts)
+
+			-- Autocommand for DAP filetypes
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = { "dap-repl", "dapui_watches", "dapui_hover" },
+				callback = function()
+					vim.b.completion = true
+				end,
+				desc = "Enable completion for DAP-REPL filetypes",
+			})
+		end,
 	},
 }
