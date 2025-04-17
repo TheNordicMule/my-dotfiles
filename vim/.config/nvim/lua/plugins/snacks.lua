@@ -39,7 +39,10 @@ return {
 		{
 			"<Leader>ts",
 			function()
-				require("snacks").picker.grep()
+				require("snacks").picker.grep({
+					live = false,
+					search = vim.fn.input("Grep For > "),
+				})
 			end,
 		},
 
