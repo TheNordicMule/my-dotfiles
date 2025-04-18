@@ -8,6 +8,7 @@ return {
 				local harpoon = require("harpoon")
 				harpoon:list():add()
 			end,
+			desc = "add to harpoon",
 		},
 		{
 			"<leader>mm",
@@ -15,6 +16,7 @@ return {
 				local harpoon = require("harpoon")
 				harpoon.ui:toggle_quick_menu(harpoon:list())
 			end,
+			desc = "harpoon marks",
 		},
 		{
 			"<leader>1",

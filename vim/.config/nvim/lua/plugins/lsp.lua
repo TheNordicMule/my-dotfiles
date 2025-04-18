@@ -17,42 +17,62 @@ return {
 				local bufopts = { buffer = event.buf }
 				local snacks = require("snacks")
 
-				vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
+				vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to Declaration", unpack(bufopts) })
 				vim.keymap.set("n", "gd", function()
 					snacks.picker.lsp_definitions()
-				end, bufopts)
+				end, { desc = "Go to Definition", unpack(bufopts) })
+
 				vim.keymap.set("n", "gi", function()
 					snacks.picker.lsp_implementations()
-				end, bufopts)
-				vim.keymap.set({ "i", "n" }, "<C-k>", function()
-					vim.lsp.buf.signature_help({
-						border = "rounded",
-					})
-				end, bufopts)
-				vim.keymap.set({ "i", "n" }, "K", function()
-					vim.lsp.buf.hover({
-						border = "rounded",
-					})
-				end, bufopts)
-				vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-				vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
-				vim.keymap.set("n", "<space>wl", function()
-					print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-				end, bufopts)
-				vim.keymap.set("n", "<space>D", function()
-					snacks.picker.lsp_type_definitions()
-				end, bufopts)
-				vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
-				vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, bufopts)
-				vim.keymap.set("n", "<space>ds", function()
-					snacks.picker.lsp_symbols()
-				end, bufopts)
-				vim.keymap.set("n", "<space>ws", function()
-					snacks.picker.lsp_workspace_symbols()
-				end, bufopts)
+				end, { desc = "Go to Implementation", unpack(bufopts) })
+
 				vim.keymap.set("n", "gr", function()
 					snacks.picker.lsp_references()
-				end, bufopts)
+				end, { desc = "Find References", unpack(bufopts) })
+
+				vim.keymap.set({ "i", "n" }, "K", function()
+					vim.lsp.buf.hover({ border = "rounded" })
+				end, { desc = "Hover Documentation", unpack(bufopts) })
+
+				vim.keymap.set({ "i", "n" }, "<C-k>", function()
+					vim.lsp.buf.signature_help({ border = "rounded" })
+				end, { desc = "Signature Help", unpack(bufopts) })
+
+				vim.keymap.set(
+					"n",
+					"<space>wa",
+					vim.lsp.buf.add_workspace_folder,
+					{ desc = "Add Workspace Folder", unpack(bufopts) }
+				)
+				vim.keymap.set(
+					"n",
+					"<space>wr",
+					vim.lsp.buf.remove_workspace_folder,
+					{ desc = "Remove Workspace Folder", unpack(bufopts) }
+				)
+				vim.keymap.set("n", "<space>wl", function()
+					print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+				end, { desc = "List Workspace Folders", unpack(bufopts) })
+
+				vim.keymap.set("n", "<space>D", function()
+					snacks.picker.lsp_type_definitions()
+				end, { desc = "Go to Type Definition", unpack(bufopts) })
+
+				vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, { desc = "Rename Symbol", unpack(bufopts) })
+				vim.keymap.set(
+					{ "n", "v" },
+					"<space>ca",
+					vim.lsp.buf.code_action,
+					{ desc = "Code Action", unpack(bufopts) }
+				)
+
+				vim.keymap.set("n", "<space>ds", function()
+					snacks.picker.lsp_symbols()
+				end, { desc = "Document Symbols", unpack(bufopts) })
+
+				vim.keymap.set("n", "<space>ws", function()
+					snacks.picker.lsp_workspace_symbols()
+				end, { desc = "Workspace Symbols", unpack(bufopts) })
 			end,
 		})
 
@@ -115,7 +135,14 @@ return {
 		-- Mappings.
 		-- See `:help vim.diagnostic.*` for documentation on any of the below functions
 		local opts = { noremap = true, silent = true }
-		vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
-		vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
+
+		vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, { desc = "Show Diagnostics (Float)", unpack(opts) })
+
+		vim.keymap.set(
+			"n",
+			"<space>q",
+			vim.diagnostic.setloclist,
+			{ desc = "Diagnostics to Location List", unpack(opts) }
+		)
 	end,
 }

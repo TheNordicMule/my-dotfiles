@@ -6,33 +6,50 @@ return {
 		"theHamsta/nvim-dap-virtual-text",
 	},
 	keys = {
-		{ "<Leader>dd", "<cmd>:lua ToggleDap()<CR>" },
-		{ "<Leader>de", "<cmd>:lua require('dap').terminate()<CR>" },
+		-- 🐞 Debugging Controls
+		{ "<Leader>dd", "<cmd>:lua ToggleDap()<CR>", desc = "Toggle custom DAP UI" },
+		{ "<Leader>de", "<cmd>:lua require('dap').terminate()<CR>", desc = "Terminate debug session" },
 		{
 			"<Leader>dc",
 			function()
 				require("dap").continue()
 			end,
+			desc = "Start/Continue debugging",
 		},
-		{ "<Leader>dC", "<cmd>:lua require('dap').set_breakpoint(vim.fn.input('Conditional Breakpoint > '))<CR>" },
-		{ "<Leader>dt", "<cmd>:lua require('dap').toggle_breakpoint()<CR>" },
-		{ "<Leader>dT", "<cmd>:lua require'dap'.clear_breakpoints()<CR>" },
-		{ "<Leader>dr", "<cmd>:lua require'dap'.run_to_cursor()<CR>" },
+		{
+			"<Leader>dC",
+			"<cmd>:lua require('dap').set_breakpoint(vim.fn.input('Conditional Breakpoint > '))<CR>",
+			desc = "Set conditional breakpoint",
+		},
+		{ "<Leader>dt", "<cmd>:lua require('dap').toggle_breakpoint()<CR>", desc = "Toggle breakpoint" },
+		{ "<Leader>dT", "<cmd>:lua require'dap'.clear_breakpoints()<CR>", desc = "Clear all breakpoints" },
+		{ "<Leader>dr", "<cmd>:lua require'dap'.run_to_cursor()<CR>", desc = "Run to cursor" },
 
-		-- new addition to experiment
-		{ "<Leader>dn", "<cmd>:lua require('dap').run_last()<CR>" },
+		-- 🔁 Replay & Log Points
+		{ "<Leader>dn", "<cmd>:lua require('dap').run_last()<CR>", desc = "Run last debug session" },
 		{
 			"<Leader>dp",
 			function()
 				require("dap").toggle_breakpoint(nil, nil, vim.fn.input("Log point message: "))
 			end,
+			desc = "Set log point (with message)",
 		},
-		{ "<Leader>df", "<cmd>:lua require('dapui').float_element()<CR>" },
-		{ "<Leader>dk", "<cmd>:lua require('dapui').eval()<CR>" },
-		{ "<Leader>dh", "<cmd>:lua require('dap').step_out()<CR>" },
-		{ "<Leader>dl", "<cmd>:lua require('dap').step_into()<CR>" },
-		{ "<Leader>dj", "<cmd>:lua require('dap').step_over()<CR>" },
-		{ "<Leader>dx", "<cmd>:lua require('dap').set_exception_breakpoints()<CR>" },
+
+		-- 🧩 DAP UI Interactions
+		{ "<Leader>df", "<cmd>:lua require('dapui').float_element()<CR>", desc = "Open floating DAP UI" },
+		{ "<Leader>dk", "<cmd>:lua require('dapui').eval()<CR>", desc = "Evaluate expression" },
+
+		-- 🔍 Stepping Through Code
+		{ "<Leader>dh", "<cmd>:lua require('dap').step_out()<CR>", desc = "Step out" },
+		{ "<Leader>dl", "<cmd>:lua require('dap').step_into()<CR>", desc = "Step into" },
+		{ "<Leader>dj", "<cmd>:lua require('dap').step_over()<CR>", desc = "Step over" },
+
+		-- ⚠️ Exception Handling
+		{
+			"<Leader>dx",
+			"<cmd>:lua require('dap').set_exception_breakpoints()<CR>",
+			desc = "Set exception breakpoints",
+		},
 	},
 	config = function()
 		local dap, dapui = require("dap"), require("dapui")

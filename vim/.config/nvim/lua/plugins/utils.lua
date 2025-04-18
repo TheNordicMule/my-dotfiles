@@ -4,14 +4,14 @@ return {
 		"mbbill/undotree",
 		keys = {
 			-- undo tree
-			{ "<leader>u", "<cmd>UndotreeToggle<CR>" },
+			{ "<leader>u", "<cmd>UndotreeToggle<CR>", desc = "undo tree" },
 		},
 	},
 
 	{
 		"szw/vim-maximizer",
 		keys = {
-			{ "<leader>m", "<cmd>:MaximizerToggle!<CR>" },
+			{ "<leader>m", "<cmd>:MaximizerToggle!<CR>", desc = "maximize window" },
 		},
 	},
 
@@ -24,7 +24,7 @@ return {
 			vim.fn["mkdp#util#install"]()
 		end,
 		keys = {
-			{ "<leader>v", "<Plug>MarkdownPreviewToggle" },
+			{ "<leader>v", "<Plug>MarkdownPreviewToggle", "markdown toggle" },
 		},
 	},
 }
