@@ -31,6 +31,13 @@ return {
 	},
 	keys = {
 		{
+			"<Leader><Leader>",
+			function()
+				require("snacks").picker.smart()
+			end,
+			desc = "Pick smart",
+		},
+		{
 			"<C-p>",
 			function()
 				require("snacks").picker.git_files()
