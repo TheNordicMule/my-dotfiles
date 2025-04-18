@@ -1,0 +1,9 @@
+
+alias v='nvim'
+alias vim='nvim'
+alias npmg='npm list -g --depth 0'
+alias cat='bat'
+alias grep='rg'
+alias ls='lsd'
+alias cf1='caffeinate -u -t 3600'
+alias cf2='caffeinate -u -t 7200'

@@ -79,33 +79,14 @@ source $ZSH/oh-my-zsh.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-alias v='nvim'
-alias vim='nvim'
-alias npmg='npm list -g --depth 0'
-alias cat='bat'
 export PATH="$HOME/my-dotfiles/bins:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
+
+source ~/.zsh_aliases
 
 # use vim binding
 bindkey '^n' autosuggest-accept
@@ -115,13 +96,6 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#EBCB8B'
 export BAT_THEME="Nord"
 export EDITOR=nvim
 
-alias grep='rg'
-alias ls='lsd'
-
-
-
-alias cf1='caffeinate -u -t 3600'
-alias cf2='caffeinate -u -t 7200'
 
 export FZF_DEFAULT_COMMAND='fd'
 
