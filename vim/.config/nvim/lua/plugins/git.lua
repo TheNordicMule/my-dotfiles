@@ -2,14 +2,18 @@ return {
 	{
 		"tpope/vim-fugitive",
 		keys = {
-			{ "<leader>ga", "<cmd>Git add %<CR>" },
-			{ "<leader>gs", "<cmd>Git<CR>" },
-			{ "<leader>gb", "<cmd>Git blame<CR>" },
-			{ "<leader>gr", "<cmd>Git restore %<CR>" },
-			{ "<leader>gl", "<cmd>Git log<CR>" },
-			{ "gp", "<cmd>!Git pull<CR>" },
-			{ "dh", "<cmd>diffget //2<CR>" },
-			{ "dl", "<cmd>diffget //3<CR>" },
+			{ "<leader>ga", "<cmd>Git add %<CR>", desc = "Git Add Current File" },
+			{ "<leader>gs", "<cmd>Git<CR>", desc = "Git Status" },
+			{ "<leader>gb", "<cmd>Git blame<CR>", desc = "Git Blame" },
+			{ "<leader>gr", "<cmd>Git restore %<CR>", desc = "Git Restore File" },
+			{ "<leader>gl", "<cmd>Git log<CR>", desc = "Git Log" },
+
+			-- Git pull (external command)
+			{ "gp", "<cmd>!Git pull<CR>", desc = "Git Pull" },
+
+			-- Diffget (resolving merge conflicts)
+			{ "dh", "<cmd>diffget //2<CR>", desc = "Diff Get Left (//2)" },
+			{ "dl", "<cmd>diffget //3<CR>", desc = "Diff Get Right (//3)" },
 		},
 	},
 	{

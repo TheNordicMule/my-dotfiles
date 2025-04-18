@@ -70,6 +70,7 @@ return {
 			},
 		})
 
+		local home = vim.env.HOME
 		require("dap").adapters["pwa-node"] = {
 			type = "server",
 			host = "localhost",
