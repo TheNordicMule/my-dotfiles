@@ -35,7 +35,7 @@ return {
 			function()
 				require("snacks").picker.git_files()
 			end,
-			desc = "pick files",
+			desc = "Pick files",
 		},
 
 		{
@@ -45,14 +45,14 @@ return {
 					hidden = true,
 				})
 			end,
-			desc = "all files(hidden)",
+			desc = "All files(hidden)",
 		},
 		{
 			"<Leader>tf",
 			function()
 				require("snacks").picker.pickers()
 			end,
-			desc = "pickers",
+			desc = "Pickers",
 		},
 
 		{
@@ -63,7 +63,7 @@ return {
 					search = vim.fn.input("Grep For > "),
 				})
 			end,
-			desc = "pick string",
+			desc = "Pick string",
 		},
 
 		{
@@ -71,7 +71,7 @@ return {
 			function()
 				require("snacks").picker.grep_word()
 			end,
-			desc = "pick current word",
+			desc = "Pick current word",
 		},
 
 		{
@@ -79,42 +79,42 @@ return {
 			function()
 				require("snacks").picker.buffers()
 			end,
-			desc = "pick buffers",
+			desc = "Pick buffers",
 		},
 		{
 			"<Leader>tq",
 			function()
 				require("snacks").picker.qflist()
 			end,
-			desc = "pick quickfix",
+			desc = "Pick quickfix",
 		},
 		{
 			"<Leader>tr",
 			function()
 				require("snacks").picker.registers()
 			end,
-			desc = "pick registers",
+			desc = "Pick registers",
 		},
 		{
 			"<Leader>td",
 			function()
 				require("snacks").picker.diagnostics()
 			end,
-			desc = "pick diagnostics",
+			desc = "Pick diagnostics",
 		},
 		{
 			"<Leader>th",
 			function()
 				require("snacks").picker.help()
 			end,
-			desc = "pick help",
+			desc = "Pick help",
 		},
 		{
 			"<Leader>tc",
 			function()
 				require("snacks").picker.commands()
 			end,
-			desc = "pick commands",
+			desc = "Pick commands",
 		},
 		{
 			"<Leader>tg",
@@ -123,14 +123,14 @@ return {
 					all = true,
 				})
 			end,
-			desc = "pick git branches",
+			desc = "Pick git branches",
 		},
 		{
 			"<leader>gh",
 			function()
 				require("snacks").gitbrowse()
 			end,
-			desc = "browse git",
+			desc = "Browse git",
 		},
 	},
 }

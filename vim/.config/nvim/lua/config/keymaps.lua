@@ -64,8 +64,8 @@ buf_set_keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 buf_set_keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 buf_set_keymap("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
-buf_set_keymap("n", "<leader>ls", "<cmd>LspRestart<CR>", { desc = "restart LSP" })
-buf_set_keymap("n", "<leader>to", "<cmd>e ~/todo.md<CR>", { desc = "edit TODO" })
+buf_set_keymap("n", "<leader>ls", "<cmd>LspRestart<CR>", { desc = "Restart LSP" })
+buf_set_keymap("n", "<leader>to", "<cmd>e ~/todo.md<CR>", { desc = "Edit TODO" })
 
 --mark
 buf_set_keymap("n", "mh", "mH")

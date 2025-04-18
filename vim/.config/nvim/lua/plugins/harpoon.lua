@@ -16,7 +16,7 @@ return {
 				local harpoon = require("harpoon")
 				harpoon.ui:toggle_quick_menu(harpoon:list())
 			end,
-			desc = "harpoon marks",
+			desc = "Harpoon marks",
 		},
 		{
 			"<leader>1",
