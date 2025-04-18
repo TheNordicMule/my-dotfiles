@@ -3,9 +3,19 @@ return {
 	event = "VeryLazy",
 	opts = {
 		delay = 1000,
-		-- your configuration comes here
-		-- or leave it empty to use the default settings
-		-- refer to the configuration section below
+		spec = {
+			{ "<leader>c", group = "Code" },
+			{ "<leader>d", group = "Debug" },
+			{ "<leader>g", group = "Git" },
+			{ "<leader>h", group = "Hunks" },
+			{ "<leader>n", group = "Neotest" },
+			{ "<leader>t", group = "Search/telescope" },
+			{ "<leader>w", group = "Workspace" },
+			{ "[", group = "Prev" },
+			{ "]", group = "Next" },
+			{ "g", group = "Goto" },
+			{ "z", group = "Fold" },
+		},
 	},
 	keys = {
 		{
