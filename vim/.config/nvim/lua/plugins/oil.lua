@@ -15,6 +15,6 @@ return {
 		},
 	},
 	keys = {
-		{ "<leader>fe", "<cmd>Oil<CR>" },
+		{ "<leader>fe", "<cmd>Oil<CR>", desc = "File Explorer" },
 	},
 }
