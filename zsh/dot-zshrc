@@ -93,7 +93,7 @@ bindkey '^n' autosuggest-accept
 bindkey -s '^f' 'tmux-sessionizer\n'
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#EBCB8B'
-export BAT_THEME="Catppuccin"
+export BAT_THEME="Nord"
 export EDITOR=nvim
 
 

@@ -30,7 +30,7 @@ return {
 					snacks.picker.lsp_references()
 				end, { desc = "Find References", unpack(bufopts) })
 
-				vim.keymap.set({ "i", "n" }, "K", function()
+				vim.keymap.set("n", "K", function()
 					vim.lsp.buf.hover({ border = "rounded" })
 				end, { desc = "Hover Documentation", unpack(bufopts) })
 
