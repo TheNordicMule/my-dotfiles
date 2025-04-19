@@ -101,6 +101,8 @@ export FZF_DEFAULT_COMMAND='fd'
 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 eval "$(starship init zsh)"
+export XDG_CONFIG_HOME="$HOME/my-dotfiles/config"
+export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 
 # BEGIN opam configuration
 # This is useful if you're using opam as it adds:
