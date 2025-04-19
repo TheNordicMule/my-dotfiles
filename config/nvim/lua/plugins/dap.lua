@@ -55,20 +55,7 @@ return {
 		local dap, dapui = require("dap"), require("dapui")
 		require("nvim-dap-virtual-text").setup()
 
-		require("dapui").setup({
-			layouts = {
-				{ elements = { "console", "repl" }, size = 7, position = "bottom" },
-				{
-					elements = {
-						-- Elements can be strings or table with id and size keys.
-						{ id = "scopes", size = 0.25 },
-						"watches",
-					},
-					size = 40,
-					position = "left",
-				},
-			},
-		})
+		require("dapui").setup()
 
 		local home = vim.env.HOME
 		require("dap").adapters["pwa-node"] = {
