@@ -7,7 +7,7 @@ local config = wezterm.config_builder()
 -- This is where you actually apply your config choices
 
 -- my coolnight colorscheme
-config.color_scheme = "nord"
+config.color_scheme = "catppuccin-mocha"
 wezterm.font("Iosevka")
 
 config.warn_about_missing_glyphs = false

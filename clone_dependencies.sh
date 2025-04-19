@@ -12,6 +12,11 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 
 # nord theme tmux
 git clone https://github.com/arcticicestudio/nord-tmux.git
+
+# catpuccine tmux
+mkdir -p ~/.config/tmux/plugins/catppuccin
+git clone -b v2.1.3 https://github.com/catppuccin/tmux.git ~/.config/tmux/plugins/catppuccin/tmux
+
 # wall papers
 git clone https://github.com/linuxdotexe/nordic-wallpapers.git
 
