@@ -3,6 +3,10 @@ return {
 	event = "VeryLazy",
 	opts = {
 		delay = 1000,
+		filter = function(mapping)
+			return mapping.desc and mapping.desc ~= ""
+		end,
+		preset = "helix",
 		spec = {
 			{ "<leader>c", group = "Code" },
 			{ "<leader>d", group = "Debug" },
