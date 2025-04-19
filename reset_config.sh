@@ -6,7 +6,9 @@ folders=("wezterm" "tmux" "zsh")
 for folder in "${folders[@]}"
 do
     stow -D $folder
-    stow $folder
+    stow --dotfiles $folder
 done
 popd
 
+stow -D config
+stow --target="$HOME/.config" config
