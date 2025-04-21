@@ -10,13 +10,6 @@ sh <(curl -L https://nixos.org/nix/install)
 # install oh my zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# nord theme tmux
-git clone https://github.com/arcticicestudio/nord-tmux.git
-
-# catpuccine tmux
-mkdir -p ~/.config/tmux/plugins/catppuccin
-git clone -b v2.1.3 https://github.com/catppuccin/tmux.git ~/.config/tmux/plugins/catppuccin/tmux
-
 # wall papers
 git clone https://github.com/linuxdotexe/nordic-wallpapers.git
 
