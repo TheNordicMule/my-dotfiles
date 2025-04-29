@@ -1,5 +1,6 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
+	event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
 	dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
 	build = ":TSUpdate",
 	opts = {
