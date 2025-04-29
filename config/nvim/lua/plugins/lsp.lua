@@ -80,7 +80,7 @@ return {
 
 		vim.diagnostic.config({
 			severity_sort = true,
-			float = { border = "rounded", source = "if_many", prefix = "●" },
+			float = { border = "rounded", source = "if_many" },
 			signs = {
 				text = {
 					[vim.diagnostic.severity.ERROR] = icons.diagnostics.Error,
