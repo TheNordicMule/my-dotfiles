@@ -20,6 +20,7 @@ return {
 	},
 	{
 		"nordtheme/vim",
+    event = "VeryLazy"
 		--   priority = 1000,
 		-- config = function()
 		-- 	vim.cmd.colorscheme("nord")
@@ -34,6 +35,7 @@ return {
 	},
 	{
 		"folke/todo-comments.nvim",
+    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = {
 			signs = false,
