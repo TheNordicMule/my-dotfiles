@@ -2,14 +2,9 @@ return {
 	{
 		"nvim-lualine/lualine.nvim",
 		event = "VeryLazy",
-		config = function()
-			require("lualine").setup({
-				options = {
-					theme = "catppuccin",
-					-- ... the rest of your lualine config
-				},
-			})
-		end,
+		opts = {
+			theme = "catppuccin",
+		},
 	},
 	{
 		"catppuccin/nvim",
