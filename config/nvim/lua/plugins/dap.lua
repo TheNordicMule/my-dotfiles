@@ -86,12 +86,15 @@ return {
 			dapui.close({})
 		end
 
-		vim.fn.sign_define("DapBreakpoint", { text = " ", texthl = "DiagnosticInfo", linehl = nil, numhl = nil })
-		vim.fn.sign_define("DapStopped", { text = "󰁕 ", texthl = "DapStopped", linehl = nil, numhl = nil })
-		vim.fn.sign_define(
-			"DapBreakpointRejected",
-			{ text = " ", texthl = "DapBreakpointRejected", linehl = nil, numhl = nil }
-		)
+		local icons = require("icons")
+
+		for name, sign in pairs(icons.dap) do
+			sign = type(sign) == "table" and sign or { sign }
+			vim.fn.sign_define(
+				"Dap" .. name,
+				{ text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
+			)
+		end
 
 		dap.adapters.codelldb = {
 			type = "server",

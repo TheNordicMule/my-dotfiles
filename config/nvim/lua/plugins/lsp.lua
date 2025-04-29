@@ -76,15 +76,17 @@ return {
 			end,
 		})
 
+		local icons = require("icons")
+
 		vim.diagnostic.config({
 			severity_sort = true,
-			float = { border = "rounded", source = "if_many" },
+			float = { border = "rounded", source = "if_many", prefix = "●" },
 			signs = {
 				text = {
-					[vim.diagnostic.severity.ERROR] = "󰅚 ",
-					[vim.diagnostic.severity.WARN] = "󰀪 ",
-					[vim.diagnostic.severity.INFO] = "󰋽 ",
-					[vim.diagnostic.severity.HINT] = "󰌶 ",
+					[vim.diagnostic.severity.ERROR] = icons.diagnostics.Error,
+					[vim.diagnostic.severity.WARN] = icons.diagnostics.Warn,
+					[vim.diagnostic.severity.HINT] = icons.diagnostics.Hint,
+					[vim.diagnostic.severity.INFO] = icons.diagnostics.Info,
 				},
 			},
 			virtual_text = {
