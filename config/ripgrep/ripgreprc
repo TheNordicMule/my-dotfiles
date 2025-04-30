@@ -1,0 +1,6 @@
+--smart-case
+--follow
+--multiline-dotall
+
+--type-add
+spec:*.spec.*
