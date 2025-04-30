@@ -1,6 +1,6 @@
 local opt = vim.opt
 
--- tab 
+-- tab
 opt.tabstop = 2
 opt.softtabstop = 2
 opt.shiftwidth = 2
@@ -90,3 +90,5 @@ opt.inccommand = "split"
 
 -- show the line you are on
 opt.cursorline = true
+
+opt.grepprg = "rg --vimgrep --smart-case --hidden --follow --multiline-dotall"
