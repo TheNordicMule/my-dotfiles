@@ -28,7 +28,7 @@ return {
 
 				vim.keymap.set("n", "gr", function()
 					snacks.picker.lsp_references()
-				end, { desc = "Find References", unpack(bufopts) })
+				end, { desc = "Find References", unpack(bufopts), nowait = true })
 
 				vim.keymap.set("n", "K", function()
 					vim.lsp.buf.hover({ border = "rounded" })
