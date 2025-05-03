@@ -58,3 +58,6 @@ buf_set_keymap("n", "ml", "mL")
 buf_set_keymap("n", "'h", "'H")
 buf_set_keymap("n", "'m", "'M")
 buf_set_keymap("n", "'l", "'L")
+
+buf_set_keymap("n", "<leader>x", "<cmd>.lua<CR>", { desc = "Execute the current line" })
+buf_set_keymap("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = "Execute the current file" })
