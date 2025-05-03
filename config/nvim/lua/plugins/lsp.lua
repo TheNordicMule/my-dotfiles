@@ -110,7 +110,8 @@ return {
 			PATH = "append",
 		})
 
-		local ensure_installed = { "pyright", "clangd", "gopls", "rust_analyzer", "nil", "ocamllsp", "lua_ls" }
+		local ensure_installed =
+			{ "pyright", "clangd", "gopls", "rust_analyzer", "nil", { "ocamllsp", version = "1.19.0" }, "lua_ls" }
 
 		vim.list_extend(ensure_installed, {
 			"stylua", -- Used to format Lua code
