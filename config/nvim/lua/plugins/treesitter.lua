@@ -4,13 +4,14 @@ return {
 	dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
 	build = ":TSUpdate",
 	main = "nvim-treesitter.configs", -- sets main module to use for opts
-	ensure_installed = {
-		"lua",
-		"typescript",
-		"gitcommit",
-		"vimdoc",
-	},
 	opts = {
+		ensure_installed = {
+			"lua",
+			"typescript",
+			"gitcommit",
+			"vimdoc",
+			"regex",
+		},
 		highlight = {
 			enable = true,
 		},
