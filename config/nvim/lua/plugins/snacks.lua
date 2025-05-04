@@ -20,8 +20,16 @@ return {
 		scroll = { enabled = false },
 		statuscolumn = { enabled = true },
 		words = { enabled = false },
+		zen = { enabled = true },
 	},
 	keys = {
+		{
+			"<leader>zz",
+			function()
+				require("snacks").zen.zen()
+			end,
+			desc = "Zen mode",
+		},
 		{
 			"<C-p>",
 			function()
