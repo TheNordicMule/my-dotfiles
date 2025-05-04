@@ -120,7 +120,7 @@ return {
 			"prettierd",
 		})
 
-		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+		require("mason-tool-installer").setup({ ensure_installed = ensure_installed, run_on_start = true })
 
 		require("mason-lspconfig").setup({
 			ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
@@ -139,12 +139,5 @@ return {
 		local opts = { noremap = true, silent = true }
 
 		vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, { desc = "Show Diagnostics (Float)", unpack(opts) })
-
-		vim.keymap.set(
-			"n",
-			"<space>q",
-			vim.diagnostic.setloclist,
-			{ desc = "Diagnostics to Location List", unpack(opts) }
-		)
 	end,
 }

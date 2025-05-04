@@ -3,7 +3,13 @@ return {
 	event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
 	dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
 	build = ":TSUpdate",
-  main = "nvim-treesitter.configs", -- sets main module to use for opts
+	main = "nvim-treesitter.configs", -- sets main module to use for opts
+	ensure_installed = {
+		"lua",
+		"typescript",
+		"gitcommit",
+		"vimdoc",
+	},
 	opts = {
 		highlight = {
 			enable = true,
