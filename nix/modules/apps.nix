@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs;
     [
-      aerospace
       alejandra
       bat
       bitwarden-desktop
@@ -57,9 +56,11 @@
       "homebrew/cask-fonts"
       "homebrew/cask-versions"
       "homebrew/services"
+      "nikitabobko/tap"
     ];
 
     casks = [
+      "aerospace"
       "anki"
       "discord"
       "font-sf-pro"
