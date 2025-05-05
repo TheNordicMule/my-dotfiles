@@ -5,8 +5,10 @@
       bat
       bottom
       cmake
+      colima
       coreutils
       delta
+      docker
       dust
       fd
       fzf
@@ -42,6 +44,7 @@
 
     onActivation = {
       autoUpdate = false;
+      cleanup = "zap";
     };
 
     taps = [
@@ -58,7 +61,6 @@
       "anki"
       "bitwarden"
       "discord"
-      "docker"
       "firefox"
       "font-sf-pro"
       "obsidian"
