@@ -25,6 +25,7 @@
       opam
       pom
       ripgrep
+      sketchybar
       starship
       stow
       tealdeer
