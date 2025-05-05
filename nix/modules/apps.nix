@@ -24,7 +24,6 @@
       opam
       pom
       ripgrep
-      sketchybar
       starship
       stow
       tealdeer
@@ -57,6 +56,11 @@
       "homebrew/cask-versions"
       "homebrew/services"
       "nikitabobko/tap"
+      "FelixKratz/formulae"
+    ];
+
+    brews = [
+      "sketchybar"
     ];
 
     casks = [
