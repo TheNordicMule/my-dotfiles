@@ -12,7 +12,7 @@
       docker
       dust
       fd
-      firefox
+      firefox-unwrapped
       fzf
       gh
       go
