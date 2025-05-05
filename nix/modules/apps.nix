@@ -1,8 +1,10 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs;
     [
+      aerospace
       alejandra
       bat
+      bitwarden-desktop
       bottom
       cmake
       colima
@@ -11,6 +13,7 @@
       docker
       dust
       fd
+      firefox
       fzf
       gh
       go
@@ -53,15 +56,11 @@
       "homebrew/cask-fonts"
       "homebrew/cask-versions"
       "homebrew/services"
-      "nikitabobko/tap"
     ];
 
     casks = [
-      "aerospace"
       "anki"
-      "bitwarden"
       "discord"
-      "firefox"
       "font-sf-pro"
       "obsidian"
       "raycast"
