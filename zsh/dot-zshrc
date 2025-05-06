@@ -101,6 +101,8 @@ export FZF_DEFAULT_COMMAND='fd'
 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/ripgreprc"
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
+export XDG_CONFIG_HOME="$HOME/.config"
 eval "$(starship init zsh)"
 
 # BEGIN opam configuration
