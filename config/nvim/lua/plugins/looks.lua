@@ -19,23 +19,16 @@ return {
 		end,
 	},
 	{
-		"nordtheme/vim",
-    event = "VeryLazy"
-		--   priority = 1000,
+		"gbprod/nord.nvim",
+		-- priority = 1000,
 		-- config = function()
+		-- 	require("nord").setup({})
 		-- 	vim.cmd.colorscheme("nord")
-		--
-		-- 	-- Remove background color from Normal and other UI groups
-		-- 	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-		-- 	vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
-		-- 	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-		-- 	vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
-		-- 	vim.api.nvim_set_hl(0, "VertSplit", { bg = "none" })
 		-- end,
 	},
 	{
 		"folke/todo-comments.nvim",
-    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = {
 			signs = false,
