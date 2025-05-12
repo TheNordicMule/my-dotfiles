@@ -8,13 +8,6 @@ return {
 		},
 	},
 
-	{
-		"szw/vim-maximizer",
-		keys = {
-			{ "<leader>m", "<cmd>:MaximizerToggle!<CR>", desc = "Maximize window" },
-		},
-	},
-
 	-- install without yarn or npm
 	{
 		"iamcco/markdown-preview.nvim",
