@@ -24,11 +24,11 @@ return {
 	},
 	keys = {
 		{
-			"<leader>zz",
+			"<leader>uz",
 			function()
 				require("snacks").zen.zen()
 			end,
-			desc = "Zen mode",
+			desc = "UI: Zen mode",
 		},
 		{
 			"<C-p>",
