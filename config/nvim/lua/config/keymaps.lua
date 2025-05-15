@@ -39,10 +39,10 @@ buf_set_keymap("v", "J", ":m '>+1<CR>gv=gv")
 buf_set_keymap("v", "K", ":m '<-2<CR>gv=gv")
 
 -- add resize
-buf_set_keymap("n", "<leader>+", ":vertical resize +5<CR>")
-buf_set_keymap("n", "<leader>-", ":vertical resize -5<CR>")
-buf_set_keymap("n", "<C-w>+", ":vertical resize +5<CR>")
-buf_set_keymap("n", "<C-w>-", ":vertical resize -5<CR>")
+buf_set_keymap("n", "<c-left>", ":vertical resize -2<CR>")
+buf_set_keymap("n", "<c-right>", ":vertical resize +2<CR>")
+buf_set_keymap("n", "<C-up>", ":horizontal resize -2<CR>")
+buf_set_keymap("n", "<C-down>", ":horizontal resize +2<CR>")
 
 buf_set_keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 buf_set_keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
