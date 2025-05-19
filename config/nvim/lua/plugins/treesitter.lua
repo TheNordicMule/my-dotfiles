@@ -4,6 +4,10 @@ return {
 	dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
 	build = ":TSUpdate",
 	main = "nvim-treesitter.configs", -- sets main module to use for opts
+	keys = {
+		{ "<leader>ui", "<cmd>Inspect<CR>", desc = "Inspect Node" },
+		{ "<leader>uI", "<cmd>InspectTree<CR>", desc = "Inspect Tree" },
+	},
 	opts = {
 		ensure_installed = {
 			"lua",
