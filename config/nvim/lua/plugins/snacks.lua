@@ -22,14 +22,13 @@ return {
 		words = { enabled = false },
 		zen = { enabled = true },
 	},
+	config = function(_, opts)
+		require("snacks").setup(opts)
+		require("snacks").toggle.dim():map("<leader>ud")
+		require("snacks").toggle.indent():map("<leader>ug")
+		require("snacks").toggle.zen():map("<leader>uz")
+	end,
 	keys = {
-		{
-			"<leader>uz",
-			function()
-				require("snacks").zen.zen()
-			end,
-			desc = "UI: Zen mode",
-		},
 		{
 			"<C-p>",
 			function()
