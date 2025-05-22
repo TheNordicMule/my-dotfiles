@@ -3,6 +3,7 @@
   nixpkgs.hostPlatform = "aarch64-darwin";
   # enable touch id for sudo
   security.pam.services.sudo_local.touchIdAuth = true;
+  security.pam.services.sudo_local.watchIdAuth = true;
   system.configurationRevision = self.rev or self.dirtyRev or null;
 
   system.keyboard = {
