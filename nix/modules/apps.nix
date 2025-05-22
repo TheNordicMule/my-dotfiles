@@ -2,6 +2,7 @@
   environment.systemPackages = with pkgs;
     [
       alejandra
+      bandwhich
       bat
       bitwarden-desktop
       bottom
