@@ -13,6 +13,7 @@
     nixpkgs,
   }: let
     configuration = {pkgs, ...}: {
+      system.primaryUser = "mingshiwang";
       fonts.packages = [
         pkgs.iosevka
         pkgs.sketchybar-app-font
