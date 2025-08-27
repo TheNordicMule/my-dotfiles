@@ -1,11 +1,5 @@
 return {
 	{
-		"pmizio/typescript-tools.nvim",
-		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-		event = { "BufReadPost", "BufNewFile", "BufWritePre" }, -- lazyload on file open
-		opts = {},
-	},
-	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			{ "j-hui/fidget.nvim", opts = {} },
@@ -14,7 +8,6 @@ return {
 			{ "WhoIsSethDaniel/mason-tool-installer.nvim" },
 			"saghen/blink.cmp",
 		},
-		event = { "BufReadPost", "BufNewFile", "BufWritePre" }, -- lazyload on file open
 		config = function()
 			-- Use an on_attach function to only map the following keys
 			-- after the language server attaches to the current buffer
@@ -135,15 +128,20 @@ return {
 				PATH = "append",
 			})
 
-			local ensure_installed =
-				{ "pyright", "clangd", "gopls", "rust_analyzer", "nil", { "ocamllsp", version = "1.19.0" }, "lua_ls" }
-
-			vim.list_extend(ensure_installed, {
+			local ensure_installed = {
+				"pyright",
+				"clangd",
+				"gopls",
+				"rust_analyzer",
+				"nil",
+				{ "ocamllsp", version = "1.19.0" },
+				"lua_ls",
 				"stylua", -- Used to format Lua code
 				"js-debug-adapter",
 				"eslint_d",
 				"prettierd",
-			})
+				"vtsls",
+			}
 
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed, run_on_start = true })
 
