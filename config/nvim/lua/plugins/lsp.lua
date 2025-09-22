@@ -3,7 +3,7 @@ return {
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			{ "j-hui/fidget.nvim", opts = {} },
-			{ "mason-org/mason.nvim" },
+			{ "mason-org/mason.nvim", opts = {} },
 			{ "mason-org/mason-lspconfig.nvim" },
 			{ "WhoIsSethDaniel/mason-tool-installer.nvim" },
 			"saghen/blink.cmp",
@@ -122,13 +122,28 @@ return {
 				},
 			})
 
-			local capabilities = require("blink.cmp").get_lsp_capabilities()
+			local servers = {
+				mason = {
+					lua_ls = {
+						-- cmd = { ... },
+						-- filetypes = { ... },
+						-- capabilities = {},
+						settings = {
+							Lua = {
+								completion = {
+									callSnippet = "Replace",
+								},
+							},
+						},
+					},
+				},
+				others = {
+					-- dartls = {},
+				},
+			}
 
-			require("mason").setup({
-				PATH = "append",
-			})
-
-			local ensure_installed = {
+			local ensure_installed = vim.tbl_keys(servers.mason or {})
+			vim.list_extend(ensure_installed, {
 				"pyright",
 				"clangd",
 				"gopls",
@@ -141,23 +156,28 @@ return {
 				"eslint_d",
 				"prettierd",
 				"vtsls",
-			}
-
-			require("mason-tool-installer").setup({ ensure_installed = ensure_installed, run_on_start = true })
-
-			require("mason-lspconfig").setup({
-				ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-				automatic_installation = false,
-				automatic_enable = true,
-				handlers = {
-					function(server_name) -- default handler (optional)
-						require("lspconfig")[server_name].setup({
-							capabilities = capabilities,
-						})
-					end,
-				},
 			})
 
+			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+
+			-- Either merge all additional server configs from the `servers.mason` and `servers.others` tables
+			-- to the default language server configs as provided by nvim-lspconfig or
+			-- define a custom server config that's unavailable on nvim-lspconfig.
+			for server, config in pairs(vim.tbl_extend("keep", servers.mason, servers.others)) do
+				if not vim.tbl_isempty(config) then
+					vim.lsp.config(server, config)
+				end
+			end
+
+			require("mason-lspconfig").setup({
+				ensure_installed = {},
+				automatic_enable = true,
+			})
+
+			-- Manually run vim.lsp.enable for all language servers that are *not* installed via Mason
+			if not vim.tbl_isempty(servers.others) then
+				vim.lsp.enable(vim.tbl_keys(servers.others))
+			end
 			-- Mappings.
 			-- See `:help vim.diagnostic.*` for documentation on any of the below functions
 			local opts = { noremap = true, silent = true }
