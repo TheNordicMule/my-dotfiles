@@ -90,3 +90,5 @@ opt.inccommand = "split"
 
 -- show the line you are on
 opt.cursorline = true
+
+opt.confirm = true

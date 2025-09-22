@@ -14,6 +14,12 @@ return {
 			require("catppuccin").setup({
 				flavour = "mocha",
 				transparent_background = true,
+				snacks = {
+					enabled = true,
+				},
+				float = {
+					transparent = true, -- enable transparent floating windows
+				},
 			})
 			vim.cmd.colorscheme("catppuccin-mocha")
 		end,
