@@ -9,7 +9,7 @@ return {
 			{ "<leader>gl", "<cmd>Git log<CR>", desc = "Git Log" },
 
 			-- Git pull (external command)
-			{ "gp", "<cmd>!Git pull<CR>", desc = "Git Pull" },
+			{ "<leader>gP", "<cmd>!Git pull<CR>", desc = "Git Pull" },
 
 			-- Diffget (resolving merge conflicts)
 			{ "dh", "<cmd>diffget //2<CR>", desc = "Diff Get Left (//2)" },

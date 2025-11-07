@@ -64,6 +64,13 @@ return {
 			end,
 			desc = "Pick string",
 		},
+		{
+			"<leader>gp",
+			function()
+				Snacks.picker.gh_pr()
+			end,
+			desc = "GitHub Pull Requests (open)",
+		},
 
 		{
 			"<Leader>tw",
