@@ -30,6 +30,14 @@ return {
 						snacks.picker.lsp_references()
 					end, { desc = "Find References", unpack(bufopts), nowait = true })
 
+					vim.keymap.set("n", "gai", function()
+						snacks.picker.lsp_incoming_calls()
+					end, { desc = "C[a]lls Incoming", unpack(bufopts) })
+
+					vim.keymap.set("n", "gao", function()
+						snacks.picker.lsp_outgoing_calls()
+					end, { desc = "C[a]lls Outgoing", unpack(bufopts) })
+
 					vim.keymap.set("n", "K", function()
 						vim.lsp.buf.hover({ border = "rounded" })
 					end, { desc = "Hover Documentation", unpack(bufopts) })
