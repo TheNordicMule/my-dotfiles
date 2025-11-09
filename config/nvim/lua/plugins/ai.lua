@@ -37,14 +37,6 @@ return {
 				desc = "Goto/Apply Next Edit Suggestion",
 			},
 			{
-				"<c-.>",
-				function()
-					require("sidekick.cli").toggle()
-				end,
-				desc = "Sidekick Toggle",
-				mode = { "n", "t", "i", "x" },
-			},
-			{
 				"<leader>aa",
 				function()
 					require("sidekick.cli").toggle()
@@ -97,14 +89,6 @@ return {
 				end,
 				mode = { "n", "x" },
 				desc = "Sidekick Select Prompt",
-			},
-			-- Example of a keybinding to open Claude directly
-			{
-				"<leader>ac",
-				function()
-					require("sidekick.cli").toggle({ name = "claude", focus = true })
-				end,
-				desc = "Sidekick Toggle Claude",
 			},
 		},
 	},
