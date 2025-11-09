@@ -14,6 +14,7 @@
   }: let
     configuration = {pkgs, ...}: {
       system.primaryUser = "mingshiwang";
+      nixpkgs.config.allowUnfree = true;
       fonts.packages = [
         pkgs.iosevka
         pkgs.sketchybar-app-font

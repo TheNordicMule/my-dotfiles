@@ -16,6 +16,7 @@
       firefox-unwrapped
       fzf
       gh
+      gh-copilot
       go
       jq
       lsd
