@@ -156,6 +156,7 @@ return {
 				"eslint_d",
 				"prettierd",
 				"vtsls",
+				"copilot",
 			})
 
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
