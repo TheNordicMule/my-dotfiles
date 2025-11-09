@@ -2,5 +2,5 @@
 set -e
 pushd ~/my-dotfiles/nix
 alejandra . &>/dev/null
-darwin-rebuild switch --flake . && git commit -a
+sudo darwin-rebuild switch --flake . && git commit -a
 popd
