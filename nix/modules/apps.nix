@@ -2,6 +2,7 @@
   environment.systemPackages = with pkgs;
     [
       alejandra
+      anki-bin
       bandwhich
       bat
       bitwarden-desktop
@@ -71,7 +72,6 @@
 
     casks = [
       "aerospace"
-      "anki"
       "font-sf-pro"
       "raycast"
       "sf-symbols"
