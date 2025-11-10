@@ -10,6 +10,7 @@
       colima
       coreutils
       delta
+      discord
       docker
       dust
       fd
@@ -23,14 +24,17 @@
       luajit
       neovim
       nodejs
+      obsidian
       opam
       pom
       ripgrep
+      spotify
       starship
       stow
       tealdeer
       tmux
       tokei
+      vscode
       wezterm
       wget
     ]
@@ -68,14 +72,10 @@
     casks = [
       "aerospace"
       "anki"
-      "discord"
       "font-sf-pro"
-      "obsidian"
       "raycast"
       "sf-symbols"
-      "spotify"
       "stats"
-      "visual-studio-code"
       "wechat"
     ];
   };
