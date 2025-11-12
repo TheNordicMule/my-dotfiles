@@ -70,3 +70,18 @@ buf_set_keymap("n", "'l", "'L")
 
 buf_set_keymap("n", "<leader>x", "<cmd>.lua<CR>", { desc = "Execute the current line" })
 buf_set_keymap("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = "Execute the current file" })
+
+-- Clear search and stop snippet on escape
+buf_set_keymap({ "i", "n", "s" }, "<esc>", function()
+	vim.cmd("noh")
+	return "<esc>"
+end, { expr = true, desc = "Escape and Clear hlsearch" })
+
+-- Clear search, diff update and redraw
+-- taken from runtime/lua/_editor.lua
+buf_set_keymap(
+	"n",
+	"<leader>ur",
+	"<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
+	{ desc = "Redraw / Clear hlsearch / Diff Update" }
+)
