@@ -42,7 +42,11 @@ return {
 						vim.lsp.buf.hover({ border = "rounded" })
 					end, { desc = "Hover Documentation", unpack(bufopts) })
 
-					vim.keymap.set({ "i", "n" }, "<C-k>", function()
+					vim.keymap.set("i", "<C-k>", function()
+						vim.lsp.buf.signature_help({ border = "rounded" })
+					end, { desc = "Signature Help", unpack(bufopts) })
+
+					vim.keymap.set("n", "gk", function()
 						vim.lsp.buf.signature_help({ border = "rounded" })
 					end, { desc = "Signature Help", unpack(bufopts) })
 

@@ -44,8 +44,17 @@ buf_set_keymap("n", "<c-right>", ":vertical resize +2<CR>")
 buf_set_keymap("n", "<C-up>", ":horizontal resize -2<CR>")
 buf_set_keymap("n", "<C-down>", ":horizontal resize +2<CR>")
 
-buf_set_keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-buf_set_keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- better up/down
+buf_set_keymap({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
+buf_set_keymap({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
+buf_set_keymap({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
+buf_set_keymap({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
+
+-- Move to window using the <ctrl> hjkl keys
+buf_set_keymap("n", "<C-h>", "<C-w>h", { desc = "Go to Left Window", remap = true })
+buf_set_keymap("n", "<C-j>", "<C-w>j", { desc = "Go to Lower Window", remap = true })
+buf_set_keymap("n", "<C-k>", "<C-w>k", { desc = "Go to Upper Window", remap = true })
+buf_set_keymap("n", "<C-l>", "<C-w>l", { desc = "Go to Right Window", remap = true })
 
 buf_set_keymap("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 buf_set_keymap("n", "<leader>ls", "<cmd>LspRestart<CR>", { desc = "Restart LSP" })
