@@ -3,7 +3,7 @@ return {
 		"nvim-lualine/lualine.nvim",
 		event = "VeryLazy",
 		opts = {
-			theme = "catppuccin",
+			globalstatus = true,
 		},
 	},
 	{
