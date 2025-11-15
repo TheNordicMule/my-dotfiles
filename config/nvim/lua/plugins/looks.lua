@@ -28,11 +28,12 @@ return {
 	},
 	{
 		"gbprod/nord.nvim",
-		-- priority = 1000,
-		-- config = function()
-		-- 	require("nord").setup({})
-		-- 	vim.cmd.colorscheme("nord")
-		-- end,
+		priority = 1000,
+		enabled = false,
+		config = function()
+			require("nord").setup({})
+			vim.cmd.colorscheme("nord")
+		end,
 	},
 	{
 		"folke/todo-comments.nvim",
