@@ -27,6 +27,7 @@
       nodejs
       obsidian
       opam
+      opencode
       pom
       ripgrep
       spotify
