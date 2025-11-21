@@ -43,7 +43,7 @@ return {
 			{
 				"<leader>aa",
 				function()
-					require("sidekick.cli").toggle()
+					require("sidekick.cli").toggle({ name = "opencode" })
 				end,
 				desc = "Sidekick Toggle CLI",
 			},
@@ -66,7 +66,7 @@ return {
 			{
 				"<leader>at",
 				function()
-					require("sidekick.cli").send({ msg = "{this}" })
+					require("sidekick.cli").send({ msg = "{this}", name = "opencode" })
 				end,
 				mode = { "x", "n" },
 				desc = "Send This",
@@ -81,7 +81,7 @@ return {
 			{
 				"<leader>av",
 				function()
-					require("sidekick.cli").send({ msg = "{selection}" })
+					require("sidekick.cli").send({ msg = "{selection}", name = "opencode" })
 				end,
 				mode = { "x" },
 				desc = "Send Visual Selection",
@@ -89,7 +89,7 @@ return {
 			{
 				"<leader>ap",
 				function()
-					require("sidekick.cli").prompt()
+					require("sidekick.cli").prompt({ name = "opencode" })
 				end,
 				mode = { "n", "x" },
 				desc = "Sidekick Select Prompt",
