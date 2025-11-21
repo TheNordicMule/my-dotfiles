@@ -29,6 +29,7 @@
       opam
       opencode
       pom
+      procs
       ripgrep
       spotify
       starship
