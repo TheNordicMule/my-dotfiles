@@ -31,7 +31,6 @@
       pom
       procs
       ripgrep
-      spotify
       starship
       stow
       tealdeer
@@ -77,6 +76,7 @@
       "font-sf-pro"
       "raycast"
       "sf-symbols"
+      "spotify"
       "stats"
       "wechat"
     ];
