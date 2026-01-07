@@ -92,3 +92,4 @@ opt.inccommand = "split"
 opt.cursorline = true
 
 opt.confirm = true
+opt.showmode = true
