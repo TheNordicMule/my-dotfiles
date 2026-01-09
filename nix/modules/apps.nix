@@ -73,6 +73,7 @@
 
     casks = [
       "aerospace"
+      "canon-ufrii-driver"
       "font-sf-pro"
       "raycast"
       "sf-symbols"
