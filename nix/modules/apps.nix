@@ -5,6 +5,7 @@
       anki-bin
       bandwhich
       bat
+      bitwarden-cli
       bitwarden-desktop
       bottom
       cmake
