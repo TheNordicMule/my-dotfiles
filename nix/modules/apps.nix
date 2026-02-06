@@ -19,7 +19,7 @@
       firefox-unwrapped
       fzf
       gh
-      gh-copilot
+      github-copilot-cli
       go
       jq
       lsd
