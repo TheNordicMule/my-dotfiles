@@ -1,7 +1,7 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
-	dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
 	build = ":TSUpdate",
+	branch = "main",
 	lazy = false,
 	keys = {
 		{ "<leader>ui", "<cmd>Inspect<CR>", desc = "Inspect Node" },
