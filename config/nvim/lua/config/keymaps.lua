@@ -78,3 +78,6 @@ end, { desc = "Next Warning" })
 buf_set_keymap("n", "[w", function()
 	vim.diagnostic.jump({ severity = vim.diagnostic.severity.WARN, count = -1 })
 end, { desc = "Prev Warning" })
+
+vim.cmd("packadd nvim.undotree")
+buf_set_keymap("n", "<leader>uu", "<cmd>Undotree<CR>")

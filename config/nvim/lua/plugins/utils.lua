@@ -1,13 +1,4 @@
 return {
-	-- looks
-	{
-		"mbbill/undotree",
-		keys = {
-			-- undo tree
-			{ "<leader>uu", "<cmd>UndotreeToggle<CR>", desc = "Undo tree" },
-		},
-	},
-
 	-- install without yarn or npm
 	{
 		"iamcco/markdown-preview.nvim",
