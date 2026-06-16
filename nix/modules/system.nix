@@ -16,6 +16,9 @@
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
 
+  system.defaults.WindowManager = {
+    StandardHideWidgets = true;
+  };
   system.defaults.dock = {
     autohide = true;
     # disable rearrange workspace based on MRU algo
