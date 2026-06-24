@@ -16,7 +16,7 @@
       docker
       dust
       fd
-      firefox-unwrapped
+      firefox
       fzf
       gh
       github-copilot-cli
