@@ -87,6 +87,7 @@ return {
 						client
 						and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf)
 					then
+						vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
 						vim.keymap.set({ "n", "i" }, "<leader>uh", function()
 							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
 						end, { desc = "[U]I: Inlay [H]ints", unpack(bufopts) })
@@ -170,6 +171,23 @@ return {
 					vim.lsp.config(server, config)
 				end
 			end
+
+			local ts_inlay_hints = {
+				inlayHints = {
+					parameterNames = { enabled = "all", suppressWhenArgumentMatchesName = true },
+					parameterTypes = { enabled = true },
+					variableTypes = { enabled = true, suppressWhenTypeMatchesName = true },
+					propertyDeclarationTypes = { enabled = true },
+					functionLikeReturnTypes = { enabled = true },
+					enumMemberValues = { enabled = true },
+				},
+			}
+			vim.lsp.config("vtsls", {
+				settings = {
+					typescript = ts_inlay_hints,
+					javascript = ts_inlay_hints,
+				},
+			})
 
 			require("mason-lspconfig").setup({
 				ensure_installed = {},

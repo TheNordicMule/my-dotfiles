@@ -246,6 +246,13 @@ config.colors = {
 	},
 }
 
+wezterm.on("update-status", function(window, _pane)
+	window:set_left_status(wezterm.format({
+		{ Foreground = { Color = scheme.ansi[5] } },
+		{ Text = "  " .. window:active_workspace() .. "  " },
+	}))
+end)
+
 -- ────────────────────────────────────────────────────────────────────────────
 -- Window
 -- ────────────────────────────────────────────────────────────────────────────
