@@ -1,0 +1,244 @@
+#!/bin/zsh
+set -e
+
+DOTFILES="$HOME/my-dotfiles"
+THEME_FILE="$HOME/.theme"
+
+usage() {
+  echo "Usage: theme-switch <catppuccin|nord>"
+  exit 1
+}
+
+[[ $# -ne 1 ]] && usage
+
+THEME="$1"
+[[ "$THEME" != "catppuccin" && "$THEME" != "nord" ]] && usage
+
+echo "$THEME" > "$THEME_FILE"
+
+# --- Sketchybar colors.sh ---
+SKETCHYBAR_COLORS="$DOTFILES/config/sketchybar/colors.sh"
+if [[ "$THEME" == "catppuccin" ]]; then
+  cat > "$SKETCHYBAR_COLORS" <<'EOF'
+#!/bin/bash
+
+export WHITE=0xffffffff
+
+export BAR_COLOR=0xff1e1e2e       # Catppuccin Mocha Base
+export ITEM_BG_COLOR=0xff313244   # Catppuccin Mocha Surface0
+export ACCENT_COLOR=0xff89b4fa    # Catppuccin Mocha Blue
+EOF
+else
+  cat > "$SKETCHYBAR_COLORS" <<'EOF'
+#!/bin/bash
+
+export WHITE=0xffffffff
+
+export BAR_COLOR=0xff2e3440  # Nord Polar Night Darkest
+export ITEM_BG_COLOR=0xff3b4252  # Nord Polar Night Dark
+export ACCENT_COLOR=0xff88c0d0  # Nord Frost Light
+EOF
+fi
+
+# --- Tmux ---
+TMUX_CONF="$DOTFILES/tmux/dot-tmux.conf"
+if [[ "$THEME" == "catppuccin" ]]; then
+  sed -i '' '
+    /^# catppuccine/,/^$/ {
+      s/^# \(BG=\)/\1/
+      s/^# \(FG=\)/\1/
+      s/^# \(BLUE=\)/\1/
+      s/^# \(GRAY=\)/\1/
+    }
+    /^# nord/,/^$/ {
+      s/^BG=/# BG=/
+      s/^FG=/# FG=/
+      s/^BLUE=/# BLUE=/
+      s/^GRAY=/# GRAY=/
+    }
+  ' "$TMUX_CONF"
+else
+  sed -i '' '
+    /^# catppuccine/,/^$/ {
+      s/^BG=/# BG=/
+      s/^FG=/# FG=/
+      s/^BLUE=/# BLUE=/
+      s/^GRAY=/# GRAY=/
+    }
+    /^# nord/,/^$/ {
+      s/^# \(BG=\)/\1/
+      s/^# \(FG=\)/\1/
+      s/^# \(BLUE=\)/\1/
+      s/^# \(GRAY=\)/\1/
+    }
+  ' "$TMUX_CONF"
+fi
+
+# --- Neovim looks.lua ---
+NVIM_LOOKS="$DOTFILES/config/nvim/lua/plugins/looks.lua"
+if [[ "$THEME" == "catppuccin" ]]; then
+  cat > "$NVIM_LOOKS" <<'LUAEOF'
+return {
+	{
+		"nvim-lualine/lualine.nvim",
+		event = "VeryLazy",
+		opts = {
+			options = {
+				globalstatus = true,
+			},
+		},
+	},
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		priority = 1000,
+		config = function()
+			require("catppuccin").setup({
+				flavour = "mocha",
+				transparent_background = true,
+				float = {
+					transparent = true,
+					solid = false,
+				},
+			})
+			vim.cmd.colorscheme("catppuccin-mocha")
+		end,
+	},
+	{
+		"gbprod/nord.nvim",
+		-- priority = 1000,
+		-- config = function()
+		-- 	require("nord").setup({})
+		-- 	vim.cmd.colorscheme("nord")
+		-- end,
+	},
+	{
+		"folke/todo-comments.nvim",
+		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = {
+			signs = false,
+		},
+	},
+}
+LUAEOF
+else
+  cat > "$NVIM_LOOKS" <<'LUAEOF'
+return {
+	{
+		"nvim-lualine/lualine.nvim",
+		event = "VeryLazy",
+		opts = {
+			options = {
+				globalstatus = true,
+			},
+		},
+	},
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		-- priority = 1000,
+		-- config = function()
+		-- 	require("catppuccin").setup({
+		-- 		flavour = "mocha",
+		-- 		transparent_background = true,
+		-- 		float = {
+		-- 			transparent = true,
+		-- 			solid = false,
+		-- 		},
+		-- 	})
+		-- 	vim.cmd.colorscheme("catppuccin-mocha")
+		-- end,
+	},
+	{
+		"gbprod/nord.nvim",
+		priority = 1000,
+		config = function()
+			require("nord").setup({})
+			vim.cmd.colorscheme("nord")
+		end,
+	},
+	{
+		"folke/todo-comments.nvim",
+		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = {
+			signs = false,
+		},
+	},
+}
+LUAEOF
+fi
+
+# --- Wezterm ---
+WEZTERM_CONF="$DOTFILES/wezterm/dot-wezterm.lua"
+if [[ "$THEME" == "catppuccin" ]]; then
+  sed -i '' 's/config.color_scheme = .*/config.color_scheme = "catppuccin-mocha"/' "$WEZTERM_CONF"
+else
+  sed -i '' 's/config.color_scheme = .*/config.color_scheme = "Nord (Gogh)"/' "$WEZTERM_CONF"
+fi
+
+# --- Starship ---
+STARSHIP_CONF="$DOTFILES/config/starship/starship.toml"
+if [[ "$THEME" == "catppuccin" ]]; then
+  sed -i '' '1s/.*/palette = "catppuccin_mocha"/' "$STARSHIP_CONF"
+else
+  sed -i '' '1s/.*/palette = "nord"/' "$STARSHIP_CONF"
+fi
+
+# Add nord palette to starship if missing
+if ! grep -q 'palettes.nord' "$STARSHIP_CONF"; then
+  cat >> "$STARSHIP_CONF" <<'EOF'
+
+[palettes.nord]
+rosewater = "#d8dee9"
+flamingo = "#d8dee9"
+pink = "#b48ead"
+mauve = "#b48ead"
+red = "#bf616a"
+maroon = "#bf616a"
+peach = "#d08770"
+yellow = "#ebcb8b"
+green = "#a3be8c"
+teal = "#8fbcbb"
+sky = "#88c0d0"
+sapphire = "#81a1c1"
+blue = "#5e81ac"
+lavender = "#81a1c1"
+text = "#eceff4"
+subtext1 = "#e5e9f0"
+subtext0 = "#d8dee9"
+overlay2 = "#4c566a"
+overlay1 = "#434c5e"
+overlay0 = "#3b4252"
+surface2 = "#4c566a"
+surface1 = "#434c5e"
+surface0 = "#3b4252"
+base = "#2e3440"
+mantle = "#2e3440"
+crust = "#2e3440"
+EOF
+fi
+
+# --- OpenCode ---
+OPENCODE_TUI="$HOME/.config/opencode/tui.json"
+if [[ -f "$OPENCODE_TUI" ]]; then
+  if [[ "$THEME" == "catppuccin" ]]; then
+    sed -i '' 's/"theme": *"[^"]*"/"theme": "catppuccin"/' "$OPENCODE_TUI"
+  else
+    sed -i '' 's/"theme": *"[^"]*"/"theme": "nord"/' "$OPENCODE_TUI"
+  fi
+fi
+
+# --- Reload running programs ---
+# Sketchybar
+if pgrep -q sketchybar; then
+  sketchybar --reload 2>/dev/null || true
+fi
+
+# Tmux (reload from stowed location)
+if pgrep -q tmux; then
+  tmux source-file ~/.tmux.conf 2>/dev/null || true
+fi
+
+echo "Switched to $THEME. Restart nvim and opencode for the new colorscheme."
