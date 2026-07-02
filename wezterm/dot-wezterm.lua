@@ -26,7 +26,7 @@ local bar = {
 
 -- Slim single-face family, NOT the ~423MB/162-face "Iosevka" super-TTC (that
 -- collection made every resize reshape hammer a half-gig mmap -> massive lag).
-config.font = wezterm.font("IosevkaTerm Nerd Font Mono")
+config.font = wezterm.font("IosevkaTerm Nerd Font")
 config.warn_about_missing_glyphs = false
 config.font_size = 16
 
