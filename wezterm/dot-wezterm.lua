@@ -8,10 +8,21 @@ local config = wezterm.config_builder()
 -- ────────────────────────────────────────────────────────────────────────────
 -- Appearance
 -- ────────────────────────────────────────────────────────────────────────────
--- my coolnight colorscheme
+-- Terminal (pane) colors come from wezterm's builtin nord scheme.
 local scheme_name = "nord"
 config.color_scheme = scheme_name
 local scheme = wezterm.color.get_builtin_schemes()[scheme_name]
+
+-- Status-bar palette pulled from the active scheme (no hardcoded hex) so it
+-- tracks color_scheme. accent = ANSI cyan (nord8 #88c0d0) to match the nvim
+-- lualine mode indicator and the tmux active window; the scheme's ansi[5] is the
+-- duller nord9 blue we deliberately avoid.
+local bar = {
+	bg = scheme.background, -- nord0 #2e3440
+	fg = scheme.brights[8], -- nord6 #eceff4 (bright white, = tmux FG)
+	accent = scheme.ansi[7], -- nord8 #88c0d0 (ANSI cyan)
+	gray = scheme.brights[1], -- nord3 #4c566a (ANSI bright-black)
+}
 
 -- Slim single-face family, NOT the ~423MB/162-face "Iosevka" super-TTC (that
 -- collection made every resize reshape hammer a half-gig mmap -> massive lag).
@@ -212,45 +223,46 @@ config.enable_tab_bar = true
 config.tab_bar_at_bottom = true
 
 -- The fancy tab bar draws its own chrome from window_frame, not colors.tab_bar,
--- so both are pulled from the scheme to keep the whole bar on-palette.
+-- so both are pulled from the bar palette to keep the whole bar on-palette.
 config.window_frame = {
-	active_titlebar_bg = scheme.background,
-	inactive_titlebar_bg = scheme.background,
+	active_titlebar_bg = bar.bg,
+	inactive_titlebar_bg = bar.bg,
 	-- Fancy tab bar height tracks this font size (defaults to 10pt).
 	font_size = 14,
 }
 
 config.colors = {
 	tab_bar = {
-		inactive_tab_edge = scheme.background,
+		inactive_tab_edge = bar.bg,
 		active_tab = {
-			bg_color = scheme.ansi[5],
-			fg_color = scheme.background,
+			bg_color = bar.accent,
+			fg_color = bar.bg,
 		},
 		inactive_tab = {
-			bg_color = scheme.background,
-			fg_color = scheme.foreground,
+			bg_color = bar.bg,
+			fg_color = bar.fg,
 		},
 		inactive_tab_hover = {
-			bg_color = scheme.brights[1],
-			fg_color = scheme.foreground,
+			bg_color = bar.gray,
+			fg_color = bar.fg,
 		},
 		new_tab = {
-			bg_color = scheme.background,
-			fg_color = scheme.foreground,
+			bg_color = bar.bg,
+			fg_color = bar.fg,
 		},
 		new_tab_hover = {
-			bg_color = scheme.ansi[5],
-			fg_color = scheme.background,
+			bg_color = bar.accent,
+			fg_color = bar.bg,
 		},
 	},
 }
 
 wezterm.on("update-status", function(window, _pane)
 	window:set_left_status(wezterm.format({
-		{ Foreground = { Color = scheme.ansi[5] } },
+		{ Foreground = { Color = bar.accent } },
 		{ Text = "  " .. window:active_workspace() .. "  " },
 	}))
+	window:set_right_status("")
 end)
 
 -- ────────────────────────────────────────────────────────────────────────────

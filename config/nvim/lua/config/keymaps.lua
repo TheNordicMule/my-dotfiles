@@ -50,7 +50,6 @@ buf_set_keymap({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Do
 buf_set_keymap({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 buf_set_keymap({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 
-buf_set_keymap("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 buf_set_keymap("n", "<leader>ls", "<cmd>lsp restart<CR>", { desc = "Restart LSP" })
 buf_set_keymap("n", "<leader>to", "<cmd>e ~/todo.md<CR>", { desc = "Edit TODO" })
 

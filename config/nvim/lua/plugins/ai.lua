@@ -22,10 +22,6 @@ return {
 				win = {
 					layout = "float",
 				},
-				-- mux = {
-				-- 	backend = "tmux",
-				-- 	enabled = true,
-				-- },
 			},
 		},
 		keys = {
