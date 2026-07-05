@@ -7,7 +7,7 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs @ {
+  outputs = _inputs @ {
     self,
     nix-darwin,
     nixpkgs,
@@ -16,13 +16,16 @@
       system.primaryUser = "mingshiwang";
       nixpkgs.config.allowUnfree = true;
       fonts.packages = [
-        pkgs.iosevka
+        pkgs.nerd-fonts.iosevka
         pkgs.sketchybar-app-font
       ];
 
       # Auto upgrade nix package and the daemon service.
       nix.enable = true;
-      # nix.package = pkgs.nix;
+
+      # TODO: remove
+      documentation.enable = false;
+      system.tools.darwin-uninstaller.enable = false;
 
       # Necessary for using flakes on this system.
       nix.settings.experimental-features = "nix-command flakes";
@@ -35,6 +38,7 @@
     # $ darwin-rebuild build --flake .#Mac-that-vim
     darwinConfigurations."Mac-that-vim" = nix-darwin.lib.darwinSystem {
       modules = [
+        # TODO: remove this
         {
           nixpkgs.config.permittedInsecurePackages = [
             "electron-39.8.10"

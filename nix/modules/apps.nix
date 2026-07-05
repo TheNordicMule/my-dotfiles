@@ -36,7 +36,6 @@
       stow
       tealdeer
       tokei
-      vscode
       wezterm
       wget
     ]
