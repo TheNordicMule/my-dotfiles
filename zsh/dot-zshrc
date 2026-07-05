@@ -90,7 +90,6 @@ source ~/.zsh_aliases
 
 # use vim binding
 bindkey '^n' autosuggest-accept
-bindkey -s '^f' 'tmux-sessionizer\n'
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#5e81ac'
 export BAT_THEME="Nord"

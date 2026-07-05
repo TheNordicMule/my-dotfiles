@@ -35,7 +35,6 @@
       starship
       stow
       tealdeer
-      tmux
       tokei
       vscode
       wezterm
