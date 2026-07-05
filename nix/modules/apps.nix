@@ -28,7 +28,7 @@
       nodejs
       obsidian
       opam
-      opencode
+      # opencode
       pom
       procs
       ripgrep
