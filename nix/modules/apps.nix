@@ -62,8 +62,14 @@
       "homebrew/cask-fonts"
       "homebrew/cask-versions"
       "homebrew/services"
-      "nikitabobko/tap"
-      "FelixKratz/formulae"
+      {
+        name = "nikitabobko/tap";
+        trusted = true;
+      }
+      {
+        name = "felixkratz/formulae";
+        trusted = true;
+      }
     ];
 
     brews = [
