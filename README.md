@@ -7,7 +7,7 @@ A curated set of macOS dotfiles with **Nord** / **Catppuccin** theme switching a
 - **Unified theme system** — toggle between Nord and Catppuccin across all apps with a single command
 - **macOS-first** — AeroSpace (tiling WM), SketchyBar (menu bar), WezTerm, and nix-darwin
 - **Minimal Neovim IDE** — LSP, DAP, autocompletion, test runner, git integration, and AI copilot
-- **Tmux muscle memory** — WezTerm configured with tmux-style keybindings (`C-a` leader, `h/j/k/l` navigation)
+- **WezTerm multiplexer** — WezTerm handles multiplexing natively (tabs, splits, workspaces, copy mode) with tmux-style keybindings (`C-a` leader, `h/j/k/l` navigation). The `tmux/` config is kept as legacy and is not actively used.
 - **nix-darwin** — declarative system config (packages, fonts, system settings)
 
 ## Quick Start
@@ -30,7 +30,7 @@ theme-switch nord        # apply Nord theme everywhere
 theme-switch catppuccin  # apply Catppuccin Mocha everywhere
 ```
 
-This rewrites colorscheme configs and reloads SketchyBar + tmux automatically. A restart of Neovim and OpenCode is required.
+This rewrites colorscheme configs and reloads SketchyBar automatically. WezTerm picks up its config change via file watching. A restart of Neovim and OpenCode is required. The tmux reload hook in the script is legacy (no-op when tmux isn't running).
 
 ## Structure
 
@@ -39,7 +39,7 @@ my-dotfiles/
 ├── bins/               # Executable helpers
 │   ├── theme-switch          # Theme toggle (Nord ↔ Catppuccin)
 │   ├── switch                # nix-darwin rebuild + commit
-│   └── tmux-sessionizer      # Fuzzy tmux workspace selector
+│   └── tmux-sessionizer      # Fuzzy tmux workspace selector (legacy — WezTerm has a native workspace port)
 ├── config/             # Stowed to ~/.config/
 │   ├── aerospace/            # Tiling window manager
 │   ├── gh-dash/              # GitHub CLI dashboard
@@ -52,7 +52,7 @@ my-dotfiles/
 │   └── modules/
 │       ├── apps.nix          # System packages + Homebrew casks
 │       └── system.nix        # System settings (keyboard, dock, etc.)
-├── tmux/               # Tmux config (stowed to ~/)
+├── tmux/               # Tmux config (legacy — WezTerm multiplexer is active; not stowed by reset_config.sh)
 ├── wezterm/            # WezTerm config (stowed to ~/)
 └── zsh/                # Zsh config + aliases (stowed to ~/)
 ```

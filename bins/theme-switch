@@ -40,7 +40,9 @@ export ACCENT_COLOR=0xff88c0d0  # Nord Frost Light
 EOF
 fi
 
-# --- Tmux ---
+# --- Tmux (legacy) ---
+# WezTerm is the active multiplexer; this block only has effect when tmux is
+# running. Kept so the config still themes correctly if tmux is launched manually.
 TMUX_CONF="$DOTFILES/tmux/dot-tmux.conf"
 if [[ "$THEME" == "catppuccin" ]]; then
   sed -i '' '
@@ -175,7 +177,7 @@ WEZTERM_CONF="$DOTFILES/wezterm/dot-wezterm.lua"
 if [[ "$THEME" == "catppuccin" ]]; then
   sed -i '' 's/config.color_scheme = .*/config.color_scheme = "catppuccin-mocha"/' "$WEZTERM_CONF"
 else
-  sed -i '' 's/config.color_scheme = .*/config.color_scheme = "Nord (Gogh)"/' "$WEZTERM_CONF"
+  sed -i '' 's/config.color_scheme = .*/config.color_scheme = "nord"/' "$WEZTERM_CONF"
 fi
 
 # --- Starship ---
@@ -184,40 +186,6 @@ if [[ "$THEME" == "catppuccin" ]]; then
   sed -i '' '1s/.*/palette = "catppuccin_mocha"/' "$STARSHIP_CONF"
 else
   sed -i '' '1s/.*/palette = "nord"/' "$STARSHIP_CONF"
-fi
-
-# Add nord palette to starship if missing
-if ! grep -q 'palettes.nord' "$STARSHIP_CONF"; then
-  cat >> "$STARSHIP_CONF" <<'EOF'
-
-[palettes.nord]
-rosewater = "#d8dee9"
-flamingo = "#d8dee9"
-pink = "#b48ead"
-mauve = "#b48ead"
-red = "#bf616a"
-maroon = "#bf616a"
-peach = "#d08770"
-yellow = "#ebcb8b"
-green = "#a3be8c"
-teal = "#8fbcbb"
-sky = "#88c0d0"
-sapphire = "#81a1c1"
-blue = "#5e81ac"
-lavender = "#81a1c1"
-text = "#eceff4"
-subtext1 = "#e5e9f0"
-subtext0 = "#d8dee9"
-overlay2 = "#4c566a"
-overlay1 = "#434c5e"
-overlay0 = "#3b4252"
-surface2 = "#4c566a"
-surface1 = "#434c5e"
-surface0 = "#3b4252"
-base = "#2e3440"
-mantle = "#2e3440"
-crust = "#2e3440"
-EOF
 fi
 
 # --- OpenCode ---
@@ -236,7 +204,7 @@ if pgrep -q sketchybar; then
   sketchybar --reload 2>/dev/null || true
 fi
 
-# Tmux (reload from stowed location)
+# Tmux (legacy — no-op when tmux isn't running; WezTerm is the active multiplexer)
 if pgrep -q tmux; then
   tmux source-file ~/.tmux.conf 2>/dev/null || true
 fi

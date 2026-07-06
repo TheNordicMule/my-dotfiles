@@ -1,4 +1,7 @@
 #!/usr/bin/env zsh
+# Legacy: WezTerm is the active multiplexer and has a native workspace port
+# (see the C-f binding in wezterm/dot-wezterm.lua). This script is kept for
+# fallback use when running tmux directly.
 
 if [[ $# -eq 1 ]]; then
     selected=$1
