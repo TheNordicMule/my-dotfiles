@@ -39,6 +39,7 @@
       zsh-autosuggestions
       zsh-syntax-highlighting
       tokei
+      tree-sitter
       wezterm
       wget
     ]
