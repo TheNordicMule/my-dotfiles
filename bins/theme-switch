@@ -175,9 +175,9 @@ fi
 # --- Wezterm ---
 WEZTERM_CONF="$DOTFILES/wezterm/dot-wezterm.lua"
 if [[ "$THEME" == "catppuccin" ]]; then
-  sed -i '' 's/config.color_scheme = .*/config.color_scheme = "catppuccin-mocha"/' "$WEZTERM_CONF"
+  sed -i '' 's/local scheme_name = .*/local scheme_name = "catppuccin-mocha"/' "$WEZTERM_CONF"
 else
-  sed -i '' 's/config.color_scheme = .*/config.color_scheme = "nord"/' "$WEZTERM_CONF"
+  sed -i '' 's/local scheme_name = .*/local scheme_name = "nord"/' "$WEZTERM_CONF"
 fi
 
 # --- Starship ---
@@ -189,13 +189,11 @@ else
 fi
 
 # --- OpenCode ---
-OPENCODE_TUI="$HOME/.config/opencode/tui.json"
-if [[ -f "$OPENCODE_TUI" ]]; then
-  if [[ "$THEME" == "catppuccin" ]]; then
-    sed -i '' 's/"theme": *"[^"]*"/"theme": "catppuccin"/' "$OPENCODE_TUI"
-  else
-    sed -i '' 's/"theme": *"[^"]*"/"theme": "nord"/' "$OPENCODE_TUI"
-  fi
+OPENCODE_TUI="$DOTFILES/config/opencode/tui.json"
+if [[ "$THEME" == "catppuccin" ]]; then
+  sed -i '' 's/"theme": *"[^"]*"/"theme": "catppuccin"/' "$OPENCODE_TUI"
+else
+  sed -i '' 's/"theme": *"[^"]*"/"theme": "nord"/' "$OPENCODE_TUI"
 fi
 
 # --- Reload running programs ---
