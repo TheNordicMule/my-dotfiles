@@ -27,6 +27,7 @@
       neovim
       nodejs
       obsidian
+      oh-my-zsh
       opam
       # opencode
       pom
@@ -35,6 +36,8 @@
       starship
       stow
       tealdeer
+      zsh-autosuggestions
+      zsh-syntax-highlighting
       tokei
       wezterm
       wget

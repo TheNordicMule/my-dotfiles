@@ -2,7 +2,11 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/mingshiwang/.oh-my-zsh"
+if [ -d "/run/current-system/sw/share/oh-my-zsh" ]; then
+  export ZSH="/run/current-system/sw/share/oh-my-zsh"
+else
+  export ZSH="$HOME/.oh-my-zsh"
+fi
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -71,9 +75,16 @@ DISABLE_UPDATE_PROMPT="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-plugins=(zsh-syntax-highlighting zsh-autosuggestions colored-man-pages git vi-mode fzf)
+plugins=(colored-man-pages git vi-mode fzf)
 
 source $ZSH/oh-my-zsh.sh
+
+if [ -f /run/current-system/sw/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source /run/current-system/sw/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+if [ -f /run/current-system/sw/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+  source /run/current-system/sw/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
 
 # User configuration
 
