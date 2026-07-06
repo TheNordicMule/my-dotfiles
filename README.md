@@ -6,7 +6,7 @@ A curated set of macOS dotfiles with **Nord** / **Catppuccin** theme switching a
 
 - **Unified theme system** — toggle between Nord and Catppuccin across all apps with a single command
 - **macOS-first** — AeroSpace (tiling WM), SketchyBar (menu bar), WezTerm, and nix-darwin
-- **Minimal Neovim IDE** — LSP, DAP, autocompletion, test runner, git integration, and AI copilot
+- **Minimal Neovim IDE** — lazy.nvim with LSP, DAP, autocompletion, test runner, git integration, and AI copilot
 - **WezTerm multiplexer** — WezTerm handles multiplexing natively (tabs, splits, workspaces, copy mode) with tmux-style keybindings (`C-a` leader, `h/j/k/l` navigation). The `tmux/` config is kept as legacy and is not actively used.
 - **nix-darwin** — declarative system config (packages, fonts, system settings)
 
@@ -19,7 +19,9 @@ A curated set of macOS dotfiles with **Nord** / **Catppuccin** theme switching a
 # 2. Symlink configs via GNU Stow
 ./reset_config.sh
 
-# 3. Build nix-darwin system
+# 3. Restart your shell (or `source ~/.zshrc`) so theme-switch and aliases are on PATH
+
+# 4. Build nix-darwin system
 cd nix && sudo darwin-rebuild switch --flake .#Mac-that-vim
 ```
 
@@ -43,11 +45,12 @@ my-dotfiles/
 ├── config/             # Stowed to ~/.config/
 │   ├── aerospace/            # Tiling window manager
 │   ├── gh-dash/              # GitHub CLI dashboard
-│   ├── nvim/                 # Neovim (LazyVim-style)
+│   ├── nvim/                 # Neovim (lazy.nvim)
 │   ├── opencode/             # OpenCode AI config
 │   ├── ripgrep/              # Ripgrep config
 │   ├── sketchybar/           # macOS menu bar replacement
 │   └── starship/             # Shell prompt
+├── git/                # Git config (stowed to ~/)
 ├── nix/                # nix-darwin flake
 │   └── modules/
 │       ├── apps.nix          # System packages + Homebrew casks
@@ -61,49 +64,51 @@ my-dotfiles/
 
 ### AeroSpace (Window Manager)
 
-| Binding | Action |
-|---|---|
-| `alt-1` through `alt-0` | Switch workspace |
-| `alt-h/j/k/l` | Focus window left/down/up/right |
-| `alt-shift-h/j/k/l` | Move window left/down/up/right |
-| `alt-t` | Toggle float/tile |
-| `alt-f` | Fullscreen |
-| `alt-shift-space` | Cycle layout |
+| Binding                 | Action                          |
+| ----------------------- | ------------------------------- |
+| `alt-1` through `alt-0` | Switch workspace                |
+| `alt-h/j/k/l`           | Focus window left/down/up/right |
+| `alt-shift-h/j/k/l`     | Move window left/down/up/right  |
+| `alt-t`                 | Toggle float/tile               |
+| `alt-f`                 | Fullscreen                      |
+| `alt-shift-space`       | Cycle layout                    |
 
 ### WezTerm
 
-| Binding | Action |
-|---|---|
-| `C-a c` | New tab |
-| `C-a v` / `C-a s` | Vertical / horizontal split |
-| `C-a h/j/k/l` | Navigate panes |
-| `C-f` | Sessionizer (fuzzy workspace selector) |
-| `C-a [` | Copy mode (vi-style) |
+| Binding           | Action                                 |
+| ----------------- | -------------------------------------- |
+| `C-a c`           | New tab                                |
+| `C-a n` / `C-a p` | Next / previous tab                    |
+| `C-a 1-9`         | Jump to tab N                          |
+| `C-a ,`           | Rename tab                             |
+| `C-a v` / `C-a s` | Vertical / horizontal split            |
+| `C-a h/j/k/l`     | Navigate panes                         |
+| `C-f`             | Sessionizer (fuzzy workspace selector) |
+| `C-a [`           | Copy mode (vi-style)                   |
 
 ### Neovim
 
-| Binding | Action |
-|---|---|
+| Binding                   | Action                      |
+| ------------------------- | --------------------------- |
 | `<leader>y` / `<leader>p` | System clipboard yank/paste |
-| `<leader>d` | Black-hole delete |
-| `]e` / `[e` | Next/previous diagnostic |
-| `]w` / `[w` | Next/previous warning |
-| `Q` | Repeat last macro |
+| `<leader>d`               | Black-hole delete           |
+| `]e` / `[e`               | Next/previous diagnostic    |
+| `]w` / `[w`               | Next/previous warning       |
+| `Q`                       | Repeat last macro           |
 
 ## Package Management
 
-| Layer | Tool | Manages |
-|---|---|---|
-| System | nix-darwin | Packages, fonts, system settings, Homebrew casks |
-| User | Homebrew | Casks not in nixpkgs (AeroSpace, SketchyBar, etc.) |
-| Dotfiles | GNU Stow | Symlinks configs to their expected locations |
-| Plugins | lazy.nvim | Neovim plugins |
+| Layer    | Tool       | Manages                                            |
+| -------- | ---------- | -------------------------------------------------- |
+| System   | nix-darwin | Packages, fonts, system settings, Homebrew casks   |
+| User     | Homebrew   | Casks not in nixpkgs (AeroSpace, SketchyBar, etc.) |
+| Dotfiles | GNU Stow   | Symlinks configs to their expected locations       |
+| Plugins  | lazy.nvim  | Neovim plugins                                     |
 
 ## Adding a New App to the Theme System
 
-1. Add color variables to `bins/theme-switch` for both Nord and Catppuccin
-2. Update the app's config to reference the color variables (or use `sed` to swap values)
-3. Optionally add a reload hook at the bottom of the script
+1. Add a `cat` / `sed` block to `bins/theme-switch` under the app's config path, following the existing pattern (heredoc for wholesale replacement, `sed` for targeted edits)
+2. Optionally add a reload hook at the bottom of the script
 
 ## Requirements
 
@@ -113,3 +118,5 @@ my-dotfiles/
 - [GNU Stow](https://www.gnu.org/software/stow/)
 - [Oh My Zsh](https://ohmyz.sh)
 - [sketchybar-app-font](https://github.com/kvndrsslr/sketchybar-app-font)
+
+The nix-darwin flake installs the rest of the toolchain (`fd`, `bat`/`lsd`/`delta` for shell aliases, `ripgrep`, `starship`, `fzf`, etc.).
