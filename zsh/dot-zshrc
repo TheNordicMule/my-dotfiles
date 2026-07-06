@@ -82,8 +82,8 @@ source $ZSH/oh-my-zsh.sh
 if [ -f /run/current-system/sw/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
   source /run/current-system/sw/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
-if [ -f /run/current-system/sw/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-  source /run/current-system/sw/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+if [ -f /run/current-system/sw/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+  source /run/current-system/sw/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
 # User configuration

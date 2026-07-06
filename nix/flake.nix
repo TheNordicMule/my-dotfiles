@@ -32,6 +32,12 @@
 
       # Create /etc/zshrc that loads the nix-darwin environment.
       programs.zsh.enable = true; # default shell on catalina
+
+      # Required for oh-my-zsh and zsh-syntax-highlighting to appear in /run/current-system/sw
+      environment.pathsToLink = [
+        "/share/oh-my-zsh"
+        "/share/zsh-syntax-highlighting"
+      ];
     };
   in {
     # Build darwin flake using:
