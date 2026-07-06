@@ -36,24 +36,44 @@ config.font_size = 16
 -- Sessionizer: fuzzy-pick a project dir and jump to a per-directory workspace
 -- (native-workspace port of bins/tmux-sessionizer).
 
--- The wezterm GUI on macOS launches with a minimal PATH that usually omits
--- Homebrew, so a bare "fd" PATH lookup fails when launched from Finder/Dock.
-local function resolve_bin(name, candidates)
-	for _, path in ipairs(candidates) do
+-- Resolve fd (fuzzy-finder) from common per-platform install locations.
+-- The wezterm GUI on macOS launches with a minimal PATH that often omits
+-- Homebrew, nix, or Cargo, so we probe known absolute paths up front.
+-- As a last resort we ask a login shell where it lives.
+local function resolve_fd()
+	-- 1) Check known absolute paths (fast, no subprocess).
+	for _, path in ipairs({
+		"/opt/homebrew/bin/fd",
+		"/usr/local/bin/fd",
+		wezterm.home_dir .. "/.cargo/bin/fd",
+		"/run/current-system/sw/bin/fd",
+		wezterm.home_dir .. "/.nix-profile/bin/fd",
+	}) do
 		local f = io.open(path, "r")
 		if f then
 			f:close()
 			return path
 		end
 	end
-	return name
+	-- 2) Fallback: ask a login shell (slower but catches env-managed tools).
+	--    The "-l" flag ensures the shell sources profile files so $PATH is
+	--    fully populated, mirroring what you'd get in a terminal.
+	local ok, stdout, _ = wezterm.run_child_process({
+		"zsh",
+		"-l",
+		"-c",
+		"command -v fd",
+	})
+	if ok then
+		local path = stdout:gsub("[\n\r]", "")
+		if path ~= "" then
+			return path
+		end
+	end
+	return "fd"
 end
 
-local fd = resolve_bin("fd", {
-	"/opt/homebrew/bin/fd",
-	"/usr/local/bin/fd",
-	wezterm.home_dir .. "/.cargo/bin/fd",
-})
+local fd = resolve_fd()
 
 -- basename with dots turned into underscores, mirroring `basename | tr . _`.
 local function workspace_name(path)
@@ -111,6 +131,7 @@ local function sessionizer()
 		})
 		if not ok then
 			wezterm.log_error("sessionizer: fd failed: " .. (stderr or ""))
+			window:toast_notification("Sessionizer", "fd not found — check PATH or install fd")
 			return
 		end
 
@@ -220,7 +241,6 @@ config.key_tables = { copy_mode = copy_mode, search_mode = search_mode }
 -- Tab bar
 -- ────────────────────────────────────────────────────────────────────────────
 config.enable_tab_bar = true
-config.tab_bar_at_bottom = true
 
 -- The fancy tab bar draws its own chrome from window_frame, not colors.tab_bar,
 -- so both are pulled from the bar palette to keep the whole bar on-palette.
