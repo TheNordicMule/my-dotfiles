@@ -5,12 +5,15 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = _inputs @ {
+  outputs = inputs @ {
     self,
     nix-darwin,
     nixpkgs,
+    home-manager,
   }: let
     configuration = {pkgs, ...}: {
       system.primaryUser = "mingshiwang";
@@ -53,6 +56,12 @@
         configuration
         ./modules/apps.nix
         ./modules/system.nix
+        home-manager.darwinModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.mingshiwang = import ./modules/home.nix;
+        }
       ];
       specialArgs = {inherit self;};
     };

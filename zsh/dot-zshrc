@@ -94,7 +94,7 @@ fi
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-export PATH="$HOME/my-dotfiles/bins:$PATH"
+export PATH="$HOME/bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 
 source ~/.zsh_aliases

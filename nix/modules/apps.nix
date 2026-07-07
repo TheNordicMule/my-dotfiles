@@ -34,7 +34,6 @@
       procs
       ripgrep
       starship
-      stow
       tealdeer
       zsh-autosuggestions
       zsh-syntax-highlighting

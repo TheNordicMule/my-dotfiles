@@ -8,7 +8,7 @@ A curated set of macOS dotfiles with **Nord** / **Catppuccin** theme switching a
 - **macOS-first** — AeroSpace (tiling WM), SketchyBar (menu bar), WezTerm, and nix-darwin
 - **Minimal Neovim IDE** — lazy.nvim with LSP, DAP, autocompletion, test runner, git integration, and AI copilot
 - **WezTerm multiplexer** — WezTerm handles multiplexing natively (tabs, splits, workspaces, copy mode) with tmux-style keybindings (`C-a` leader, `h/j/k/l` navigation). The `tmux/` config is kept as legacy and is not actively used.
-- **nix-darwin** — declarative system config (packages, fonts, system settings)
+- **nix-darwin + home-manager** — declarative system *and* user config (packages, fonts, system settings, dotfiles, bins)
 
 ## Quick Start
 
@@ -16,14 +16,18 @@ A curated set of macOS dotfiles with **Nord** / **Catppuccin** theme switching a
 # 1. Install dependencies
 ./clone_dependencies.sh
 
-# 2. Symlink configs via GNU Stow
-./reset_config.sh
+# 2. (one-time, only if migrating from Stow) remove old Stow symlinks so
+#    home-manager can take over the same target paths:
+stow -D git wezterm zsh && stow -D --target="$HOME/.config" config
 
-# 3. Restart your shell (or `source ~/.zshrc`) so theme-switch and aliases are on PATH
-
-# 4. Build nix-darwin system
+# 3. Build nix-darwin system (this also activates home-manager, which deploys
+#    all dotfiles and bins/ to ~/ and ~/.config/):
 cd nix && sudo darwin-rebuild switch --flake .#Mac-that-vim
+
+# 4. Restart your shell (or `source ~/.zshrc`) so theme-switch and aliases are on PATH
 ```
+
+After the first build, `switch` (in `bins/`) reformats, rebuilds, and commits in one step.
 
 ## Theme Switching
 
@@ -38,26 +42,27 @@ This rewrites colorscheme configs and reloads SketchyBar automatically. WezTerm 
 
 ```
 my-dotfiles/
-├── bins/               # Executable helpers
+├── bins/               # Executable helpers (deployed to ~/bin by home-manager)
 │   ├── theme-switch          # Theme toggle (Nord ↔ Catppuccin)
 │   ├── switch                # nix-darwin rebuild + commit
 │   └── tmux-sessionizer      # Fuzzy tmux workspace selector (legacy — WezTerm has a native workspace port)
-├── config/             # Stowed to ~/.config/
+├── config/             # Deployed to ~/.config/ by home-manager
 │   ├── aerospace/            # Tiling window manager
 │   ├── gh-dash/              # GitHub CLI dashboard
-│   ├── nvim/                 # Neovim (lazy.nvim)
-│   ├── opencode/             # OpenCode AI config
+│   ├── nvim/                 # Neovim (lazy.nvim) — out-of-store symlink (theme-switch mutates looks.lua)
+│   ├── opencode/             # OpenCode AI config — out-of-store symlink (theme-switch mutates tui.json)
 │   ├── ripgrep/              # Ripgrep config
-│   ├── sketchybar/           # macOS menu bar replacement
-│   └── starship/             # Shell prompt
-├── git/                # Git config (stowed to ~/)
-├── nix/                # nix-darwin flake
+│   ├── sketchybar/           # macOS menu bar replacement — out-of-store symlink (theme-switch mutates colors.sh)
+│   └── starship/             # Shell prompt — out-of-store symlink (theme-switch mutates palette line)
+├── git/                # Git config (deployed to ~/.gitconfig by home-manager)
+├── nix/                # nix-darwin + home-manager flake
 │   └── modules/
 │       ├── apps.nix          # System packages + Homebrew casks
+│       ├── home.nix          # home-manager: dotfiles + bins deployment
 │       └── system.nix        # System settings (keyboard, dock, etc.)
-├── tmux/               # Tmux config (legacy — WezTerm multiplexer is active; not stowed by reset_config.sh)
-├── wezterm/            # WezTerm config (stowed to ~/)
-└── zsh/                # Zsh config + aliases (stowed to ~/)
+├── tmux/               # Tmux config (legacy — WezTerm multiplexer is active; not deployed)
+├── wezterm/            # WezTerm config (deployed to ~/.wezterm.lua — out-of-store symlink, theme-switch mutates scheme)
+└── zsh/                # Zsh config + aliases (deployed to ~/ by home-manager)
 ```
 
 ## Key Bindings
@@ -98,12 +103,17 @@ my-dotfiles/
 
 ## Package Management
 
-| Layer    | Tool       | Manages                                            |
-| -------- | ---------- | -------------------------------------------------- |
-| System   | nix-darwin | Packages, fonts, system settings, Homebrew casks   |
-| User     | Homebrew   | Casks not in nixpkgs (AeroSpace, SketchyBar, etc.) |
-| Dotfiles | GNU Stow   | Symlinks configs to their expected locations       |
-| Plugins  | lazy.nvim  | Neovim plugins                                     |
+| Layer    | Tool            | Manages                                            |
+| -------- | --------------- | -------------------------------------------------- |
+| System   | nix-darwin      | Packages, fonts, system settings, Homebrew casks   |
+| User     | Homebrew        | Casks not in nixpkgs (AeroSpace, SketchyBar, etc.) |
+| Dotfiles | home-manager    | Symlinks configs + bins to `~/` and `~/.config/`   |
+| Plugins  | lazy.nvim       | Neovim plugins                                     |
+
+> home-manager deploys static configs as read-only nix-store symlinks and the
+> theme-switch-mutated files (sketchybar colors, nvim looks, wezterm scheme,
+> starship palette, opencode tui) as writable out-of-store symlinks to this
+> repo, so `theme-switch` keeps working unchanged.
 
 ## Adding a New App to the Theme System
 
@@ -115,8 +125,7 @@ my-dotfiles/
 - macOS (aarch64-darwin)
 - [Nix](https://nixos.org/download.html) (with flakes enabled)
 - [Homebrew](https://brew.sh)
-- [GNU Stow](https://www.gnu.org/software/stow/)
 - [Oh My Zsh](https://ohmyz.sh)
 - [sketchybar-app-font](https://github.com/kvndrsslr/sketchybar-app-font)
 
-The nix-darwin flake installs the rest of the toolchain (`fd`, `bat`/`lsd`/`delta` for shell aliases, `ripgrep`, `starship`, `fzf`, etc.).
+The nix-darwin flake (with home-manager) installs the rest of the toolchain (`fd`, `bat`/`lsd`/`delta` for shell aliases, `ripgrep`, `starship`, `fzf`, etc.) and deploys all dotfiles.
