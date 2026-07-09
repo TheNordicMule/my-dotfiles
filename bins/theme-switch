@@ -30,5 +30,8 @@ jq --arg t "$NEW_THEME" '.theme = $t' \
   "$REPO/config/opencode/tui.json" > "$REPO/config/opencode/tui.json.tmp" \
   && mv "$REPO/config/opencode/tui.json.tmp" "$REPO/config/opencode/tui.json"
 
+# 4. Reload sketchybar so it re-sources colors.sh with the new theme.
+#    (colors.sh reads ~/.config/theme at source time via sketchybarrc.)
+sketchybar --reload
 
-echo "Theme switched to $NEW_THEME. Restart computer to apply chaanges"
+echo "Theme switched to $NEW_THEME. Restart Neovim and OpenCode to apply."
