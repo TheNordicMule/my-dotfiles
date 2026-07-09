@@ -37,9 +37,11 @@ in {
   # ────────────────────────────────────────────────────────────────────────────
   programs.git = {
     enable = true;
-    userName = "Mingshi Wang";
-    userEmail = "mingshiwang123@gmail.com";
-    extraConfig = {
+    settings = {
+      user = {
+        name = "Mingshi Wang";
+        email = "mingshiwang123@gmail.com";
+      };
       core.pager = "delta";
       interactive.diffFilter = "delta --color-only";
       delta = {
@@ -56,6 +58,7 @@ in {
   # ────────────────────────────────────────────────────────────────────────────
   programs.zsh = {
     enable = true;
+    dotDir = "${config.xdg.configHome}/zsh";
     oh-my-zsh = {
       enable = true;
       plugins = ["colored-man-pages" "git" "vi-mode"];
@@ -99,7 +102,7 @@ in {
     enable = true;
     enableZshIntegration = true;
     defaultCommand = "fd";
-    fileWidgetCommand = "fd";
+    fileWidget.command = "fd";
   };
 
   # ────────────────────────────────────────────────────────────────────────────
@@ -114,7 +117,7 @@ in {
           owner = "catppuccin";
           repo = "bat";
           rev = "6810349b28055dce54076712fc05fc68da4b8ec0";
-          sha256 = lib.fakeSha256;
+          sha256 = "sha256-lJapSgRVENTrbmpVyn+UQabC9fpV1G1e+CdlJ090uvg=";
         };
         file = "themes/Catppuccin Mocha.tmTheme";
       };
