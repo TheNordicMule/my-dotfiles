@@ -4,7 +4,6 @@
       alejandra
       anki-bin
       bandwhich
-      bat
       bitwarden-cli
       bitwarden-desktop
       bottom
@@ -17,7 +16,6 @@
       dust
       fd
       firefox-unwrapped
-      fzf
       gh
       github-copilot-cli
       go
@@ -27,16 +25,10 @@
       neovim
       nodejs
       obsidian
-      oh-my-zsh
       opam
       # opencode
       pom
       procs
-      ripgrep
-      starship
-      tealdeer
-      zsh-autosuggestions
-      zsh-syntax-highlighting
       tokei
       tree-sitter
       wezterm

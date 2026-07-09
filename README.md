@@ -36,7 +36,7 @@ theme-switch nord        # apply Nord theme everywhere
 theme-switch catppuccin  # apply Catppuccin Mocha everywhere
 ```
 
-This rewrites colorscheme configs and reloads SketchyBar automatically. WezTerm picks up its config change via file watching. A restart of Neovim and OpenCode is required. The tmux reload hook in the script is legacy (no-op when tmux isn't running).
+This updates the `theme` var in `home.nix`, rebuilds via Nix (propagating to starship, wezterm, bat, nvim, and sketchybar), then patches opencode's `tui.json` (the one Nix-blind tool) and reloads SketchyBar. WezTerm picks up its config change via file watching. A restart of Neovim and OpenCode is required.
 
 ## Structure
 
@@ -49,11 +49,11 @@ my-dotfiles/
 ├── config/             # Deployed to ~/.config/ by home-manager
 │   ├── aerospace/            # Tiling window manager
 │   ├── gh-dash/              # GitHub CLI dashboard
-│   ├── nvim/                 # Neovim (lazy.nvim) — out-of-store symlink (theme-switch mutates looks.lua)
+│   ├── nvim/                 # Neovim (lazy.nvim) — out-of-store symlink (reads ~/.config/theme at startup)
 │   ├── opencode/             # OpenCode AI config — out-of-store symlink (theme-switch mutates tui.json)
 │   ├── ripgrep/              # Ripgrep config
-│   ├── sketchybar/           # macOS menu bar replacement — out-of-store symlink (theme-switch mutates colors.sh)
-│   └── starship/             # Shell prompt — out-of-store symlink (theme-switch mutates palette line)
+│   ├── sketchybar/           # macOS menu bar replacement — out-of-store symlink (reads ~/.config/theme at runtime)
+│   └── starship/             # Shell prompt — out-of-store symlink (Nix manages palette via `theme` var)
 ├── git/                # Git config (deployed to ~/.gitconfig by home-manager)
 ├── nix/                # nix-darwin + home-manager flake
 │   └── modules/
@@ -61,7 +61,7 @@ my-dotfiles/
 │       ├── home.nix          # home-manager: dotfiles + bins deployment
 │       └── system.nix        # System settings (keyboard, dock, etc.)
 ├── tmux/               # Tmux config (legacy — WezTerm multiplexer is active; not deployed)
-├── wezterm/            # WezTerm config (deployed to ~/.wezterm.lua — out-of-store symlink, theme-switch mutates scheme)
+├── wezterm/            # WezTerm config (deployed to ~/.wezterm.lua — Nix injects scheme_name via `theme` var)
 └── zsh/                # Zsh config + aliases (deployed to ~/ by home-manager)
 ```
 
@@ -111,14 +111,21 @@ my-dotfiles/
 | Plugins  | lazy.nvim       | Neovim plugins                                     |
 
 > home-manager deploys static configs as read-only nix-store symlinks and the
-> theme-switch-mutated files (sketchybar colors, nvim looks, wezterm scheme,
-> starship palette, opencode tui) as writable out-of-store symlinks to this
-> repo, so `theme-switch` keeps working unchanged.
+> runtime-theme-read files (sketchybar colors, nvim looks) as writable
+> out-of-store symlinks to this repo. Nix drives starship, wezterm, bat, nvim,
+> and sketchybar via the `theme` var; `theme-switch` only patches opencode
+> (Nix-blind) and reloads sketchybar.
 
 ## Adding a New App to the Theme System
 
-1. Add a `cat` / `sed` block to `bins/theme-switch` under the app's config path, following the existing pattern (heredoc for wholesale replacement, `sed` for targeted edits)
-2. Optionally add a reload hook at the bottom of the script
+1. If Nix can manage the app's config, add a conditional on the `theme` var in
+   `home.nix` (like starship's `palette` or bat's `config.theme`).
+2. If the app reads a theme file at runtime, have it read `~/.config/theme`
+   (written by Nix from the `theme` var) — like nvim's `looks.lua` or
+   sketchybar's `colors.sh`.
+3. Only if neither works (out-of-store symlink, Nix can't touch individual
+   files), add a `jq`/`sed` block to `bins/theme-switch` under the app's config
+   path — like opencode's `tui.json`.
 
 ## Requirements
 

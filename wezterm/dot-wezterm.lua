@@ -8,8 +8,7 @@ local config = wezterm.config_builder()
 -- ────────────────────────────────────────────────────────────────────────────
 -- Appearance
 -- ────────────────────────────────────────────────────────────────────────────
--- Terminal (pane) colors come from wezterm's builtin nord scheme.
-local scheme_name = "nord"
+-- Terminal (pane) colors come from wezterm's builtin scheme (set by Nix).
 config.color_scheme = scheme_name
 local scheme = wezterm.color.get_builtin_schemes()[scheme_name]
 

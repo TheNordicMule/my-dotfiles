@@ -1,210 +1,34 @@
 #!/bin/zsh
 set -e
 
-DOTFILES="$HOME/my-dotfiles"
-THEME_FILE="$HOME/.theme"
+# Usage: theme-switch nord | theme-switch catppuccin
+#
+# Changes the `theme` var in home.nix, rebuilds (Nix propagates to starship,
+# wezterm, bat, nvim, sketchybar), then patches opencode (Nix-blind — out-of-
+# store symlink) and reloads sketchybar. Restart Neovim and OpenCode manually.
 
-usage() {
-  echo "Usage: theme-switch <catppuccin|nord>"
+NEW_THEME="$1"
+if [ "$NEW_THEME" != "nord" ] && [ "$NEW_THEME" != "catppuccin" ]; then
+  echo "Usage: theme-switch nord|catppuccin" >&2
   exit 1
-}
-
-[[ $# -ne 1 ]] && usage
-
-THEME="$1"
-[[ "$THEME" != "catppuccin" && "$THEME" != "nord" ]] && usage
-
-echo "$THEME" > "$THEME_FILE"
-
-# --- Sketchybar colors.sh ---
-SKETCHYBAR_COLORS="$DOTFILES/config/sketchybar/colors.sh"
-if [[ "$THEME" == "catppuccin" ]]; then
-  cat > "$SKETCHYBAR_COLORS" <<'EOF'
-#!/bin/bash
-
-export WHITE=0xffffffff
-
-export BAR_COLOR=0xff1e1e2e       # Catppuccin Mocha Base
-export ITEM_BG_COLOR=0xff313244   # Catppuccin Mocha Surface0
-export ACCENT_COLOR=0xff89b4fa    # Catppuccin Mocha Blue
-EOF
-else
-  cat > "$SKETCHYBAR_COLORS" <<'EOF'
-#!/bin/bash
-
-export WHITE=0xffffffff
-
-export BAR_COLOR=0xff2e3440  # Nord Polar Night Darkest
-export ITEM_BG_COLOR=0xff3b4252  # Nord Polar Night Dark
-export ACCENT_COLOR=0xff88c0d0  # Nord Frost Light
-EOF
 fi
 
-# --- Tmux (legacy) ---
-# WezTerm is the active multiplexer; this block only has effect when tmux is
-# running. Kept so the config still themes correctly if tmux is launched manually.
-TMUX_CONF="$DOTFILES/tmux/dot-tmux.conf"
-if [[ "$THEME" == "catppuccin" ]]; then
-  sed -i '' '
-    /^# catppuccine/,/^$/ {
-      s/^# \(BG=\)/\1/
-      s/^# \(FG=\)/\1/
-      s/^# \(BLUE=\)/\1/
-      s/^# \(GRAY=\)/\1/
-    }
-    /^# nord/,/^$/ {
-      s/^BG=/# BG=/
-      s/^FG=/# FG=/
-      s/^BLUE=/# BLUE=/
-      s/^GRAY=/# GRAY=/
-    }
-  ' "$TMUX_CONF"
-else
-  sed -i '' '
-    /^# catppuccine/,/^$/ {
-      s/^BG=/# BG=/
-      s/^FG=/# FG=/
-      s/^BLUE=/# BLUE=/
-      s/^GRAY=/# GRAY=/
-    }
-    /^# nord/,/^$/ {
-      s/^# \(BG=\)/\1/
-      s/^# \(FG=\)/\1/
-      s/^# \(BLUE=\)/\1/
-      s/^# \(GRAY=\)/\1/
-    }
-  ' "$TMUX_CONF"
-fi
+REPO=~/my-dotfiles
 
-# --- Neovim looks.lua ---
-NVIM_LOOKS="$DOTFILES/config/nvim/lua/plugins/looks.lua"
-if [[ "$THEME" == "catppuccin" ]]; then
-  cat > "$NVIM_LOOKS" <<'LUAEOF'
-return {
-	{
-		"nvim-lualine/lualine.nvim",
-		event = "VeryLazy",
-		opts = {
-			options = {
-				globalstatus = true,
-			},
-		},
-	},
-	{
-		"catppuccin/nvim",
-		name = "catppuccin",
-		priority = 1000,
-		config = function()
-			require("catppuccin").setup({
-				flavour = "mocha",
-				transparent_background = true,
-				float = {
-					transparent = true,
-					solid = false,
-				},
-			})
-			vim.cmd.colorscheme("catppuccin-mocha")
-		end,
-	},
-	{
-		"gbprod/nord.nvim",
-		-- priority = 1000,
-		-- config = function()
-		-- 	require("nord").setup({})
-		-- 	vim.cmd.colorscheme("nord")
-		-- end,
-	},
-	{
-		"folke/todo-comments.nvim",
-		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = {
-			signs = false,
-		},
-	},
-}
-LUAEOF
-else
-  cat > "$NVIM_LOOKS" <<'LUAEOF'
-return {
-	{
-		"nvim-lualine/lualine.nvim",
-		event = "VeryLazy",
-		opts = {
-			options = {
-				globalstatus = true,
-			},
-		},
-	},
-	{
-		"catppuccin/nvim",
-		name = "catppuccin",
-		-- priority = 1000,
-		-- config = function()
-		-- 	require("catppuccin").setup({
-		-- 		flavour = "mocha",
-		-- 		transparent_background = true,
-		-- 		float = {
-		-- 			transparent = true,
-		-- 			solid = false,
-		-- 		},
-		-- 	})
-		-- 	vim.cmd.colorscheme("catppuccin-mocha")
-		-- end,
-	},
-	{
-		"gbprod/nord.nvim",
-		priority = 1000,
-		config = function()
-			require("nord").setup({})
-			vim.cmd.colorscheme("nord")
-		end,
-	},
-	{
-		"folke/todo-comments.nvim",
-		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = {
-			signs = false,
-		},
-	},
-}
-LUAEOF
-fi
+# 1. Update the `theme` var in home.nix
+sed -i '' "s/^  theme = \".*\";/  theme = \"$NEW_THEME\";/" "$REPO/nix/modules/home.nix"
 
-# --- Wezterm ---
-WEZTERM_CONF="$DOTFILES/wezterm/dot-wezterm.lua"
-if [[ "$THEME" == "catppuccin" ]]; then
-  sed -i '' 's/local scheme_name = .*/local scheme_name = "catppuccin-mocha"/' "$WEZTERM_CONF"
-else
-  sed -i '' 's/local scheme_name = .*/local scheme_name = "nord"/' "$WEZTERM_CONF"
-fi
+# 2. Rebuild — Nix propagates to starship, wezterm, bat, nvim, sketchybar
+pushd "$REPO/nix"
+alejandra . &>/dev/null
+sudo darwin-rebuild switch --flake .
+popd
 
-# --- Starship ---
-STARSHIP_CONF="$DOTFILES/config/starship/starship.toml"
-if [[ "$THEME" == "catppuccin" ]]; then
-  sed -i '' '1s/.*/palette = "catppuccin_mocha"/' "$STARSHIP_CONF"
-else
-  sed -i '' '1s/.*/palette = "nord"/' "$STARSHIP_CONF"
-fi
+# 3. Patch opencode tui.json (Nix-blind — out-of-store symlink, Nix can't
+#    manage individual files inside config/opencode/)
+jq --arg t "$NEW_THEME" '.theme = $t' \
+  "$REPO/config/opencode/tui.json" > "$REPO/config/opencode/tui.json.tmp" \
+  && mv "$REPO/config/opencode/tui.json.tmp" "$REPO/config/opencode/tui.json"
 
-# --- OpenCode ---
-OPENCODE_TUI="$DOTFILES/config/opencode/tui.json"
-if [[ "$THEME" == "catppuccin" ]]; then
-  sed -i '' 's/"theme": *"[^"]*"/"theme": "catppuccin"/' "$OPENCODE_TUI"
-else
-  sed -i '' 's/"theme": *"[^"]*"/"theme": "nord"/' "$OPENCODE_TUI"
-fi
 
-# --- Reload running programs ---
-# Sketchybar
-if pgrep -q sketchybar; then
-  sketchybar --reload 2>/dev/null || true
-fi
-
-# Tmux (legacy — no-op when tmux isn't running; WezTerm is the active multiplexer)
-if pgrep -q tmux; then
-  tmux source-file ~/.tmux.conf 2>/dev/null || true
-fi
-
-echo "Switched to $THEME. Restart nvim and opencode for the new colorscheme."
+echo "Theme switched to $NEW_THEME. Restart computer to apply chaanges"
