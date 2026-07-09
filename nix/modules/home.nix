@@ -23,7 +23,7 @@ in {
   # users aren't declared in `users.users`). Override that derivation rather
   # than declaring the user (which would trigger nix-darwin user management).
   home.homeDirectory = lib.mkForce "/Users/mingshiwang";
-  home.stateVersion = "24.11";
+  home.stateVersion = "26.11";
 
   xdg.enable = true;
 
