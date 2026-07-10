@@ -37,7 +37,7 @@ theme-switch catppuccin  # apply Catppuccin Mocha everywhere
 theme-switch gruvbox     # apply Gruvbox everywhere
 ```
 
-This updates the `theme` value in `modules/theme.nix`, rebuilds via Nix (propagating to starship, wezterm, bat, nvim, and sketchybar), then patches opencode's `tui.json` (the one Nix-blind tool) and reloads SketchyBar. WezTerm picks up its config change via file watching. A restart of Neovim and OpenCode is required.
+This updates the `theme` value in `modules/theme.nix`, rebuilds via Nix (propagating to starship, wezterm, bat, nvim, sketchybar, and opencode's TUI theme) and reloads SketchyBar. WezTerm picks up its config change via file watching. A restart of Neovim and OpenCode is required.
 
 ## Structure
 
@@ -67,7 +67,7 @@ my-dotfiles/
 │       ├── wezterm.nix       #     HM: wezterm (theme-aware scheme injection)
 │       ├── nvim.nix          #     HM: neovim (out-of-store symlink)
 │       ├── sketchybar.nix    #     HM: sketchybar (read-only nix-store)
-│       ├── opencode.nix      #     HM: opencode (out-of-store symlink)
+│       ├── opencode.nix      #     HM: opencode (programs.opencode, theme-aware)
 │       ├── static-configs.nix#     HM: aerospace, gh-dash (read-only nix-store)
 │       └── bins.nix          #     HM: switch, theme-switch, tmux-sessionizer on $PATH
 ├── bins/                     # Executable helpers (deployed to ~/bin by home-manager)
@@ -78,7 +78,7 @@ my-dotfiles/
 │   ├── aerospace/            #   Tiling window manager
 │   ├── gh-dash/              #   GitHub CLI dashboard
 │   ├── nvim/                 #   Neovim (lazy.nvim) — out-of-store symlink (reads ~/.config/theme at startup)
-│   ├── opencode/             #   OpenCode AI config — out-of-store symlink (theme-switch mutates tui.json)
+│   ├── opencode/             #   OpenCode AI — oh-my-opencode-slim preset (out-of-store symlink); config via programs.opencode
 │   └── sketchybar/           #   macOS menu bar — out-of-store symlink (reads ~/.config/theme at runtime)
 ├── wezterm/                  # WezTerm Lua config (Nix injects scheme_name based on `theme`)
 ├── tmux/                     # Tmux config (legacy — WezTerm multiplexer is active; not deployed)
@@ -135,8 +135,8 @@ The config uses the **dendritic pattern**: every `.nix` file under `modules/` is
 > home-manager deploys static configs as read-only nix-store symlinks and the
 > runtime-theme-read files (sketchybar colors, nvim looks) as writable
 > out-of-store symlinks to this repo. Nix drives starship, wezterm, bat, nvim,
-> and sketchybar via the `theme` value (`dotfiles.theme` option);
-> `theme-switch` only patches opencode (Nix-blind) and reloads sketchybar.
+> sketchybar, and opencode via the `theme` value (`dotfiles.theme` option);
+> `theme-switch` only reloads sketchybar.
 
 ## Adding a New App to the Theme System
 
@@ -150,7 +150,7 @@ The config uses the **dendritic pattern**: every `.nix` file under `modules/` is
    sketchybar's `colors.sh`.
 3. Only if neither works (out-of-store symlink, Nix can't touch individual
    files), add a `jq`/`sed` block to `bins/theme-switch` under the app's config
-   path — like opencode's `tui.json`.
+   path.
 
 ## Requirements
 

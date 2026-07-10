@@ -3,9 +3,9 @@ set -e
 
 # Usage: theme-switch nord | theme-switch catppuccin | theme-switch gruvbox
 #
-# Changes the `theme` value in modules/theme.nix, rebuilds (Nix propagates to
-# starship, wezterm, bat, nvim, sketchybar), then patches opencode (Nix-blind
-# — out-of-store symlink) and reloads sketchybar. Restart Neovim and OpenCode.
+# Changes the `theme` value in modules/theme.nix, rebuilds — Nix propagates to
+# starship, wezterm, bat, nvim, sketchybar, and opencode (tui theme via
+# programs.opencode) — then reloads sketchybar. Restart Neovim and OpenCode.
 
 NEW_THEME="$1"
 case "$NEW_THEME" in
@@ -21,19 +21,14 @@ REPO=~/my-dotfiles
 # 1. Update the `theme` value in modules/theme.nix
 sed -i '' "s/^  config.dotfiles.theme = \".*\";/  config.dotfiles.theme = \"$NEW_THEME\";/" "$REPO/modules/theme.nix"
 
-# 2. Rebuild — Nix propagates to starship, wezterm, bat, nvim, sketchybar
+# 2. Rebuild — Nix propagates to starship, wezterm, bat, nvim, sketchybar,
+#    and opencode (tui theme via programs.opencode).
 pushd "$REPO"
 alejandra . &>/dev/null
 sudo darwin-rebuild switch --flake .
 popd
 
-# 3. Patch opencode tui.json (Nix-blind — out-of-store symlink, Nix can't
-#    manage individual files inside config/opencode/)
-jq --arg t "$NEW_THEME" '.theme = $t' \
-  "$REPO/config/opencode/tui.json" > "$REPO/config/opencode/tui.json.tmp" \
-  && mv "$REPO/config/opencode/tui.json.tmp" "$REPO/config/opencode/tui.json"
-
-# 4. Reload sketchybar so it re-sources colors.sh with the new theme.
+# 3. Reload sketchybar so it re-sources colors.sh with the new theme.
 #    (colors.sh reads ~/.config/theme at source time via sketchybarrc.)
 sketchybar --reload
 
