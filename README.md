@@ -157,7 +157,5 @@ The config uses the **dendritic pattern**: every `.nix` file under `modules/` is
 - macOS (aarch64-darwin)
 - [Nix](https://nixos.org/download.html) (with flakes enabled)
 - [Homebrew](https://brew.sh)
-- [Oh My Zsh](https://ohmyz.sh)
-- [sketchybar-app-font](https://github.com/kvndrsslr/sketchybar-app-font)
 
-The nix-darwin flake (with home-manager) installs the rest of the toolchain (`fd`, `bat`/`lsd`/`delta` for shell aliases, `ripgrep`, `starship`, `fzf`, etc.) and deploys all dotfiles.
+The nix-darwin flake (with home-manager) installs the rest of the toolchain (`fd`, `bat`/`lsd`/`delta` for shell aliases, `ripgrep`, `starship`, `fzf`, Oh My Zsh, etc.) and deploys all dotfiles.
