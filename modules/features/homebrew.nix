@@ -34,6 +34,7 @@
 
       casks = [
         "aerospace"
+        "firefox"
         "canon-ufrii-driver"
         "font-sf-pro"
         "raycast"
