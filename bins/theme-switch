@@ -3,9 +3,9 @@ set -e
 
 # Usage: theme-switch nord | theme-switch catppuccin | theme-switch gruvbox
 #
-# Changes the `theme` var in home.nix, rebuilds (Nix propagates to starship,
-# wezterm, bat, nvim, sketchybar), then patches opencode (Nix-blind — out-of-
-# store symlink) and reloads sketchybar. Restart Neovim and OpenCode manually.
+# Changes the `theme` value in modules/theme.nix, rebuilds (Nix propagates to
+# starship, wezterm, bat, nvim, sketchybar), then patches opencode (Nix-blind
+# — out-of-store symlink) and reloads sketchybar. Restart Neovim and OpenCode.
 
 NEW_THEME="$1"
 case "$NEW_THEME" in
@@ -18,11 +18,11 @@ esac
 
 REPO=~/my-dotfiles
 
-# 1. Update the `theme` var in home.nix
-sed -i '' "s/^  theme = \".*\";/  theme = \"$NEW_THEME\";/" "$REPO/nix/modules/home.nix"
+# 1. Update the `theme` value in modules/theme.nix
+sed -i '' "s/^  config.dotfiles.theme = \".*\";/  config.dotfiles.theme = \"$NEW_THEME\";/" "$REPO/modules/theme.nix"
 
 # 2. Rebuild — Nix propagates to starship, wezterm, bat, nvim, sketchybar
-pushd "$REPO/nix"
+pushd "$REPO"
 alejandra . &>/dev/null
 sudo darwin-rebuild switch --flake .
 popd

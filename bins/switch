@@ -1,6 +1,6 @@
 #!/bin/zsh
 set -e
-pushd ~/my-dotfiles/nix
+pushd ~/my-dotfiles
 alejandra . &>/dev/null
 sudo darwin-rebuild switch --flake . && git commit -a
 popd
