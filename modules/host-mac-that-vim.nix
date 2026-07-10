@@ -4,7 +4,11 @@
 #
 # Build with:
 #   darwin-rebuild switch --flake .#Mac-that-vim
-{inputs, config, ...}: let
+{
+  inputs,
+  config,
+  ...
+}: let
   darwin = config.flake.modules.darwin;
   hm = config.flake.modules.homeManager;
 in {
@@ -19,6 +23,7 @@ in {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         home-manager.backupFileExtension = "backup";
+        home-manager.extraSpecialArgs = {inherit (inputs) firefox-addons;};
         home-manager.users.mingshiwang = hm.mingshiwang;
       }
     ];

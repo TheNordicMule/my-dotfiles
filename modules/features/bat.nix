@@ -4,7 +4,11 @@
 {config, ...}: let
   theme = config.dotfiles.theme;
 in {
-  config.flake.modules.homeManager.bat = {pkgs, lib, ...}: {
+  config.flake.modules.homeManager.bat = {
+    pkgs,
+    lib,
+    ...
+  }: {
     programs.bat = {
       enable = true;
       themes = lib.optionalAttrs (theme == "catppuccin") {

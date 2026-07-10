@@ -1,6 +1,10 @@
 # User home-manager base — owns the home.username/homeDirectory/stateVersion
 # and selects which HM feature modules this user gets via `imports`.
-{config, lib, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   hm = config.flake.modules.homeManager;
 in {
   config.flake.modules.homeManager.mingshiwang = {
@@ -19,6 +23,7 @@ in {
       hm.opencode
       hm.static-configs
       hm.bins
+      hm.firefox
     ];
 
     home.username = "mingshiwang";
