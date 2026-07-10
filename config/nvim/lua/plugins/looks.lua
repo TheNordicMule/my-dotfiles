@@ -44,6 +44,16 @@ return {
 		end or nil,
 	},
 	{
+		"ellisonleao/gruvbox.nvim",
+		priority = theme == "gruvbox" and 1000 or nil,
+		config = theme == "gruvbox" and function()
+			require("gruvbox").setup({
+				transparent_mode = true,
+			})
+			vim.cmd.colorscheme("gruvbox")
+		end or nil,
+	},
+	{
 		"folke/todo-comments.nvim",
 		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
 		dependencies = { "nvim-lua/plenary.nvim" },

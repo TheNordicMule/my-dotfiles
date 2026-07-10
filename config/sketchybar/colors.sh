@@ -10,6 +10,10 @@ if [ "$THEME" = "catppuccin" ]; then
 	export BAR_COLOR=0xff1e1e2e       # Catppuccin Mocha Base
 	export ITEM_BG_COLOR=0xff313244   # Catppuccin Mocha Surface0
 	export ACCENT_COLOR=0xff89b4fa    # Catppuccin Mocha Blue
+elif [ "$THEME" = "gruvbox" ]; then
+	export BAR_COLOR=0xff282828       # Gruvbox bg0
+	export ITEM_BG_COLOR=0xff3c3836  # Gruvbox bg1
+	export ACCENT_COLOR=0xff83a598   # Gruvbox bright_blue
 else
 	export BAR_COLOR=0xff2e3440  # Nord Polar Night Darkest
 	export ITEM_BG_COLOR=0xff3b4252  # Nord Polar Night Dark

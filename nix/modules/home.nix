@@ -13,7 +13,7 @@
 }: let
   # ────────────────────────────────────────────────────────────────────────────
   # Theme — change this one variable to switch all themed tools.
-  # Valid values: "nord" | "catppuccin"
+  # Valid values: "nord" | "catppuccin" | "gruvbox"
   # ────────────────────────────────────────────────────────────────────────────
   theme = "catppuccin";
 in {
@@ -77,7 +77,13 @@ in {
     };
     initContent = ''
       bindkey '^n' autosuggest-accept
-      ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#5e81ac'
+      ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#${
+        if theme == "catppuccin"
+        then "89b4fa"
+        else if theme == "gruvbox"
+        then "83a598"
+        else "5e81ac" # nord
+      }'
 
       # BEGIN opam configuration
       [[ ! -r "$HOME/.opam/opam-init/init.zsh" ]] || source "$HOME/.opam/opam-init/init.zsh" > /dev/null 2> /dev/null
@@ -125,6 +131,8 @@ in {
     config.theme =
       if theme == "catppuccin"
       then "Catppuccin Mocha"
+      else if theme == "gruvbox"
+      then "gruvbox-dark"
       else "Nord";
   };
 
@@ -159,6 +167,8 @@ in {
       palette =
         if theme == "catppuccin"
         then "catppuccin_mocha"
+        else if theme == "gruvbox"
+        then "gruvbox"
         else "nord";
 
       palettes = {
@@ -218,6 +228,34 @@ in {
           mantle = "#2e3440";
           crust = "#2e3440";
         };
+        gruvbox = {
+          rosewater = "#ebdbb2";
+          flamingo = "#ebdbb2";
+          pink = "#d3869b";
+          mauve = "#d3869b";
+          red = "#fb4934";
+          maroon = "#cc241d";
+          peach = "#fe8019";
+          yellow = "#fabd2f";
+          green = "#b8bb26";
+          teal = "#8ec07c";
+          sky = "#689d6a";
+          sapphire = "#458588";
+          blue = "#83a598";
+          lavender = "#83a598";
+          text = "#fbf1c7";
+          subtext1 = "#ebdbb2";
+          subtext0 = "#d5c4a1";
+          overlay2 = "#bdae93";
+          overlay1 = "#a89984";
+          overlay0 = "#928374";
+          surface2 = "#504945";
+          surface1 = "#3c3836";
+          surface0 = "#32302f";
+          base = "#282828";
+          mantle = "#1d2021";
+          crust = "#1d2021";
+        };
       };
 
       git_status = {
@@ -244,6 +282,8 @@ in {
       local scheme_name = "${
         if theme == "catppuccin"
         then "catppuccin-mocha"
+        else if theme == "gruvbox"
+        then "GruvboxDark"
         else "nord"
       }"
     ''

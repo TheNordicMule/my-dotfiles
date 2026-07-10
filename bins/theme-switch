@@ -1,17 +1,20 @@
 #!/bin/zsh
 set -e
 
-# Usage: theme-switch nord | theme-switch catppuccin
+# Usage: theme-switch nord | theme-switch catppuccin | theme-switch gruvbox
 #
 # Changes the `theme` var in home.nix, rebuilds (Nix propagates to starship,
 # wezterm, bat, nvim, sketchybar), then patches opencode (Nix-blind — out-of-
 # store symlink) and reloads sketchybar. Restart Neovim and OpenCode manually.
 
 NEW_THEME="$1"
-if [ "$NEW_THEME" != "nord" ] && [ "$NEW_THEME" != "catppuccin" ]; then
-  echo "Usage: theme-switch nord|catppuccin" >&2
-  exit 1
-fi
+case "$NEW_THEME" in
+  nord|catppuccin|gruvbox) ;;
+  *)
+    echo "Usage: theme-switch nord|catppuccin|gruvbox" >&2
+    exit 1
+    ;;
+esac
 
 REPO=~/my-dotfiles
 
