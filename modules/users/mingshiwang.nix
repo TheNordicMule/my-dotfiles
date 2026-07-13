@@ -23,7 +23,7 @@ in {
       hm.opencode
       hm.static-configs
       hm.bins
-      hm.firefox # policies only — browser installed via Homebrew cask
+      hm.firefox
     ];
 
     home.username = "mingshiwang";
