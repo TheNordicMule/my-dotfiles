@@ -17,8 +17,8 @@
     # Used for backwards compatibility, please read the changelog before changing.
     # $ darwin-rebuild changelog
     system.stateVersion = 7;
-    # TODO: see if we can remove
 
+    # TODO: see if we can remove
     ids.gids.nixbld = 30000;
 
     system.defaults.WindowManager = {

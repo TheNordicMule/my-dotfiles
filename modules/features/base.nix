@@ -5,6 +5,7 @@
   config.flake.modules.darwin.base = {pkgs, ...}: {
     system.primaryUser = "mingshiwang";
     nixpkgs.config.allowUnfree = true;
+    # TODO: remove
     nixpkgs.config.permittedInsecurePackages = [
       "electron-39.8.10"
     ];
