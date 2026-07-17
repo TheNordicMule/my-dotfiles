@@ -53,7 +53,8 @@
     },
     "opencode-go": {
       "orchestrator": {
-        "model": "opencode-go/glm-5.2",
+        "model": "opencode-go/minimax-m3",
+        "variant": "max",
         "skills": [
           "*"
         ],
@@ -72,6 +73,7 @@
       },
       "librarian": {
         "model": "opencode-go/deepseek-v4-flash",
+        "variant": "high",
         "skills": [],
         "mcps": [
           "websearch",
@@ -81,6 +83,7 @@
       },
       "explorer": {
         "model": "opencode-go/deepseek-v4-flash",
+        "variant": "max",
         "skills": [],
         "mcps": []
       },
@@ -97,7 +100,8 @@
         "mcps": []
       },
       "observer": {
-        "model": "opencode-go/kimi-k2.6",
+        "model": "opencode-go/mimo-v2.5",
+        "variant": "max",
         "skills": [],
         "mcps": []
       }
