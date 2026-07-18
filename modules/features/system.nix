@@ -18,7 +18,8 @@
     # $ darwin-rebuild changelog
     system.stateVersion = 7;
 
-    # TODO: see if we can remove
+    # nix-darwin default is 350; we use 30000 to match the builder group GID on
+    # the remote macOS builders, keeping builds portable.
     ids.gids.nixbld = 30000;
 
     system.defaults.WindowManager = {

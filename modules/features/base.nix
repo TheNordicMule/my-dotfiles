@@ -5,7 +5,8 @@
   config.flake.modules.darwin.base = {pkgs, ...}: {
     system.primaryUser = "mingshiwang";
     nixpkgs.config.allowUnfree = true;
-    # TODO: remove
+    # Bitwarden desktop currently packages electron-39, which is marked
+    # insecure in nixpkgs. Allow it until Bitwarden bumps their electron.
     nixpkgs.config.permittedInsecurePackages = [
       "electron-39.8.10"
     ];
@@ -16,10 +17,6 @@
 
     # Auto upgrade nix package and the daemon service.
     nix.enable = true;
-
-    # TODO: remove
-    documentation.enable = false;
-    system.tools.darwin-uninstaller.enable = false;
 
     # Necessary for using flakes on this system.
     nix.settings.experimental-features = ["nix-command" "flakes"];

@@ -1,11 +1,12 @@
 # opencode (typed home-manager module, theme-aware via `theme`).
 #
 # Config (opencode.json, tui.json) is managed declaratively by
-# programs.opencode. The binary stays on Homebrew (package = null) — the
-# module installs nothing, only writes config files. Runtime-writable dirs
-# (node_modules/, .oh-my-opencode-slim/, skills/) live in ~/.config/opencode/
-# and are left untouched: the HM module has no cleanup script and only claims
-# the specific files below, so opencode can still install its plugin there.
+# programs.opencode. Home Manager installs a local fixed derivation that
+# fetches the official release binary (see `opencodeFixed` below).
+# Runtime-writable dirs (node_modules/, .oh-my-opencode-slim/, skills/) live in
+# ~/.config/opencode/ and are left untouched: the HM module has no cleanup
+# script and only claims the specific files below, so opencode can still
+# install its plugin there.
 #
 # The oh-my-opencode-slim preset is a large hand-maintained JSON file, kept in
 # the repo and symlinked out-of-store so edits are live without a rebuild.
@@ -21,12 +22,55 @@
   # config/opencode/skills/<name>/ with a SKILL.md.
   personalSkills = ["learn"];
 in {
-  config.flake.modules.homeManager.opencode = {config, ...}: {
+  config.flake.modules.homeManager.opencode = {
+    config,
+    pkgs,
+    ...
+  }: let
+    # Temporary workaround: upstream's pkgs.opencode builds from source with
+    # Bun, which emits an invalid code signature on macOS 27 (Sequoia).
+    # Fetch the official v1.17.13 release binary directly and re-sign it
+    # ad-hoc.  Remove this override once pkgs.opencode builds cleanly on
+    # macOS 27.
+    opencodeFixed = pkgs.stdenv.mkDerivation {
+      pname = "opencode";
+      version = "1.17.13";
+
+      src = pkgs.fetchzip {
+        url = "https://github.com/anomalyco/opencode/releases/download/v1.17.13/opencode-darwin-arm64.zip";
+        sha256 = "sha256-P2guGyD20YlKcdv58OJeG2wIMSmiYxFFSzMMxdGvbKI=";
+        stripRoot = false;
+      };
+
+      dontStrip = true;
+
+      nativeBuildInputs = with pkgs; [makeWrapper rcodesign];
+
+      installPhase = ''
+        runHook preInstall
+        install -m755 -D "$src/opencode" "$out/bin/opencode"
+        runHook postInstall
+      '';
+
+      # Ad-hoc re-sign after all modifications to work around macOS 27's
+      # rejection of Bun's code signature, then wrap to prevent self-update.
+      postFixup = ''
+        rcodesign sign --code-signature-flags linker-signed "$out/bin/opencode"
+        wrapProgram "$out/bin/opencode" \
+          --set OPENCODE_DISABLE_AUTOUPDATE true
+      '';
+
+      installCheckPhase = ''
+        echo "checking opencode version after re-sign…"
+        $out/bin/opencode --version
+      '';
+    };
+  in {
     programs.opencode = {
       enable = true;
-      package = null; # binary installed via Homebrew (anomalyco/tap)
+      package = opencodeFixed;
       settings = {
-        autoupdate = true;
+        autoupdate = false;
         plugin = ["oh-my-opencode-slim"];
         agent.explore.disable = true;
         agent.general.disable = true;

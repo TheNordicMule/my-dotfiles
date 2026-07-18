@@ -7,7 +7,7 @@
 
       onActivation = {
         autoUpdate = false;
-        cleanup = "zap";
+        cleanup = "uninstall";
       };
 
       taps = [
@@ -24,12 +24,10 @@
           name = "felixkratz/formulae";
           trusted = true;
         }
-        "anomalyco/tap"
       ];
 
       brews = [
         "sketchybar"
-        "opencode"
       ];
 
       casks = [
