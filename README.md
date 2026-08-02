@@ -8,6 +8,7 @@ A curated set of macOS dotfiles with **Nord** / **Catppuccin** / **Gruvbox** the
 - **macOS-first** — AeroSpace (tiling WM), SketchyBar (menu bar), WezTerm, and nix-darwin
 - **Minimal Neovim IDE** — lazy.nvim with LSP, DAP, autocompletion, test runner, git integration, and AI copilot
 - **WezTerm multiplexer** — WezTerm handles multiplexing natively (tabs, splits, workspaces, copy mode) with tmux-style keybindings (`C-a` leader, `h/j/k/l` navigation). The `tmux/` config is kept as legacy and is not actively used.
+- **spotify-player** — terminal Spotify client (requires Spotify Premium), theme-aware via Nix
 - **nix-darwin + home-manager** — declarative system *and* user config (packages, fonts, system settings, dotfiles, bins)
 
 ## Quick Start
@@ -37,7 +38,7 @@ theme-switch catppuccin  # apply Catppuccin Mocha everywhere
 theme-switch gruvbox     # apply Gruvbox everywhere
 ```
 
-This updates the `theme` value in `modules/theme.nix`, rebuilds via Nix (propagating to starship, wezterm, bat, nvim, sketchybar, and opencode's TUI theme) and reloads SketchyBar. WezTerm picks up its config change via file watching. A restart of Neovim and OpenCode is required.
+This updates the `theme` value in `modules/theme.nix`, rebuilds via Nix (propagating to starship, wezterm, bat, nvim, sketchybar, opencode's TUI theme, spotify-player, and zsh's autosuggestion color) and reloads SketchyBar. WezTerm picks up its config change via file watching. A restart of Neovim, OpenCode, and spotify-player is required; the Zsh autosuggestion color applies in newly started Zsh sessions.
 
 ## Structure
 
@@ -67,6 +68,7 @@ my-dotfiles/
 │       ├── wezterm.nix       #     HM: wezterm (theme-aware scheme injection)
 │       ├── nvim.nix          #     HM: neovim (out-of-store symlink)
 │       ├── sketchybar.nix    #     HM: sketchybar (read-only nix-store)
+│       ├── spotify-player.nix#     HM: spotify-player (programs.spotify-player, theme-aware)
 │       ├── opencode.nix      #     HM: opencode (programs.opencode, theme-aware)
 │       ├── static-configs.nix#     HM: aerospace, gh-dash (read-only nix-store)
 │       └── bins.nix          #     HM: switch, theme-switch, tmux-sessionizer on $PATH
@@ -135,8 +137,9 @@ The config uses the **dendritic pattern**: every `.nix` file under `modules/` is
 > home-manager deploys static configs as read-only nix-store symlinks and the
 > runtime-theme-read files (sketchybar colors, nvim looks) as writable
 > out-of-store symlinks to this repo. Nix drives starship, wezterm, bat, nvim,
-> sketchybar, and opencode via the `theme` value (`dotfiles.theme` option);
-> `theme-switch` only reloads sketchybar.
+> sketchybar, opencode, spotify-player, and zsh (autosuggestion color) via the
+> `theme` value (`dotfiles.theme` option); `theme-switch` only reloads
+> sketchybar.
 
 ## Adding a New App to the Theme System
 

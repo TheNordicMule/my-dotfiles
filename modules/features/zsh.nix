@@ -15,6 +15,12 @@ in {
       };
       syntaxHighlighting.enable = true;
       autosuggestion.enable = true;
+      autosuggestion.highlight =
+        if theme == "catppuccin"
+        then "fg=#6c7086"
+        else if theme == "gruvbox"
+        then "fg=#928374"
+        else "fg=#616e88"; # nord
       shellAliases = {
         v = "nvim";
         vim = "nvim";
@@ -27,13 +33,6 @@ in {
       };
       initContent = ''
         bindkey '^n' autosuggest-accept
-        ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#${
-          if theme == "catppuccin"
-          then "89b4fa"
-          else if theme == "gruvbox"
-          then "83a598"
-          else "5e81ac" # nord
-        }'
 
         # BEGIN opam configuration
         [[ ! -r "$HOME/.opam/opam-init/init.zsh" ]] || source "$HOME/.opam/opam-init/init.zsh" > /dev/null 2> /dev/null

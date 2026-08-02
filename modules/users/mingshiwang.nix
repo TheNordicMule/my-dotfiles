@@ -20,6 +20,7 @@ in {
       hm.wezterm
       hm.nvim
       hm.sketchybar
+      hm.spotify-player
       hm.opencode
       hm.static-configs
       hm.bins

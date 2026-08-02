@@ -4,8 +4,10 @@ set -e
 # Usage: theme-switch nord | theme-switch catppuccin | theme-switch gruvbox
 #
 # Changes the `theme` value in modules/theme.nix, rebuilds — Nix propagates to
-# starship, wezterm, bat, nvim, sketchybar, and opencode (tui theme via
-# programs.opencode) — then reloads sketchybar. Restart Neovim and OpenCode.
+# starship, wezterm, bat, nvim, sketchybar, opencode (tui theme via
+# programs.opencode), spotify-player, and zsh (autosuggestion color) — then
+# reloads sketchybar. Restart Neovim, OpenCode, and spotify-player; open a new
+# Zsh session for the autosuggestion color.
 
 NEW_THEME="$1"
 case "$NEW_THEME" in
@@ -22,7 +24,8 @@ REPO=~/my-dotfiles
 sed -i '' "s/^  config.dotfiles.theme = \".*\";/  config.dotfiles.theme = \"$NEW_THEME\";/" "$REPO/modules/theme.nix"
 
 # 2. Rebuild — Nix propagates to starship, wezterm, bat, nvim, sketchybar,
-#    and opencode (tui theme via programs.opencode).
+#    opencode (tui theme via programs.opencode), spotify-player, and zsh
+#    (autosuggestion color; applies in newly started Zsh sessions).
 pushd "$REPO"
 alejandra . &>/dev/null
 sudo darwin-rebuild switch --flake .
@@ -32,4 +35,4 @@ popd
 #    (colors.sh reads ~/.config/theme at source time via sketchybarrc.)
 sketchybar --reload
 
-echo "Theme switched to $NEW_THEME. Restart Neovim and OpenCode to apply."
+echo "Theme switched to $NEW_THEME. Restart Neovim, OpenCode, and spotify-player; open a new Zsh session for the autosuggestion color."
