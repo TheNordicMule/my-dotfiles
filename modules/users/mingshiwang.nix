@@ -24,6 +24,7 @@ in {
       hm.static-configs
       hm.bins
       hm.firefox
+      hm.vesktop
     ];
 
     home.username = "mingshiwang";

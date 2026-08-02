@@ -4,7 +4,6 @@
 {...}: {
   config.flake.modules.darwin.base = {pkgs, ...}: {
     system.primaryUser = "mingshiwang";
-    nixpkgs.config.allowUnfree = true;
     # Bitwarden desktop currently packages electron-39, which is marked
     # insecure in nixpkgs. Allow it until Bitwarden bumps their electron.
     nixpkgs.config.permittedInsecurePackages = [

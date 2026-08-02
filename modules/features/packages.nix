@@ -13,19 +13,17 @@
         colima
         coreutils
         delta
-        discord
         docker
         dust
         fd
         gh
-        github-copilot-cli
         go
         jq
         lsd
         luajit
         neovim
         nodejs
-        obsidian
+        logseq
         opam
         # opencode
         pom
