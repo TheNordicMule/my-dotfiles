@@ -32,9 +32,10 @@
 
       casks = [
         "aerospace"
-        "firefox"
         "canon-ufrii-driver"
+        "firefox"
         "font-sf-pro"
+        "obsidian"
         "raycast"
         "sf-symbols"
         "spotify"
