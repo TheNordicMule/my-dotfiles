@@ -5,7 +5,7 @@
     "openai": {
       "orchestrator": {
         "model": "openai/gpt-5.6-terra",
-        "variant": "medium",
+        "variant": "xhigh",
         "skills": [
           "*"
         ],
@@ -16,7 +16,7 @@
       },
       "oracle": {
         "model": "openai/gpt-5.6-sol",
-        "variant": "max",
+        "variant": "xhigh",
         "skills": [
           "simplify"
         ],
@@ -46,7 +46,7 @@
       },
       "fixer": {
         "model": "openai/gpt-5.6-luna",
-        "variant": "high",
+        "variant": "xhigh",
         "skills": [],
         "mcps": []
       },
@@ -89,7 +89,7 @@
       },
       "explorer": {
         "model": "opencode-go/deepseek-v4-flash",
-        "variant": "max",
+        "variant": "high",
         "skills": [],
         "mcps": []
       },
@@ -113,7 +113,7 @@
     "hybrid": {
       "orchestrator": {
         "model": "openai/gpt-5.6-terra",
-        "variant": "medium",
+        "variant": "xhigh",
         "skills": [
           "*"
         ],
@@ -124,7 +124,7 @@
       },
       "oracle": {
         "model": "openai/gpt-5.6-sol",
-        "variant": "max",
+        "variant": "xhigh",
         "skills": [
           "simplify"
         ],
@@ -142,7 +142,7 @@
       },
       "explorer": {
         "model": "opencode-go/deepseek-v4-flash",
-        "variant": "max",
+        "variant": "high",
         "skills": [],
         "mcps": []
       },
