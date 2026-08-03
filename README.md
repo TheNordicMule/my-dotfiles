@@ -50,14 +50,18 @@ my-dotfiles/
 │   ├── flake-parts.nix       #   Registers the `flake.modules` option
 │   ├── helpers.nix           #   Declares `flake.darwinConfigurations` + `dotfiles.theme` option
 │   ├── theme.nix             #   Sets the theme value (single sed-editable line) + runtime theme file
-│   ├── host-mac-that-vim.nix #   Assembles darwinConfigurations."Mac-that-vim" from features
+│   ├── hosts/                #   One file per host — assembles a configuration from the features
+│   │   ├── mac-that-vim.nix  #     Assembles darwinConfigurations."Mac-that-vim" from features
+│   │   └── nixos-desktop.nix #     Assembles nixosConfigurations."nixos-desktop" from features
 │   ├── users/
 │   │   └── mingshiwang.nix   #   home-manager base + selects which feature modules to import
 │   └── features/             #   One file per capability (dendritic: organize by feature, not host)
-│       ├── base.nix          #     darwin: primary user, nix daemon, fonts, shell
+│       ├── base.nix          #     darwin: primary user, nix daemon, fonts, shell; nixos: common baseline
 │       ├── system.nix        #     darwin: keyboard, dock, touch-id, menu bar
-│       ├── packages.nix      #     darwin: environment.systemPackages
+│       ├── packages.nix      #     darwin/nixos: environment.systemPackages
 │       ├── homebrew.nix      #     darwin: taps / brews / casks
+│       ├── nvidia.nix        #     nixos: NVIDIA GPU (open modules, modesetting, stable driver)
+│       ├── hyprland.nix      #     nixos: Hyprland/UWSM/portals/greetd; HM: Hyprland user session
 │       ├── git.nix           #     HM: git config
 │       ├── zsh.nix           #     HM: zsh (theme-aware autosuggest color)
 │       ├── fzf.nix           #     HM: fzf
@@ -87,7 +91,7 @@ my-dotfiles/
 └── README.md
 ```
 
-The config uses the **dendritic pattern**: every `.nix` file under `modules/` is a top-level flake-parts module, auto-discovered by [import-tree](https://github.com/vic/import-tree) — no manual imports list to maintain. Feature files set `flake.modules.darwin.<name>` and/or `flake.modules.homeManager.<name>`; the host file assembles a `darwinConfiguration` from them. The `theme` value lives in one place (`modules/theme.nix`, declared as the `dotfiles.theme` option in `helpers.nix`) and is read by every themed feature module.
+The config uses the **dendritic pattern**: every `.nix` file under `modules/` is a top-level flake-parts module, auto-discovered by [import-tree](https://github.com/vic/import-tree) — no manual imports list to maintain. Feature files set `flake.modules.darwin.<name>`, `flake.modules.nixos.<name>` and/or `flake.modules.homeManager.<name>`; the files under `modules/hosts/` assemble a `darwinConfiguration`/`nixosConfiguration` from them. The `theme` value lives in one place (`modules/theme.nix`, declared as the `dotfiles.theme` option in `helpers.nix`) and is read by every themed feature module.
 
 ## Key Bindings
 

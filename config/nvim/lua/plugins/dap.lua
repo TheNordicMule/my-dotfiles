@@ -96,11 +96,14 @@ return {
 			)
 		end
 
+		-- codelldb is installed by mason under the Neovim data dir; derive the
+		-- path from stdpath("data") so it works on any machine/OS without a
+		-- hardcoded macOS home directory.
 		dap.adapters.codelldb = {
 			type = "server",
 			port = "${port}",
 			executable = {
-				command = "/Users/mingshiwang/.local/share/nvim/mason/packages/codelldb/codelldb",
+				command = vim.fn.stdpath("data") .. "/mason/packages/codelldb/codelldb",
 				args = { "--port", "${port}" },
 			},
 		}

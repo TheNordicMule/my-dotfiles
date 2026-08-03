@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 set -e
 
 # Usage: theme-switch nord | theme-switch catppuccin | theme-switch gruvbox
@@ -6,8 +6,8 @@ set -e
 # Changes the `theme` value in modules/theme.nix, rebuilds — Nix propagates to
 # starship, wezterm, bat, nvim, sketchybar, opencode (tui theme via
 # programs.opencode), spotify-player, and zsh (autosuggestion color) — then
-# reloads sketchybar. Restart Neovim, OpenCode, and spotify-player; open a new
-# Zsh session for the autosuggestion color.
+# reloads sketchybar (macOS only). Restart Neovim, OpenCode, and spotify-player;
+# open a new Zsh session for the autosuggestion color.
 
 NEW_THEME="$1"
 case "$NEW_THEME" in
@@ -20,19 +20,52 @@ esac
 
 REPO=~/my-dotfiles
 
+# BSD sed (macOS) requires `-i ''`; GNU sed (Linux/NixOS) takes a bare `-i`.
+case "$(uname -s)" in
+  Darwin)
+    SED_INPLACE=(-i '')
+    ;;
+  Linux)
+    SED_INPLACE=(-i)
+    ;;
+  *)
+    echo "theme-switch: unsupported OS $(uname -s)" >&2
+    exit 1
+    ;;
+esac
+
 # 1. Update the `theme` value in modules/theme.nix
-sed -i '' "s/^  config.dotfiles.theme = \".*\";/  config.dotfiles.theme = \"$NEW_THEME\";/" "$REPO/modules/theme.nix"
+sed "$SED_INPLACE[@]" "s/^  config.dotfiles.theme = \".*\";/  config.dotfiles.theme = \"$NEW_THEME\";/" "$REPO/modules/theme.nix"
 
 # 2. Rebuild — Nix propagates to starship, wezterm, bat, nvim, sketchybar,
 #    opencode (tui theme via programs.opencode), spotify-player, and zsh
 #    (autosuggestion color; applies in newly started Zsh sessions).
 pushd "$REPO"
 alejandra . &>/dev/null
-sudo darwin-rebuild switch --flake .
+
+# Rebuild the active OS: darwin-rebuild on macOS, nixos-rebuild (host
+# nixos-desktop) on Linux. darwin-rebuild must keep its --flake . form; the
+# Linux branch uses `path:.` so the untracked, gitignored
+# nixos/hardware-configuration.nix is visible to Nix.
+case "$(uname -s)" in
+  Darwin)
+    sudo darwin-rebuild switch --flake .
+    ;;
+  Linux)
+    sudo nixos-rebuild switch --flake path:.#nixos-desktop
+    ;;
+  *)
+    echo "theme-switch: unsupported OS $(uname -s)" >&2
+    exit 1
+    ;;
+esac
 popd
 
 # 3. Reload sketchybar so it re-sources colors.sh with the new theme.
+#    (macOS only — sketchybar does not exist on Linux.)
 #    (colors.sh reads ~/.config/theme at source time via sketchybarrc.)
-sketchybar --reload
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  sketchybar --reload
+fi
 
 echo "Theme switched to $NEW_THEME. Restart Neovim, OpenCode, and spotify-player; open a new Zsh session for the autosuggestion color."

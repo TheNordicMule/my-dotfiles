@@ -19,21 +19,57 @@ in {
       hm.starship
       hm.wezterm
       hm.nvim
-      hm.sketchybar
       hm.spotify-player
       hm.opencode
-      hm.static-configs
       hm.bins
       hm.firefox
       hm.vesktop
+      # macOS-only: SketchyBar bar + AeroSpace window-manager configs. Imported
+      # unconditionally because an HM `imports` list cannot branch on `pkgs`
+      # (that recurses); their xdg.configFile entries are disabled on Linux by
+      # the platform module below. gh-dash (also in static-configs) stays on
+      # both platforms.
+      hm.sketchybar
+      hm.static-configs
+      # Platform-dependent values + the Linux-only Hyprland import. Lives in an
+      # imported module (not directly in this attrset) so it can take `pkgs`
+      # and `osConfig` as module arguments.
+      ({
+        pkgs,
+        osConfig,
+        lib,
+        ...
+      }: let
+        isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
+      in {
+        # Hyprland is a Linux-only (NixOS) module. `imports` cannot depend on
+        # config-derived args like `pkgs` (that recurses), but `osConfig` — the
+        # OS config — is passed as an external module argument, so branching on
+        # it here is safe and evaluates lazily (hm.hyprland is only forced when
+        # actually imported). `system.defaults` is a nix-darwin-only option, so
+        # its presence means this is a macOS host.
+        imports = lib.optional (!(osConfig.system or {}) ? defaults) hm.hyprland;
+        # mkForce: home-manager's darwin common module derives homeDirectory
+        # from `users.users.<name>.home`, which is null on nix-darwin (existing
+        # macOS users aren't declared in `users.users`). Override that
+        # derivation rather than declaring the user (which would trigger
+        # nix-darwin user management). On Linux the Home Manager default is
+        # /home/mingshiwang; keep it explicit.
+        home.homeDirectory = lib.mkForce (
+          if isDarwin
+          then "/Users/mingshiwang"
+          else "/home/mingshiwang"
+        );
+        # Homebrew lives under /opt/homebrew only on Apple Silicon macOS.
+        home.sessionPath = (lib.optionals isDarwin ["/opt/homebrew/bin"]) ++ ["$HOME/bin"];
+        # macOS-only deployments from sketchybar.nix / static-configs.nix are
+        # disabled on Linux (see the imports note above).
+        xdg.configFile."sketchybar" = lib.mkIf (!isDarwin) {enable = lib.mkForce false;};
+        xdg.configFile."aerospace" = lib.mkIf (!isDarwin) {enable = lib.mkForce false;};
+      })
     ];
 
     home.username = "mingshiwang";
-    # mkForce: home-manager's darwin common module derives this from
-    # `users.users.<name>.home`, which is null on nix-darwin (existing macOS
-    # users aren't declared in `users.users`). Override that derivation rather
-    # than declaring the user (which would trigger nix-darwin user management).
-    home.homeDirectory = lib.mkForce "/Users/mingshiwang";
     home.stateVersion = "26.11";
     xdg.enable = true;
 
@@ -41,10 +77,5 @@ in {
       EDITOR = "nvim";
       OPENCODE_EXPERIMENTAL_BACKGROUND_SUBAGENTS = "true";
     };
-
-    home.sessionPath = [
-      "/opt/homebrew/bin"
-      "$HOME/bin"
-    ];
   };
 }

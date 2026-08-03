@@ -1,6 +1,24 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 set -e
 pushd ~/my-dotfiles
 alejandra . &>/dev/null
-sudo darwin-rebuild switch --flake . && git commit -a
+
+# Rebuild the active OS: darwin-rebuild on macOS, nixos-rebuild (host
+# nixos-desktop) on Linux. darwin-rebuild must keep its --flake . form; the
+# Linux branch uses `path:.` so the untracked, gitignored
+# nixos/hardware-configuration.nix is visible to Nix.
+case "$(uname -s)" in
+  Darwin)
+    sudo darwin-rebuild switch --flake .
+    ;;
+  Linux)
+    sudo nixos-rebuild switch --flake path:.#nixos-desktop
+    ;;
+  *)
+    echo "switch: unsupported OS $(uname -s)" >&2
+    exit 1
+    ;;
+esac
+
+git commit -a
 popd

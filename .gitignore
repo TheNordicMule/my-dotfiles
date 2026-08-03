@@ -1,3 +1,9 @@
 .git
 config/opencode/.oh-my-opencode-slim/
 result
+
+# NixOS per-machine hardware config — generated locally by the installer
+# (nixos-generate-config --root /mnt --dir <repo>/nixos), used via `path:`
+# flake refs, and never staged or committed. The tracked example lives in
+# nixos/hardware-configuration.nix.example.
+nixos/hardware-configuration.nix

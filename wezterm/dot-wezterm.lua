@@ -234,6 +234,18 @@ for _, bind in ipairs(search_mode) do
 	end
 end
 
+-- Copy-mode `y` yanks explicitly to the system clipboard so it works the same
+-- on macOS (NSPasteboard) and Wayland Linux (compositor clipboard manager /
+-- wl-clipboard): CopySelectionAndClearSelection copies then clears the
+-- selection, mirroring tmux's copy-pipe.
+for _, bind in ipairs(copy_mode) do
+	if bind.key == "y" and bind.mods == "NONE" then
+		bind.action = act.CopyMode({
+			CopySelectionAndClearSelection = "ClipboardAndPrimarySelection",
+		})
+	end
+end
+
 config.key_tables = { copy_mode = copy_mode, search_mode = search_mode }
 
 -- ────────────────────────────────────────────────────────────────────────────

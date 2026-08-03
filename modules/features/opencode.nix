@@ -27,11 +27,13 @@ in {
     pkgs,
     ...
   }: let
-    # Temporary workaround: upstream's pkgs.opencode builds from source with
+    # Darwin-only workaround: upstream's pkgs.opencode builds from source with
     # Bun, which emits an invalid code signature on macOS 27 (Sequoia).
     # Fetch the official v1.17.13 release binary directly and re-sign it
     # ad-hoc.  Remove this override once pkgs.opencode builds cleanly on
-    # macOS 27.
+    # macOS 27.  On Linux this derivation is never forced (see
+    # `opencodePackage` below) so its macOS-only darwin-arm64 source and
+    # rcodesign step never run there.
     opencodeFixed = pkgs.stdenv.mkDerivation {
       pname = "opencode";
       version = "1.17.13";
@@ -65,10 +67,17 @@ in {
         $out/bin/opencode --version
       '';
     };
+
+    # Darwin: the re-signed fixed derivation above.  Linux: the plain native
+    # pkgs.opencode package (no Bun code-signature issue outside macOS).
+    opencodePackage =
+      if pkgs.stdenv.hostPlatform.isDarwin
+      then opencodeFixed
+      else pkgs.opencode;
   in {
     programs.opencode = {
       enable = true;
-      package = opencodeFixed;
+      package = opencodePackage;
       settings = {
         autoupdate = false;
         plugin = ["oh-my-opencode-slim"];
