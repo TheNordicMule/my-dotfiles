@@ -65,6 +65,8 @@ in {
 
           networking.hostName = "nixos-desktop";
 
+          time.timeZone = "America/Chicago";
+
           # Normal wheel/networkmanager/docker user. No plaintext password in
           # the flake: set one at install time (`passwd mingshiwang`), see
           # nixos/README.md.
