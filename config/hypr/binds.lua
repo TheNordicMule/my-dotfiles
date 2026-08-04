@@ -7,6 +7,7 @@
 hl.bind("ALT + Return", hl.dsp.exec_cmd(terminal))
 hl.bind("ALT + Space", hl.dsp.exec_cmd(menu))
 hl.bind("ALT + Q", hl.dsp.window.close())
+hl.bind("CTRL + ALT + Q", hl.dsp.exec_cmd("systemctl suspend"))
 
 -- Fullscreen (maximized), float, pseudo
 hl.bind(mod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized" }))
