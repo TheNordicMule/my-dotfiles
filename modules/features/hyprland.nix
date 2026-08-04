@@ -118,7 +118,7 @@ in {
         control-center-width = 360;
         control-center-height = -1;
         notification-window-width = 360;
-        widgets = ["title" "dnd" "mpris" "volume" "slider#brightness" "buttons-grid" "notifications"];
+        widgets = ["title" "dnd" "mpris" "notifications"];
         widget-config = {
           title = {
             text = "Control Center";
@@ -129,30 +129,6 @@ in {
           mpris = {
             autohide = true;
             show-album-art = "when-available";
-          };
-          volume = {
-            label = "Volume";
-            show-per-app = true;
-            show-per-app-icon = true;
-            show-per-app-label = true;
-          };
-          "slider#brightness" = {
-            label = "Brightness";
-            cmd_getter = "brightnessctl -m 2>/dev/null | cut -d, -f4 | tr -d '%'";
-            cmd_setter = "brightnessctl set \"$value%\"";
-            min = 0;
-            max = 100;
-          };
-          "buttons-grid" = {
-            buttons-per-row = 1;
-            actions = [
-              {
-                label = "Wi-Fi";
-                type = "toggle";
-                command = "sh -c 'if [ \"$SWAYNC_TOGGLE_STATE\" = true ]; then nmcli radio wifi on; else nmcli radio wifi off; fi'";
-                update-command = "sh -c '[ \"$(nmcli radio wifi 2>/dev/null)\" = enabled ] && echo true || echo false'";
-              }
-            ];
           };
         };
       };
