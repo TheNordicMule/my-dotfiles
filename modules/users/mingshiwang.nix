@@ -23,6 +23,7 @@ in {
       hm.opencode
       hm.bins
       hm.firefox
+      hm.gtk
       hm.vesktop
       # macOS-only: SketchyBar bar + AeroSpace window-manager configs. Imported
       # unconditionally because an HM `imports` list cannot branch on `pkgs`

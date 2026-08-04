@@ -47,6 +47,12 @@
           private-relay # Firefox Relay — email aliases
         ];
 
+        # ── Default search engine: DuckDuckGo (Privacy Guides) ──
+        search = {
+          force = true;
+          default = "ddg";
+        };
+
         # ── about:config prefs (Privacy Guides — no enterprise policy exists) ──
         settings = {
           # Auto-enable sideloaded extensions so no manual "Allow" clicks
