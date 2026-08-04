@@ -42,6 +42,9 @@ in {
   config.flake.modules.homeManager.hyprland = {pkgs, ...}: {
     wayland.windowManager.hyprland = {
       enable = true;
+      # The rest of this module and extraConfig use Hyprlang syntax ($mod,
+      # bind = …). Newer Home Manager state versions default to Lua instead.
+      configType = "hyprlang";
       systemd.enable = false;
       xwayland.enable = true;
       settings = {
