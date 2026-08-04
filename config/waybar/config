@@ -1,9 +1,10 @@
 {
   "layer": "top", "position": "top", "height": 36, "spacing": 8,
-  "modules-left": ["hyprland/workspaces", "hyprland/window"], "modules-center": ["clock"], "modules-right": ["pulseaudio", "network", "battery", "tray"],
+  "modules-left": ["hyprland/workspaces", "hyprland/window"], "modules-center": ["clock"], "modules-right": ["pulseaudio", "network", "battery", "tray", "custom/control-center"],
   "hyprland/workspaces": {"format": "{icon}", "format-icons": {"active": "◆", "default": "◇", "empty": "·"}, "persistent-workspaces": {"*": 10}},
   "hyprland/window": {"format": "{title}", "max-length": 48}, "clock": {"format": "{:%a  %d %b  %H:%M}"},
   "pulseaudio": {"format": "{icon} {volume}%", "format-muted": "󰝟 muted", "format-icons": ["󰕿", "󰖀", "󰕾"], "on-click": "pavucontrol"},
   "network": {"format-wifi": "󰤨 {essid}", "format-ethernet": "󰈀 wired", "format-disconnected": "󰤭 offline"},
-  "battery": {"format": "{icon} {capacity}%", "format-icons": ["󰂎", "󰁺", "󰁼", "󰁾", "󰂀"]}, "tray": {"spacing": 8}
+  "battery": {"format": "{icon} {capacity}%", "format-icons": ["󰂎", "󰁺", "󰁼", "󰁾", "󰂀"]}, "tray": {"spacing": 8},
+  "custom/control-center": {"format": "{icon}", "format-icons": {"notification": "󱅫", "none": "󰂜", "dnd-notification": "󰂠", "dnd-none": "󰪓", "inhibited-notification": "󰂛", "inhibited-none": "󰪑", "dnd-inhibited-notification": "󰂛", "dnd-inhibited-none": "󰪑"}, "return-type": "json", "exec-if": "which swaync-client", "exec": "swaync-client -swb", "on-click": "swaync-client -t -sw", "on-click-right": "swaync-client -d -sw", "escape": true}
 }

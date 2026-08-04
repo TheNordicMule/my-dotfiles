@@ -3,4 +3,5 @@ window#waybar { background: @BASE@; color: @TEXT@; }
 #workspaces, #window, #clock, #pulseaudio, #network, #battery, #tray { margin: 5px 3px; padding: 3px 10px; border-radius: 9px; background: @SURFACE@; }
 #workspaces button { padding: 0 7px; color: @MUTED@; border: 0; } #workspaces button.active { color: @ACCENT@; background: transparent; }
 #clock { color: @ACCENT@; font-weight: bold; } #pulseaudio { color: @BLUE@; } #battery { color: @ACCENT@; } #network { color: @MUTED@; } #window { color: @MUTED@; background: transparent; }
+#custom-control-center { color: @ACCENT@; min-width: 18px; } #custom-control-center:hover { color: @TEXT@; }
 tooltip { background: @BASE@; color: @TEXT@; border: 1px solid @ACCENT@; }

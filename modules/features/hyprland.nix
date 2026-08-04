@@ -77,7 +77,6 @@ in {
               function()
                 hl.exec_cmd("wl-paste --watch cliphist store")
                 hl.exec_cmd("waybar")
-                hl.exec_cmd("mako")
                 hl.exec_cmd("hyprpolkitagent")
               end
             '')
@@ -131,15 +130,70 @@ in {
       enable = true;
       systemd.enable = false;
     };
+    services.swaync = {
+      enable = true;
+      settings = {
+        positionX = "right";
+        positionY = "top";
+        control-center-positionX = "right";
+        control-center-positionY = "top";
+        control-center-margin-top = 42;
+        control-center-margin-right = 12;
+        control-center-layer = "overlay";
+        control-center-exclusive-zone = false;
+        layer = "overlay";
+        layer-shell = true;
+        fit-to-screen = false;
+        control-center-width = 360;
+        control-center-height = -1;
+        notification-window-width = 360;
+        widgets = ["title" "dnd" "mpris" "volume" "slider#brightness" "buttons-grid" "notifications"];
+        widget-config = {
+          title = {
+            text = "Control Center";
+            clear-all-button = true;
+            button-text = "Clear";
+          };
+          dnd = {text = "Do Not Disturb";};
+          mpris = {
+            autohide = true;
+            show-album-art = "when-available";
+          };
+          volume = {
+            label = "Volume";
+            show-per-app = true;
+            show-per-app-icon = true;
+            show-per-app-label = true;
+          };
+          "slider#brightness" = {
+            label = "Brightness";
+            cmd_getter = "brightnessctl -m 2>/dev/null | cut -d, -f4 | tr -d '%'";
+            cmd_setter = "brightnessctl set \"$value%\"";
+            min = 0;
+            max = 100;
+          };
+          "buttons-grid" = {
+            buttons-per-row = 1;
+            actions = [
+              {
+                label = "Wi-Fi";
+                type = "toggle";
+                command = "sh -c 'if [ \"$SWAYNC_TOGGLE_STATE\" = true ]; then nmcli radio wifi on; else nmcli radio wifi off; fi'";
+                update-command = "sh -c '[ \"$(nmcli radio wifi 2>/dev/null)\" = enabled ] && echo true || echo false'";
+              }
+            ];
+          };
+        };
+      };
+      style = render ../../config/swaync/style.css;
+    };
     programs.fuzzel.enable = true;
-    services.mako.enable = true;
     programs.hyprlock.enable = true;
     services.hypridle.enable = true;
     home.packages = with pkgs; [brightnessctl cliphist grim hyprpolkitagent playerctl slurp wl-clipboard wev pavucontrol wireplumber];
     xdg.configFile."waybar/config".source = ../../config/waybar/config;
     xdg.configFile."waybar/style.css".text = render ../../config/waybar/style.css;
     xdg.configFile."fuzzel/fuzzel.ini".text = render ../../config/fuzzel/fuzzel.ini;
-    xdg.configFile."mako/config".text = render ../../config/mako/config;
     xdg.configFile."hypr/hypridle.conf".source = ../../config/hypr/hypridle.conf;
     xdg.configFile."hypr/hyprlock.conf".text = renderHyprlock ../../config/hypr/hyprlock.conf;
   };
