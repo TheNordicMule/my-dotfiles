@@ -48,14 +48,15 @@ in {
       systemd.enable = false;
       xwayland.enable = true;
       settings = {
-        monitor = ", preferred, auto, 1";
+        monitor = ", 1920x1080, auto, 1";
         env = ["XCURSOR_SIZE,24" "HYPRCURSOR_SIZE,24"];
         exec-once = ["wl-paste --watch cliphist store" "waybar" "mako" "hyprpolkitagent"];
-        "$mod" = "ALT";
+        "$mod" = "SUPER";
         "$terminal" = "wezterm";
         "$menu" = "fuzzel";
         input = {
           kb_layout = "us";
+          kb_options = "caps:escape";
           follow_mouse = 1;
           sensitivity = 0;
           touchpad = {natural_scroll = true;};
@@ -83,7 +84,6 @@ in {
         };
         animations = {enabled = true;};
         dwindle = {
-          pseudotile = true;
           preserve_split = true;
         };
         misc = {
