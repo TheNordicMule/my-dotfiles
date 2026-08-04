@@ -40,6 +40,7 @@ in {
         nixos.packages
         nixos.nvidia
         nixos.hyprland
+        nixos.steam
 
         inputs.home-manager.nixosModules.home-manager
         {
