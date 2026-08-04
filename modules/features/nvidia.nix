@@ -8,6 +8,7 @@
     hardware.nvidia = {
       open = true;
       modesetting.enable = true;
+      powerManagement.enable = true;
       # Explicitly pin the stable driver channel.
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
