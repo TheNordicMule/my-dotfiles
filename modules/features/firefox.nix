@@ -28,7 +28,7 @@
         UserMessaging.ExtensionRecommendations = false;
         EnableTrackingProtection = {Category = "strict";};
         HttpsOnlyMode = "force_enabled";
-        SanitizeOnShutdown = {Cookies = true;};
+        # SanitizeOnShutdown = {Cookies = true;};
         DNSOverHTTPS = {
           Enabled = true;
           Fallback = false;
