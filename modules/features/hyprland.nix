@@ -31,9 +31,9 @@ in {
 
         monitor = {
           output = "";
-          mode = "1920x1080";
+          mode = "3840x2160";
           position = "auto";
-          scale = "1";
+          scale = "2";
         };
         env = [
           {_args = ["XCURSOR_SIZE" "24"];}
