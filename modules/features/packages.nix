@@ -90,6 +90,8 @@
       hyprpolkitagent
       uwsm
       xdg-desktop-portal-gtk
+      # GUI
+      gnome-system-monitor
     ];
   };
 }
