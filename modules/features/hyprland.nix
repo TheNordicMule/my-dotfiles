@@ -39,59 +39,93 @@
   render = file: builtins.replaceStrings ["@BASE@" "@SURFACE@" "@TEXT@" "@MUTED@" "@ACCENT@" "@BLUE@" "@RED@"] [palette.base palette.surface palette.text palette.muted palette.accent palette.blue palette.red] (builtins.readFile file);
   renderHyprlock = file: builtins.replaceStrings ["#"] [""] (render file);
 in {
-  config.flake.modules.homeManager.hyprland = {pkgs, ...}: {
+  config.flake.modules.homeManager.hyprland = {
+    pkgs,
+    lib,
+    ...
+  }: {
     wayland.windowManager.hyprland = {
       enable = true;
-      # The rest of this module and extraConfig use Hyprlang syntax ($mod,
-      # bind = …). Newer Home Manager state versions default to Lua instead.
-      configType = "hyprlang";
+      # Lua config (Hyprland ≥ 0.55). `settings` maps to `hl.<name>(...)`
+      # calls (vars via `_var`, multi-arg calls via `_args`); the binds live in
+      # config/hypr/binds.lua and are appended as extraConfig so they can use
+      # the `mod`/`terminal`/`menu` locals generated below.
+      configType = "lua";
       systemd.enable = false;
       xwayland.enable = true;
       settings = {
-        monitor = ", 1920x1080, auto, 1";
-        env = ["XCURSOR_SIZE,24" "HYPRCURSOR_SIZE,24"];
-        exec-once = ["wl-paste --watch cliphist store" "waybar" "mako" "hyprpolkitagent"];
-        "$mod" = "SUPER";
-        "$terminal" = "wezterm";
-        "$menu" = "fuzzel";
-        input = {
-          kb_layout = "us";
-          kb_options = "caps:escape";
-          follow_mouse = 1;
-          sensitivity = 0;
-          touchpad = {natural_scroll = true;};
+        mod = {_var = "SUPER";};
+        terminal = {_var = "wezterm";};
+        menu = {_var = "fuzzel";};
+
+        monitor = {
+          output = "";
+          mode = "1920x1080";
+          position = "auto";
+          scale = "1";
         };
-        general = {
-          gaps_in = 6;
-          gaps_out = 12;
-          border_size = 2;
-          "col.active_border" = "rgba(${builtins.substring 1 6 palette.accent}ee)";
-          "col.inactive_border" = "rgba(${builtins.substring 1 6 palette.surface}aa)";
-          layout = "dwindle";
+        env = [
+          {_args = ["XCURSOR_SIZE" "24"];}
+          {_args = ["HYPRCURSOR_SIZE" "24"];}
+        ];
+
+        # Autostart (the Lua equivalent of exec-once).
+        on = {
+          _args = [
+            "hyprland.start"
+            (lib.generators.mkLuaInline ''
+              function()
+                hl.exec_cmd("wl-paste --watch cliphist store")
+                hl.exec_cmd("waybar")
+                hl.exec_cmd("mako")
+                hl.exec_cmd("hyprpolkitagent")
+              end
+            '')
+          ];
         };
-        decoration = {
-          rounding = 10;
-          blur = {
-            enabled = true;
-            size = 5;
-            passes = 2;
+
+        config = {
+          input = {
+            kb_layout = "us";
+            kb_options = "caps:escape";
+            follow_mouse = 1;
+            sensitivity = 0;
+            touchpad = {natural_scroll = true;};
           };
-          shadow = {
-            enabled = true;
-            range = 18;
-            render_power = 3;
+          general = {
+            gaps_in = 6;
+            gaps_out = 12;
+            border_size = 2;
+            col = {
+              active_border = "rgba(${builtins.substring 1 6 palette.accent}ee)";
+              inactive_border = "rgba(${builtins.substring 1 6 palette.surface}aa)";
+            };
+            layout = "dwindle";
           };
-        };
-        animations = {enabled = true;};
-        dwindle = {
-          preserve_split = true;
-        };
-        misc = {
-          disable_hyprland_logo = true;
-          disable_splash_rendering = true;
+          decoration = {
+            rounding = 10;
+            blur = {
+              enabled = true;
+              size = 5;
+              passes = 2;
+            };
+            shadow = {
+              enabled = true;
+              range = 18;
+              render_power = 3;
+            };
+          };
+          animations = {enabled = true;};
+          dwindle = {
+            preserve_split = true;
+          };
+          misc = {
+            disable_hyprland_logo = true;
+            disable_splash_rendering = true;
+          };
         };
       };
-      extraConfig = builtins.readFile ../../config/hypr/hyprland.conf;
+      extraConfig = builtins.readFile ../../config/hypr/binds.lua;
     };
     programs.waybar = {
       enable = true;
