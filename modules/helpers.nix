@@ -21,4 +21,12 @@
   options.dotfiles.theme = lib.mkOption {
     type = lib.types.enum ["nord" "catppuccin" "gruvbox"];
   };
+
+  # All color palettes, keyed by theme, defined once in modules/theme.nix.
+  # Feature modules derive their colors from `config.dotfiles.palettes.${theme}`
+  # (core colors, starship palette, spotify-player theme, zsh autosuggest).
+  options.dotfiles.palettes = lib.mkOption {
+    type = lib.types.raw;
+    default = {};
+  };
 }

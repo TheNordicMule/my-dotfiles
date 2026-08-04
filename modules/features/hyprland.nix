@@ -4,38 +4,9 @@
 #   greetd + tuigreet login (the host module enables UWSM/Hyprland via this).
 # - homeManager.hyprland: the user session; intentionally only owns the user
 #   config and disables Home Manager's competing systemd unit.
+# Colors come from config.dotfiles.palettes.${theme} (defined in theme.nix).
 {config, ...}: let
-  theme = config.dotfiles.theme;
-  palettes = {
-    nord = {
-      base = "#2e3440";
-      surface = "#3b4252";
-      text = "#eceff4";
-      muted = "#d8dee9";
-      accent = "#88c0d0";
-      blue = "#81a1c1";
-      red = "#bf616a";
-    };
-    catppuccin = {
-      base = "#1e1e2e";
-      surface = "#313244";
-      text = "#cdd6f4";
-      muted = "#a6adc8";
-      accent = "#cba6f7";
-      blue = "#89b4fa";
-      red = "#f38ba8";
-    };
-    gruvbox = {
-      base = "#282828";
-      surface = "#3c3836";
-      text = "#ebdbb2";
-      muted = "#bdae93";
-      accent = "#fabd2f";
-      blue = "#83a598";
-      red = "#fb4934";
-    };
-  };
-  palette = palettes.${theme};
+  palette = config.dotfiles.palettes.${config.dotfiles.theme};
   render = file: builtins.replaceStrings ["@BASE@" "@SURFACE@" "@TEXT@" "@MUTED@" "@ACCENT@" "@BLUE@" "@RED@"] [palette.base palette.surface palette.text palette.muted palette.accent palette.blue palette.red] (builtins.readFile file);
   renderHyprlock = file: builtins.replaceStrings ["#"] [""] (render file);
 in {

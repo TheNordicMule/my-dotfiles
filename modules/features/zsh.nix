@@ -1,13 +1,13 @@
 # zsh (typed home-manager module, theme-aware via `theme`).
-# `theme` is captured from the flake-parts top-level config and baked into the
-# HM module; `config` inside the HM module is the home-manager config (used for
-# xdg.configHome).
+# `theme` and the autosuggestion color are captured from the flake-parts
+# top-level config and baked into the HM module; `config` inside the HM module
+# is the home-manager config (used for xdg.configHome).
 {
   config,
   lib,
   ...
 }: let
-  theme = config.dotfiles.theme;
+  autosuggest = config.dotfiles.palettes.${config.dotfiles.theme}.autosuggest;
 in {
   config.flake.modules.homeManager.zsh = {
     config,
@@ -25,12 +25,7 @@ in {
       };
       syntaxHighlighting.enable = true;
       autosuggestion.enable = true;
-      autosuggestion.highlight =
-        if theme == "catppuccin"
-        then "fg=#6c7086"
-        else if theme == "gruvbox"
-        then "fg=#928374"
-        else "fg=#616e88"; # nord
+      autosuggestion.highlight = "fg=${autosuggest}";
       # `caffeinate` only exists on macOS; the rest are cross-platform.
       shellAliases =
         (
