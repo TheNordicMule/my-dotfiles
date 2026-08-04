@@ -41,6 +41,7 @@ in {
         nixos.nvidia
         nixos.hyprland
         nixos.steam
+        nixos.fans
 
         inputs.home-manager.nixosModules.home-manager
         {
