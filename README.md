@@ -1,15 +1,17 @@
 # my-dotfiles
 
-A curated set of macOS dotfiles with **Nord** / **Catppuccin** / **Gruvbox** theme switching across the entire stack — terminal, editor, window manager, status bar, and prompt.
+A curated set of dotfiles for **macOS** (nix-darwin) and **NixOS** (Hyprland desktop), with **Nord** / **Catppuccin** / **Gruvbox** theme switching across the entire stack — terminal, editor, window manager, status bar, and prompt.
 
 ## Features
 
 - **Unified theme system** — toggle between Nord, Catppuccin, and Gruvbox across all apps with a single command
-- **macOS-first** — AeroSpace (tiling WM), SketchyBar (menu bar), WezTerm, and nix-darwin
+- **macOS desktop** — AeroSpace (tiling WM), SketchyBar (menu bar), WezTerm, and nix-darwin
+- **NixOS desktop** — Hyprland (Lua config, AeroSpace-inspired bindings), Waybar, Mako, Fuzzel, hyprlock, Steam, and nixos-rebuild (see `nixos/README.md`)
+- **Newer user-facing apps** — Firefox (declarative policies via Home Manager), Vesktop (Discord), Steam (NixOS), Obsidian and Logseq (notes)
 - **Minimal Neovim IDE** — lazy.nvim with LSP, DAP, autocompletion, test runner, git integration, and AI copilot
 - **WezTerm multiplexer** — WezTerm handles multiplexing natively (tabs, splits, workspaces, copy mode) with tmux-style keybindings (`C-a` leader, `h/j/k/l` navigation). The `tmux/` config is kept as legacy and is not actively used.
 - **spotify-player** — terminal Spotify client (requires Spotify Premium), theme-aware via Nix
-- **nix-darwin + home-manager** — declarative system *and* user config (packages, fonts, system settings, dotfiles, bins)
+- **nix-darwin / NixOS + home-manager** — declarative system *and* user config (packages, fonts, system settings, dotfiles, bins)
 
 ## Quick Start
 
@@ -30,6 +32,10 @@ sudo darwin-rebuild switch --flake .#Mac-that-vim
 
 After the first build, `switch` (in `bins/`) reformats, rebuilds, and commits in one step.
 
+For the NixOS host (`nixos-desktop`, Hyprland) the same home-manager config is
+built with `sudo nixos-rebuild switch --flake path:.#nixos-desktop` — see
+`nixos/README.md` for installation and why the `path:` flake ref is required.
+
 ## Theme Switching
 
 ```bash
@@ -38,7 +44,22 @@ theme-switch catppuccin  # apply Catppuccin Mocha everywhere
 theme-switch gruvbox     # apply Gruvbox everywhere
 ```
 
-This updates the `theme` value in `modules/theme.nix`, rebuilds via Nix (propagating to starship, wezterm, bat, nvim, sketchybar, opencode's TUI theme, spotify-player, and zsh's autosuggestion color) and reloads SketchyBar. WezTerm picks up its config change via file watching. A restart of Neovim, OpenCode, and spotify-player is required; the Zsh autosuggestion color applies in newly started Zsh sessions.
+This seds the `theme` value in `modules/theme.nix` to the new theme, reformats
+with `alejandra`, and rebuilds the active OS:
+
+- **macOS:** `sudo darwin-rebuild switch --flake .`, then reloads SketchyBar.
+- **NixOS:** `sudo nixos-rebuild switch --flake path:.#nixos-desktop` (`path:`
+  so the gitignored `nixos/hardware-configuration.nix` stays visible).
+
+The rebuild propagates the theme to starship, wezterm, bat, nvim, sketchybar
+(macOS), opencode's TUI theme, spotify-player, and zsh's autosuggestion color —
+and, on NixOS, to Hyprland's borders plus the Waybar, Mako, Fuzzel, and hyprlock
+colors (all rendered from the theme palette in `modules/features/hyprland.nix`).
+WezTerm picks up its config change via file watching. `theme-switch` only reloads
+SketchyBar automatically; on Linux, run `hyprctl reload` (or `Alt-R`) for the
+border colors and restart Waybar/Mako to pick up the re-rendered configs. A
+restart of Neovim, OpenCode, and spotify-player is required; the Zsh
+autosuggestion color applies in newly started Zsh sessions.
 
 ## Structure
 
@@ -74,26 +95,61 @@ my-dotfiles/
 │       ├── sketchybar.nix    #     HM: sketchybar (read-only nix-store)
 │       ├── spotify-player.nix#     HM: spotify-player (programs.spotify-player, theme-aware)
 │       ├── opencode.nix      #     HM: opencode (programs.opencode, theme-aware)
+│       ├── firefox.nix       #     HM: firefox (declarative policies; macOS cask duplicated — see TROUBLESHOOTING.md)
+│       ├── steam.nix         #     nixos: programs.steam (32-bit libs, hardware accel, gamepads)
+│       ├── vesktop.nix       #     HM: vesktop (Discord, home.packages)
 │       ├── static-configs.nix#     HM: aerospace, gh-dash (read-only nix-store)
 │       └── bins.nix          #     HM: switch, theme-switch, tmux-sessionizer on $PATH
 ├── bins/                     # Executable helpers (deployed to ~/bin by home-manager)
-│   ├── switch                #   darwin-rebuild switch + commit
+│   ├── switch                #   Reformat, rebuild active OS (darwin/NixOS), commit
 │   ├── theme-switch          #   Theme toggle (Nord / Catppuccin / Gruvbox)
 │   └── tmux-sessionizer      #   Fuzzy tmux workspace selector (legacy)
 ├── config/                   # Deployed to ~/.config/ by home-manager
-│   ├── aerospace/            #   Tiling window manager
+│   ├── aerospace/            #   macOS tiling window manager (static-configs)
+│   ├── fuzzel/               #   NixOS launcher — theme-rendered by hyprland.nix
 │   ├── gh-dash/              #   GitHub CLI dashboard
+│   ├── hypr/                 #   NixOS Hyprland Lua bindings (binds.lua) + hypridle/hyprlock
+│   ├── mako/                 #   NixOS notification daemon — theme-rendered by hyprland.nix
 │   ├── nvim/                 #   Neovim (lazy.nvim) — out-of-store symlink (reads ~/.config/theme at startup)
 │   ├── opencode/             #   OpenCode AI — oh-my-opencode-slim preset (out-of-store symlink); config via programs.opencode
-│   └── sketchybar/           #   macOS menu bar — out-of-store symlink (reads ~/.config/theme at runtime)
+│   ├── sketchybar/           #   macOS menu bar — out-of-store symlink (reads ~/.config/theme at runtime)
+│   └── waybar/               #   NixOS status bar — theme-rendered by hyprland.nix
 ├── wezterm/                  # WezTerm Lua config (Nix injects scheme_name based on `theme`)
 ├── tmux/                     # Tmux config (legacy — WezTerm multiplexer is active; not deployed)
+├── nixos/                    # NixOS host: README + hardware-configuration.nix.example (real file is gitignored)
+├── TROUBLESHOOTING.md        # Record: local overrides, known issues, update checklist
 └── README.md
 ```
 
 The config uses the **dendritic pattern**: every `.nix` file under `modules/` is a top-level flake-parts module, auto-discovered by [import-tree](https://github.com/vic/import-tree) — no manual imports list to maintain. Feature files set `flake.modules.darwin.<name>`, `flake.modules.nixos.<name>` and/or `flake.modules.homeManager.<name>`; the files under `modules/hosts/` assemble a `darwinConfiguration`/`nixosConfiguration` from them. The `theme` value lives in one place (`modules/theme.nix`, declared as the `dotfiles.theme` option in `helpers.nix`) and is read by every themed feature module.
 
 ## Key Bindings
+
+### Hyprland (NixOS)
+
+`mod` is `SUPER`; `terminal` is `wezterm` and `menu` is `fuzzel`. Bindings are
+loaded from `config/hypr/binds.lua` (see also the AeroSpace section below —
+the layout is intentionally AeroSpace-inspired).
+
+| Binding                      | Action                                       |
+| ---------------------------- | -------------------------------------------- |
+| `Alt-Return`                 | Terminal (`wezterm`)                         |
+| `Alt-Space`                  | Launcher (`fuzzel`)                          |
+| `Alt-Q`                      | Close window                                 |
+| `Alt-R`                      | Reload Hyprland (`hyprctl reload`)           |
+| `mod-f` / `mod-t` / `mod-p`  | Fullscreen (maximized) / toggle float / pseudo-tiling |
+| `mod-s`                      | Toggle split (dwindle)                       |
+| `mod-h/j/k/l`                | Focus window left/down/up/right              |
+| `mod-shift-h/j/k/l`          | Move window left/down/up/right               |
+| `mod--` / `mod-=`            | Resize active window narrower / wider        |
+| `mod-tab`                    | Previous workspace                           |
+| `mod-1…0` / `mod-shift-1…0`  | Switch to / move window to workspace 1–10    |
+| `Print`                      | Region screenshot to clipboard (`grim` + `slurp`) |
+| `Shift-Print`                | Fullscreen screenshot to clipboard           |
+| `Ctrl-Print`                 | Region screenshot to `~/Pictures`            |
+| `Alt-v`                      | Clipboard history (`cliphist` + `fuzzel`)    |
+| `Alt-m`                      | Play/pause (`playerctl`)                     |
+| `XF86Audio*` / `XF86MonBrightness*` | Volume (`wpctl`) / brightness (`brightnessctl`) |
 
 ### AeroSpace (Window Manager)
 
@@ -138,12 +194,18 @@ The config uses the **dendritic pattern**: every `.nix` file under `modules/` is
 | Dotfiles | home-manager    | Symlinks configs + bins to `~/` and `~/.config/`   |
 | Plugins  | lazy.nvim       | Neovim plugins                                     |
 
+On NixOS, system packages come from `environment.systemPackages`
+(`modules/features/packages.nix`) and Steam via `programs.steam`
+(`modules/features/steam.nix`); user-scoped apps (Firefox, Vesktop, …) are
+installed by home-manager into the user profile.
+
 > home-manager deploys static configs as read-only nix-store symlinks and the
 > runtime-theme-read files (sketchybar colors, nvim looks) as writable
 > out-of-store symlinks to this repo. Nix drives starship, wezterm, bat, nvim,
-> sketchybar, opencode, spotify-player, and zsh (autosuggestion color) via the
-> `theme` value (`dotfiles.theme` option); `theme-switch` only reloads
-> sketchybar.
+> sketchybar, opencode, spotify-player, and zsh (autosuggestion color) — and,
+> on NixOS, Hyprland's borders plus the Waybar/Mako/Fuzzel/hyprlock colors —
+> via the `theme` value (`dotfiles.theme` option); `theme-switch` only reloads
+> sketchybar (macOS).
 
 ## Adding a New App to the Theme System
 
@@ -158,11 +220,15 @@ The config uses the **dendritic pattern**: every `.nix` file under `modules/` is
 3. Only if neither works (out-of-store symlink, Nix can't touch individual
    files), add a `jq`/`sed` block to `bins/theme-switch` under the app's config
    path.
+4. For the NixOS desktop, extend the `palettes` set in
+   `modules/features/hyprland.nix` (or add the app's template file to its
+   `render` calls) so Hyprland borders and the Waybar/Mako/Fuzzel/hyprlock
+   colors are themed at build time.
 
 ## Requirements
 
-- macOS (aarch64-darwin)
+- macOS (aarch64-darwin) *or* NixOS (x86_64-linux, NVIDIA desktop — see `nixos/README.md`)
 - [Nix](https://nixos.org/download.html) (with flakes enabled)
-- [Homebrew](https://brew.sh)
+- [Homebrew](https://brew.sh) (macOS only)
 
-The nix-darwin flake (with home-manager) installs the rest of the toolchain (`fd`, `bat`/`lsd`/`delta` for shell aliases, `ripgrep`, `starship`, `fzf`, Oh My Zsh, etc.) and deploys all dotfiles.
+The nix-darwin flake (with home-manager) installs the rest of the toolchain (`fd`, `bat`/`lsd`/`delta` for shell aliases, `ripgrep`, `starship`, `fzf`, Oh My Zsh, etc.) and deploys all dotfiles. The NixOS host installs the same toolchain via `environment.systemPackages` plus the identical home-manager profile.

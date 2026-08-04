@@ -1,13 +1,13 @@
 # NixOS `nixos-desktop` host
 
 x86_64-linux desktop host: UEFI + systemd-boot, NetworkManager, PipeWire,
-Docker, zsh, NVIDIA (open kernel modules, RTX 20-series or newer), Hyprland
-under UWSM, greetd + tuigreet login, and home-manager wired exactly like the
-Darwin host (`modules/hosts/mac-that-vim.nix`).
+Docker, zsh, NVIDIA (open kernel modules, RTX 20-series or newer), Steam,
+Hyprland under UWSM, greetd + tuigreet login, and home-manager wired exactly
+like the Darwin host (`modules/hosts/mac-that-vim.nix`).
 
 The host is assembled in `modules/hosts/nixos-desktop.nix`; the system
 configuration lives in class-keyed feature modules under `modules/features/`
-(`flake.modules.nixos.{base,packages,nvidia,hyprland}`).
+(`flake.modules.nixos.{base,packages,nvidia,hyprland,steam}`).
 
 ## Hardware config policy
 
@@ -127,6 +127,11 @@ sudo nixos-rebuild switch --flake path:.#nixos-desktop
 - WezTerm is installed system-wide (`environment.systemPackages`); the HM
   wezterm module only deploys `.wezterm.lua`. Hyprland's `$terminal` is
   `wezterm`.
+- Firefox and Vesktop are **user-scoped**: both are installed into the
+  `mingshiwang` home-manager profile (`modules/features/firefox.nix`,
+  `modules/features/vesktop.nix`) rather than system-wide. This mirrors the
+  Darwin host, where Firefox also has a Homebrew cask (see the duplicate-
+  ownership note in `TROUBLESHOOTING.md`).
 - NVIDIA: open kernel modules (`hardware.nvidia.open = true`) require an RTX
   20-series or newer GPU; no PRIME is configured (single-GPU desktop).
 - Login is greetd + tuigreet; it launches the case-sensitive `Hyprland`

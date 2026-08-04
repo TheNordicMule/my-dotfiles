@@ -2,11 +2,10 @@
 
 ## Current status
 
-Both local safeguards are still active:
-
 1. **nixpkgs pin:** `flake.lock` pins nixpkgs to
-   `f205b5574fd0cb7da5b702a2da51507b7f4fdd1b`. This avoids the Bitwarden
-   build failure involving the macOS `ld64` linker.
+   `f8e81fc7eb063db454f563cdd596fb96a5ad1497` — the revision currently in use.
+   Treat updates as deliberate: advance the lock only when a candidate passes
+   the checklist below.
 2. **OpenCode override:** `modules/features/opencode.nix` uses the signed
    official OpenCode **v1.17.13** Darwin arm64 release instead of the
    nixpkgs source build. It ad-hoc signs the binary with `rcodesign` and
@@ -14,14 +13,18 @@ Both local safeguards are still active:
 
 ## Symptoms and root causes
 
-- **Bitwarden:** A nix-darwin build failed while linking Bitwarden/Electron,
-  with `ld64` crashing. The failure is in the nixpkgs/macOS toolchain path,
-  not in the local Bitwarden configuration. The known-good lock revision is
-  retained until a newer revision is proven safe.
 - **OpenCode:** The nixpkgs package's Bun-built binary was rejected by macOS
   27 (Sequoia) because it emitted an invalid code signature. The override
   fetches the upstream release, signs it after installation, and prevents an
-  auto-update from replacing the signed binary.
+  auto-update from replacing the signed binary. On Linux the override is never
+  forced: `opencodePackage` in `modules/features/opencode.nix` selects the
+  Darwin fixed derivation only when the host is macOS, so Home Manager uses
+  the native `pkgs.opencode` package on Linux.
+- **Bitwarden / Electron:** `modules/features/base.nix` permits
+  `electron-39.8.10` because `bitwarden-desktop` still packages Electron 39,
+  which is marked insecure in nixpkgs. This is a dependency constraint of the
+  pinned nixpkgs revision, not a local configuration issue; see the Electron
+  insecure exception below.
 
 ## Firefox duplicate ownership
 
@@ -86,9 +89,9 @@ another update.
 ## When to remove the workarounds
 
 - **nixpkgs pin:** Remove or advance the pin only when an upstream revision
-  contains the relevant `ld64`/Bitwarden fix and passes both the
-  `bitwarden-desktop` package-only build and the full host build on this Mac,
-  with no linker crash.
+  passes both the `bitwarden-desktop` package-only build and the full host
+  build on this Mac, with no insecure-allowance override — so the Electron
+  exception in `modules/features/base.nix` can be dropped.
 - **OpenCode override:** Remove it only when the normal `pkgs.opencode` build
   produces a valid macOS 27 code signature and the resulting binary builds,
   installs, and launches successfully. At that point, confirm the desired
@@ -96,12 +99,7 @@ another update.
 
 ## Upstream references
 
-- nixpkgs [PR #536365](https://github.com/NixOS/nixpkgs/pull/536365)
-- nixpkgs [commit 24f2ce170079e66ddde26090a889d888ef9ffa44](https://github.com/NixOS/nixpkgs/commit/24f2ce170079e66ddde26090a889d888ef9ffa44)
-- nixpkgs [commit 54a50bf3aa2d868ed2916312073d3ec0cb39f139](https://github.com/NixOS/nixpkgs/commit/54a50bf3aa2d868ed2916312073d3ec0cb39f139)
+- Bitwarden Electron migration [PR #20448](https://github.com/bitwarden/clients/pull/20448)
+- nixpkgs [issue #526914](https://github.com/NixOS/nixpkgs/issues/526914)
 - OpenCode [issue #15124](https://github.com/anomalyco/opencode/issues/15124)
 - OpenCode [issue #18503](https://github.com/anomalyco/opencode/issues/18503)
-
-**Unrelated:** nixpkgs [#414163](https://github.com/NixOS/nixpkgs/issues/414163)
-and [PR #414166](https://github.com/NixOS/nixpkgs/pull/414166) do not describe
-the `ld64` crash observed here.
