@@ -6,10 +6,7 @@
 # and reports "prefer-dark" to the desktop portal so apps that follow the
 # system color scheme (e.g. Firefox's default theme) render dark.
 {...}: {
-  config.flake.modules.homeManager.gtk = {
-    pkgs,
-    ...
-  }: {
+  config.flake.modules.homeManager.gtk = {pkgs, ...}: {
     gtk = {
       enable = true;
       theme = {
