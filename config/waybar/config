@@ -1,7 +1,7 @@
 {
   "layer": "top", "position": "top", "height": 36, "spacing": 8,
   "modules-left": ["hyprland/workspaces", "hyprland/window"], "modules-center": ["clock"], "modules-right": ["pulseaudio", "network", "battery", "tray"],
-  "hyprland/workspaces": {"format": "{icon}", "format-icons": {"active": "◆", "default": "◇", "empty": "·"}, "persistent-workspaces": {"*": 5}},
+  "hyprland/workspaces": {"format": "{icon}", "format-icons": {"active": "◆", "default": "◇", "empty": "·"}, "persistent-workspaces": {"*": 10}},
   "hyprland/window": {"format": "{title}", "max-length": 48}, "clock": {"format": "{:%a  %d %b  %H:%M}"},
   "pulseaudio": {"format": "{icon} {volume}%", "format-muted": "󰝟 muted", "format-icons": ["󰕿", "󰖀", "󰕾"], "on-click": "pavucontrol"},
   "network": {"format-wifi": "󰤨 {essid}", "format-ethernet": "󰈀 wired", "format-disconnected": "󰤭 offline"},
