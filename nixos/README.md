@@ -1,13 +1,14 @@
 # NixOS `nixos-desktop` host
 
 x86_64-linux desktop host: UEFI + systemd-boot, NetworkManager, PipeWire,
-Docker, zsh, NVIDIA (open kernel modules, RTX 20-series or newer), Steam,
-Hyprland under UWSM, greetd + tuigreet login, and home-manager wired exactly
-like the Darwin host (`modules/hosts/mac-that-vim.nix`).
+Docker, zsh, NVIDIA (open kernel modules, RTX 20-series or newer), Bluetooth
+(BlueZ + Blueman), fan monitoring, Steam, Hyprland under UWSM, greetd +
+tuigreet login, and home-manager wired exactly like the Darwin host
+(`modules/hosts/mac-that-vim.nix`).
 
 The host is assembled in `modules/hosts/nixos-desktop.nix`; the system
 configuration lives in class-keyed feature modules under `modules/features/`
-(`flake.modules.nixos.{base,packages,nvidia,hyprland,steam}`).
+(`flake.modules.nixos.{base,packages,nvidia,hyprland,steam,fans}`).
 
 ## Hardware config policy
 
@@ -127,6 +128,12 @@ sudo nixos-rebuild switch --flake path:.#nixos-desktop
 - WezTerm is installed system-wide (`environment.systemPackages`); the HM
   wezterm module only deploys `.wezterm.lua`. Hyprland's `$terminal` is
   `wezterm`.
+- Bluetooth is enabled in the shared baseline (`hardware.bluetooth.enable` +
+  `services.blueman.enable`); the Waybar `bluetooth` module opens
+  `blueman-manager` on click, and the `network` module opens `nmtui` in
+  WezTerm.
+- Fan monitoring (`modules/features/fans.nix`) loads the `it87` kernel module
+  (B650 GAMING X AX V2) and installs `lm_sensors`.
 - Firefox and Vesktop are **user-scoped**: both are installed into the
   `mingshiwang` home-manager profile (`modules/features/firefox.nix`,
   `modules/features/vesktop.nix`) rather than system-wide. This mirrors the

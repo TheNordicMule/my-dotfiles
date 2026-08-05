@@ -6,7 +6,7 @@ A curated set of dotfiles for **macOS** (nix-darwin) and **NixOS** (Hyprland des
 
 - **Unified theme system** — toggle between Nord, Catppuccin, and Gruvbox across all apps with a single command
 - **macOS desktop** — AeroSpace (tiling WM), SketchyBar (menu bar), WezTerm, and nix-darwin
-- **NixOS desktop** — Hyprland (Lua config, AeroSpace-inspired bindings), Waybar, Mako, Fuzzel, hyprlock, Steam, and nixos-rebuild (see `nixos/README.md`)
+- **NixOS desktop** — Hyprland (Lua config, AeroSpace-inspired bindings), Waybar (Bluetooth/network/audio status with hover tooltips and manager clicks), Mako, SwayNC control center, Fuzzel, hyprlock, BlueZ + Blueman, fan monitoring, auto-rotating wallpaper, Steam, and nixos-rebuild (see `nixos/README.md`)
 - **Newer user-facing apps** — Firefox (declarative policies via Home Manager), Vesktop (Discord), Steam (NixOS), Obsidian and Logseq (notes)
 - **Minimal Neovim IDE** — lazy.nvim with LSP, DAP, autocompletion, test runner, git integration, and AI copilot
 - **WezTerm multiplexer** — WezTerm handles multiplexing natively (tabs, splits, workspaces, copy mode) with tmux-style keybindings (`C-a` leader, `h/j/k/l` navigation). The `tmux/` config is kept as legacy and is not actively used.
@@ -53,8 +53,9 @@ with `alejandra`, and rebuilds the active OS:
 
 The rebuild propagates the theme to starship, wezterm, bat, nvim, sketchybar
 (macOS), opencode's TUI theme, spotify-player, and zsh's autosuggestion color —
-and, on NixOS, to Hyprland's borders plus the Waybar, Mako, Fuzzel, and hyprlock
-colors (all rendered from the theme palette in `modules/features/hyprland.nix`).
+and, on NixOS, to Hyprland's borders plus the Waybar, Mako, Fuzzel, hyprlock,
+and SwayNC control center colors (all rendered from the theme palette in
+`modules/features/hyprland.nix`).
 WezTerm picks up its config change via file watching. `theme-switch` only reloads
 SketchyBar automatically; on Linux, run `hyprctl reload` (or `Alt-R`) for the
 border colors and restart Waybar/Mako to pick up the re-rendered configs. A
@@ -77,12 +78,14 @@ my-dotfiles/
 │   ├── users/
 │   │   └── mingshiwang.nix   #   home-manager base + selects which feature modules to import
 │   └── features/             #   One file per capability (dendritic: organize by feature, not host)
-│       ├── base.nix          #     darwin: primary user, nix daemon, fonts, shell; nixos: common baseline
+│       ├── base.nix          #     darwin: primary user, nix daemon, fonts, shell; nixos: common baseline (bluetooth, docker, network, pipewire, shell, nix, fonts)
 │       ├── system.nix        #     darwin: keyboard, dock, touch-id, menu bar
 │       ├── packages.nix      #     darwin/nixos: environment.systemPackages
 │       ├── homebrew.nix      #     darwin: taps / brews / casks
 │       ├── nvidia.nix        #     nixos: NVIDIA GPU (open modules, modesetting, stable driver)
-│       ├── hyprland.nix      #     nixos: Hyprland/UWSM/portals/greetd; HM: Hyprland user session
+│       ├── hyprland.nix      #     nixos: Hyprland/UWSM/portals/greetd + wallpapers; HM: Hyprland user session
+│       ├── fans.nix          #     nixos: fan monitoring (it87 driver, lm-sensors)
+│       ├── gtk.nix           #     HM: GTK dark theming (adw-gtk3 + prefer-dark)
 │       ├── git.nix           #     HM: git config
 │       ├── zsh.nix           #     HM: zsh (theme-aware autosuggest color)
 │       ├── fzf.nix           #     HM: fzf
@@ -113,6 +116,7 @@ my-dotfiles/
 │   ├── nvim/                 #   Neovim (lazy.nvim) — out-of-store symlink (reads ~/.config/theme at startup)
 │   ├── opencode/             #   OpenCode AI — oh-my-opencode-slim preset (out-of-store symlink); config via programs.opencode
 │   ├── sketchybar/           #   macOS menu bar — out-of-store symlink (reads ~/.config/theme at runtime)
+│   ├── swaync/               #   NixOS notification center — theme-rendered by hyprland.nix
 │   └── waybar/               #   NixOS status bar — theme-rendered by hyprland.nix
 ├── wezterm/                  # WezTerm Lua config (Nix injects scheme_name based on `theme`)
 ├── tmux/                     # Tmux config (legacy — WezTerm multiplexer is active; not deployed)
@@ -203,9 +207,9 @@ installed by home-manager into the user profile.
 > runtime-theme-read files (sketchybar colors, nvim looks) as writable
 > out-of-store symlinks to this repo. Nix drives starship, wezterm, bat, nvim,
 > sketchybar, opencode, spotify-player, and zsh (autosuggestion color) — and,
-> on NixOS, Hyprland's borders plus the Waybar/Mako/Fuzzel/hyprlock colors —
-> via the `theme` value (`dotfiles.theme` option); `theme-switch` only reloads
-> sketchybar (macOS).
+> on NixOS, Hyprland's borders plus the Waybar/Mako/Fuzzel/hyprlock/SwayNC
+> colors — via the `theme` value (`dotfiles.theme` option); `theme-switch` only
+> reloads sketchybar (macOS).
 
 ## Adding a New App to the Theme System
 
@@ -222,7 +226,7 @@ installed by home-manager into the user profile.
    path.
 4. For the NixOS desktop, extend the `palettes` set in
    `modules/features/hyprland.nix` (or add the app's template file to its
-   `render` calls) so Hyprland borders and the Waybar/Mako/Fuzzel/hyprlock
+   `render` calls) so Hyprland borders and the Waybar/Mako/Fuzzel/hyprlock/SwayNC
    colors are themed at build time.
 
 ## Requirements
