@@ -4,7 +4,7 @@
 #
 # Host-specific settings only live here (UEFI boot, hardware-config path
 # logic/assertion, hostname, user, stateVersion); everything generic is in
-# modules/features/ under flake.modules.nixos.{base,packages,nvidia,hyprland}.
+# modules/features/ under flake.modules.nixos.{base,packages,nvidia,hyprland,steam,fans,printing}.
 #
 # nixos/hardware-configuration.nix is a generated, local, IGNORED per-machine
 # file (see .gitignore): produced on the target by `nixos-generate-config
@@ -42,6 +42,7 @@ in {
         nixos.hyprland
         nixos.steam
         nixos.fans
+        nixos.printing
 
         inputs.home-manager.nixosModules.home-manager
         {

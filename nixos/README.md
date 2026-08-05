@@ -2,13 +2,13 @@
 
 x86_64-linux desktop host: UEFI + systemd-boot, NetworkManager, PipeWire,
 Docker, zsh, NVIDIA (open kernel modules, RTX 20-series or newer), Bluetooth
-(BlueZ + Blueman), fan monitoring, Steam, Hyprland under UWSM, greetd +
-tuigreet login, and home-manager wired exactly like the Darwin host
-(`modules/hosts/mac-that-vim.nix`).
+(BlueZ + Blueman), fan monitoring, driverless printing, Steam, Hyprland under
+UWSM, greetd + tuigreet login, and home-manager wired exactly like the Darwin
+host (`modules/hosts/mac-that-vim.nix`).
 
 The host is assembled in `modules/hosts/nixos-desktop.nix`; the system
 configuration lives in class-keyed feature modules under `modules/features/`
-(`flake.modules.nixos.{base,packages,nvidia,hyprland,steam,fans}`).
+(`flake.modules.nixos.{base,packages,nvidia,hyprland,steam,fans,printing}`).
 
 ## Hardware config policy
 
@@ -134,6 +134,10 @@ sudo nixos-rebuild switch --flake path:.#nixos-desktop
   WezTerm.
 - Fan monitoring (`modules/features/fans.nix`) loads the `it87` kernel module
   (B650 GAMING X AX V2) and installs `lm_sensors`.
+- Driverless printing (`modules/features/printing.nix`) enables CUPS with Avahi
+  mDNS discovery (NSS + firewall for UDP 5353) and IPP-over-USB, plus
+  `system-config-printer`. It adds **no** vendor/model drivers or queues — add
+  those at runtime in `system-config-printer`.
 - Firefox and Vesktop are **user-scoped**: both are installed into the
   `mingshiwang` home-manager profile (`modules/features/firefox.nix`,
   `modules/features/vesktop.nix`) rather than system-wide. This mirrors the

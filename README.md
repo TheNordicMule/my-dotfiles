@@ -6,7 +6,7 @@ A curated set of dotfiles for **macOS** (nix-darwin) and **NixOS** (Hyprland des
 
 - **Unified theme system** — toggle between Nord, Catppuccin, and Gruvbox across all apps with a single command
 - **macOS desktop** — AeroSpace (tiling WM), SketchyBar (menu bar), WezTerm, and nix-darwin
-- **NixOS desktop** — Hyprland (Lua config, AeroSpace-inspired bindings), Waybar (Bluetooth/network/audio status with hover tooltips and manager clicks), Mako, SwayNC control center, Fuzzel, hyprlock, BlueZ + Blueman, fan monitoring, auto-rotating wallpaper, Steam, and nixos-rebuild (see `nixos/README.md`)
+- **NixOS desktop** — Hyprland (Lua config, AeroSpace-inspired bindings), Waybar (Bluetooth/network/audio status with hover tooltips and manager clicks), Mako, SwayNC control center, Fuzzel, hyprlock, BlueZ + Blueman, fan monitoring, driverless printing, auto-rotating wallpaper, Steam, and nixos-rebuild (see `nixos/README.md`)
 - **Newer user-facing apps** — Firefox (declarative policies via Home Manager), Vesktop (Discord), Steam (NixOS), Obsidian and Logseq (notes)
 - **Minimal Neovim IDE** — lazy.nvim with LSP, DAP, autocompletion, test runner, git integration, and AI copilot
 - **WezTerm multiplexer** — WezTerm handles multiplexing natively (tabs, splits, workspaces, copy mode) with tmux-style keybindings (`C-a` leader, `h/j/k/l` navigation). The `tmux/` config is kept as legacy and is not actively used.
@@ -85,6 +85,7 @@ my-dotfiles/
 │       ├── nvidia.nix        #     nixos: NVIDIA GPU (open modules, modesetting, stable driver)
 │       ├── hyprland.nix      #     nixos: Hyprland/UWSM/portals/greetd + wallpapers; HM: Hyprland user session
 │       ├── fans.nix          #     nixos: fan monitoring (it87 driver, lm-sensors)
+│       ├── printing.nix      #     nixos: driverless printing (CUPS, Avahi mDNS, IPP-over-USB)
 │       ├── gtk.nix           #     HM: GTK dark theming (adw-gtk3 + prefer-dark)
 │       ├── git.nix           #     HM: git config
 │       ├── zsh.nix           #     HM: zsh (theme-aware autosuggest color)
