@@ -120,7 +120,25 @@
         "home-manager": "home-manager",
         "import-tree": "import-tree",
         "nix-darwin": "nix-darwin",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "walls-catppuccin-mocha": "walls-catppuccin-mocha"
+      }
+    },
+    "walls-catppuccin-mocha": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1762937381,
+        "narHash": "sha256-N+MZHSRcwOldS5Ai8B3YfKquKs9oeUW/GkV1iKM5+i8=",
+        "owner": "orangci",
+        "repo": "walls-catppuccin-mocha",
+        "rev": "7bfdf10d16ad3a689f9f0cf3a0930da3d1a245a8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "orangci",
+        "repo": "walls-catppuccin-mocha",
+        "rev": "7bfdf10d16ad3a689f9f0cf3a0930da3d1a245a8",
+        "type": "github"
       }
     }
   },

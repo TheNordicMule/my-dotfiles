@@ -13,8 +13,35 @@ in {
   config.flake.modules.homeManager.hyprland = {
     pkgs,
     lib,
+    config,
+    walls-catppuccin-mocha,
     ...
-  }: {
+  }: let
+    # Pick one random image (recursively) from the pinned wallpaper collection
+    # and apply it through the awww daemon. NUL-delimited records keep
+    # filenames with spaces (or any bytes) intact end-to-end.
+    randomWallpaper = pkgs.writeShellScript "awww-random-wallpaper" ''
+      set -euo pipefail
+
+      wallsDir="$HOME/Pictures/walls-catppuccin-mocha"
+
+      candidate="$(
+        ${pkgs.findutils}/bin/find "$wallsDir" \
+          -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) \
+          -print0 |
+          ${pkgs.coreutils}/bin/shuf -z -n 1 |
+          ${pkgs.coreutils}/bin/tr -d '\0' \
+          || true
+      )"
+
+      # No candidates present — succeed quietly.
+      if [[ -z "$candidate" ]]; then
+        exit 0
+      fi
+
+      exec ${pkgs.awww}/bin/awww img --resize crop "$candidate"
+    '';
+  in {
     wayland.windowManager.hyprland = {
       enable = true;
       # Lua config (Hyprland ≥ 0.55). `settings` maps to `hl.<name>(...)`
@@ -137,6 +164,50 @@ in {
     programs.fuzzel.enable = true;
     programs.hyprlock.enable = true;
     services.hypridle.enable = true;
+    # awww wallpaper daemon (swww successor, same options renamed). The module
+    # also puts `awww` on PATH and wires the daemon into the Wayland session.
+    services.awww = {
+      enable = true;
+      package = pkgs.awww;
+    };
+
+    # Pin the wallpaper collection into the home tree (managed by HM — a
+    # symlink into the flake store, no manual clone).
+    home.file."Pictures/walls-catppuccin-mocha" = {
+      source = walls-catppuccin-mocha;
+    };
+
+    # Session-bound oneshot: set a random wallpaper once when the graphical
+    # session starts (the timer below re-runs it every 30 min while active).
+    systemd.user.services."awww-random-wallpaper" = {
+      Unit = {
+        Description = "Set a random wallpaper from walls-catppuccin-mocha";
+        After = ["awww.service"];
+        Requires = ["awww.service"];
+        PartOf = [config.wayland.systemd.target];
+        ConditionEnvironment = "WAYLAND_DISPLAY";
+      };
+      Service = {
+        Type = "oneshot";
+        ExecStart = randomWallpaper;
+      };
+      Install.WantedBy = [config.wayland.systemd.target];
+    };
+
+    # Rotate the wallpaper every 30 minutes while the graphical session is up.
+    # WantedBy/PartOf the session target (not default.target), so it never
+    # fires at user-manager/boot time or outside a Wayland session.
+    systemd.user.timers."awww-random-wallpaper" = {
+      Unit = {
+        Description = "Rotate the awww wallpaper every 30 minutes";
+        PartOf = [config.wayland.systemd.target];
+      };
+      Timer = {
+        OnCalendar = "*:0/30";
+        Unit = "awww-random-wallpaper.service";
+      };
+      Install.WantedBy = [config.wayland.systemd.target];
+    };
     home.packages = with pkgs; [brightnessctl cliphist grim hyprpolkitagent mangohud playerctl slurp wl-clipboard wev pavucontrol wireplumber];
     xdg.configFile."waybar/config".source = ../../config/waybar/config;
     xdg.configFile."waybar/style.css".text = render ../../config/waybar/style.css;

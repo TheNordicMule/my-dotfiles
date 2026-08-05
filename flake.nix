@@ -12,6 +12,15 @@
     import-tree.url = "github:vic/import-tree";
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
+    # Catppuccin-mocha wallpaper collection (no flake.nix upstream). Pinned
+    # deliberately at a fixed commit so a broad `nix flake update` cannot
+    # advance the wallpaper source; update by bumping the rev in the URL, not
+    # by relying on the lock alone. Exposed to Home Manager as
+    # ~/Pictures/walls-catppuccin-mocha (see hyprland.nix).
+    walls-catppuccin-mocha = {
+      url = "github:orangci/walls-catppuccin-mocha/7bfdf10d16ad3a689f9f0cf3a0930da3d1a245a8";
+      flake = false;
+    };
   };
 
   # Thin root: every .nix file under ./modules is auto-imported as a

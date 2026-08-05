@@ -49,7 +49,7 @@ in {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.backupFileExtension = "backup";
-          home-manager.extraSpecialArgs = {inherit (inputs) firefox-addons;};
+          home-manager.extraSpecialArgs = {inherit (inputs) firefox-addons walls-catppuccin-mocha;};
           home-manager.users.mingshiwang = hm.mingshiwang;
         }
 
