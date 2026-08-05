@@ -137,7 +137,7 @@ in {
     programs.fuzzel.enable = true;
     programs.hyprlock.enable = true;
     services.hypridle.enable = true;
-    home.packages = with pkgs; [brightnessctl cliphist grim hyprpolkitagent playerctl slurp wl-clipboard wev pavucontrol wireplumber];
+    home.packages = with pkgs; [brightnessctl cliphist grim hyprpolkitagent mangohud playerctl slurp wl-clipboard wev pavucontrol wireplumber];
     xdg.configFile."waybar/config".source = ../../config/waybar/config;
     xdg.configFile."waybar/style.css".text = render ../../config/waybar/style.css;
     xdg.configFile."fuzzel/fuzzel.ini".text = render ../../config/fuzzel/fuzzel.ini;
