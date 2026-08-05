@@ -4,67 +4,23 @@
 #   tools migrated from the Darwin set; darwin-only entries — colima,
 #   anki-bin, logseq, bitwarden-desktop, wezterm as desktop app, … — are
 #   handled by the home-manager profile instead).
-{...}: {
-  config.flake.modules.darwin.packages = {pkgs, ...}: {
-    environment.systemPackages = with pkgs;
-      [
-        alejandra
-        anki-bin
-        bandwhich
-        bitwarden-cli
-        bitwarden-desktop
-        bottom
-        btop
-        cmake
-        colima
-        coreutils
-        delta
-        docker
-        dust
-        fd
-        gh
-        go
-        jq
-        lsd
-        luajit
-        neovim
-        nodejs
-        logseq
-        opam
-        # opencode
-        pom
-        procs
-        tokei
-        tree-sitter
-        wezterm
-        wget
-      ]
-      ++ [
-        # rust related stuff
-        cargo
-        rust-analyzer
-        rustc
-        rustfmt
-      ];
-  };
-
-  config.flake.modules.nixos.packages = {pkgs, ...}: {
-    environment.systemPackages = with pkgs; [
+{...}: let
+  # Packages installed on both platforms. This is exactly the set that used to
+  # be duplicated between the darwin and nixos lists below; each platform set
+  # is `shared` plus its own platform-specific entries.
+  shared = {pkgs, ...}:
+    with pkgs; [
       # formatting / dev tooling
       alejandra
       cmake
-      gnumake
-      gcc
-      git
       gh
       go
       nodejs
-      python3
       # rust toolchain
       cargo
+      rust-analyzer
       rustc
       rustfmt
-      rust-analyzer
       # CLI utilities
       bandwhich
       bitwarden-cli
@@ -72,30 +28,54 @@
       btop
       coreutils
       delta
-      docker-compose
       dust
       fd
       jq
       lsd
       neovim
       procs
-      ripgrep
       tokei
       tree-sitter
       wget
-      zip
-      unzip
       # terminal (Hyprland "$terminal" = wezterm; the HM module only deploys
       # .wezterm.lua — the package itself is installed here)
       wezterm
-      # hyprland ecosystem
-      hyprpolkitagent
-      uwsm
-      xdg-desktop-portal-gtk
-      # GUI
-      gnome-system-monitor
-      # email client — default mailto/rfc822 handler (see thunderbird.nix)
-      thunderbird
     ];
+in {
+  config.flake.modules.darwin.packages = {pkgs, ...}: {
+    environment.systemPackages =
+      shared {inherit pkgs;}
+      ++ (with pkgs; [
+        # macOS-only desktop apps / dev tools
+        anki-bin
+        bitwarden-desktop
+        colima
+        docker
+        logseq
+        luajit
+        opam
+        pom
+      ]);
+  };
+
+  config.flake.modules.nixos.packages = {pkgs, ...}: {
+    environment.systemPackages =
+      shared {inherit pkgs;}
+      ++ (with pkgs; [
+        # NixOS-only dev tooling
+        gcc
+        git
+        gnumake
+        python3
+        # CLI utilities
+        docker-compose
+        zip
+        unzip
+        # hyprland ecosystem
+        # GUI
+        gnome-system-monitor
+        # email client — default mailto/rfc822 handler (see thunderbird.nix)
+        thunderbird
+      ]);
   };
 }

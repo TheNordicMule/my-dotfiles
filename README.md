@@ -56,11 +56,12 @@ The rebuild propagates the theme to starship, wezterm, bat, nvim, sketchybar
 and, on NixOS, to Hyprland's borders plus the Waybar, Mako, Fuzzel, hyprlock,
 and SwayNC control center colors (all rendered from the theme palette in
 `modules/features/hyprland.nix`).
-WezTerm picks up its config change via file watching. `theme-switch` only reloads
-SketchyBar automatically; on Linux, run `hyprctl reload` (or `Alt-R`) for the
-border colors and restart Waybar/Mako to pick up the re-rendered configs. A
-restart of Neovim, OpenCode, and spotify-player is required; the Zsh
-autosuggestion color applies in newly started Zsh sessions.
+WezTerm picks up its config change via file watching. `theme-switch` reloads
+SketchyBar automatically (macOS) and, on NixOS, runs `hyprctl reload` plus a
+Waybar/SwayNC user-unit restart automatically; these reloads are best-effort so
+a failed reload never blocks a successful rebuild. A restart of Neovim,
+OpenCode, and spotify-player is required; the Zsh autosuggestion color applies
+in newly started Zsh sessions.
 
 ## Structure
 

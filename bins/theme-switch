@@ -6,8 +6,10 @@ set -e
 # Changes the `theme` value in modules/theme.nix, rebuilds — Nix propagates to
 # starship, wezterm, bat, nvim, sketchybar, opencode (tui theme via
 # programs.opencode), spotify-player, and zsh (autosuggestion color) — then
-# reloads sketchybar (macOS only). Restart Neovim, OpenCode, and spotify-player;
-# open a new Zsh session for the autosuggestion color.
+# reloads the running session: sketchybar on macOS, and Hyprland plus the
+# waybar/swaync user units on Linux (all best-effort, so a reload can never
+# fail the script after a successful rebuild). Restart Neovim, OpenCode, and
+# spotify-player; open a new Zsh session for the autosuggestion color.
 
 NEW_THEME="$1"
 case "$NEW_THEME" in
@@ -61,11 +63,19 @@ case "$(uname -s)" in
 esac
 popd
 
-# 3. Reload sketchybar so it re-sources colors.sh with the new theme.
-#    (macOS only — sketchybar does not exist on Linux.)
-#    (colors.sh reads ~/.config/theme at source time via sketchybarrc.)
+# 3. Reload the running session so the new config applies. Best-effort only:
+#    with `set -e`, a failed reload must never fail the script after the
+#    rebuild already succeeded, so every command ignores failures (`|| true`).
+#    macOS: reload sketchybar so it re-sources colors.sh with the new theme
+#    (colors.sh reads ~/.config/theme at source time via sketchybarrc).
+#    Linux: reload Hyprland for borders/colors and restart the waybar/swaync
+#    user units so they re-read their re-rendered configs. (No Mako — SwayNC
+#    is the current notification daemon.)
 if [[ "$(uname -s)" == "Darwin" ]]; then
-  sketchybar --reload
+  sketchybar --reload || true
+elif [[ "$(uname -s)" == "Linux" ]]; then
+  hyprctl reload || true
+  systemctl --user restart waybar swaync || true
 fi
 
-echo "Theme switched to $NEW_THEME. Restart Neovim, OpenCode, and spotify-player; open a new Zsh session for the autosuggestion color."
+echo "Theme switched to $NEW_THEME. Reloaded sketchybar (macOS) or Hyprland + waybar/swaync (Linux). Restart Neovim, OpenCode, and spotify-player; open a new Zsh session for the autosuggestion color."
