@@ -64,6 +64,8 @@ window#waybar {
 /* Right-side status is one quiet instrument strip, not five competing pills. */
 #pulseaudio,
 #network,
+#cpu,
+#memory,
 #battery,
 #tray,
 #custom-control-center {
