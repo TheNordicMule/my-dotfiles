@@ -169,6 +169,8 @@ config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
 
 config.keys = {
 	{ key = "f", mods = "CTRL", action = sessionizer() },
+	{ key = "n", mods = "ALT", action = act.SpawnWindow },
+	{ key = "w", mods = "ALT", action = act.CloseCurrentTab({ confirm = true }) },
 	{ key = "a", mods = "LEADER|CTRL", action = act.SendKey({ key = "a", mods = "CTRL" }) },
 	{ key = "c", mods = "LEADER", action = spawn_tab_at_root() },
 	{ key = "n", mods = "LEADER", action = act.ActivateTabRelative(1) },
