@@ -14,6 +14,7 @@
         bitwarden-cli
         bitwarden-desktop
         bottom
+        btop
         cmake
         colima
         coreutils
@@ -68,6 +69,7 @@
       bandwhich
       bitwarden-cli
       bottom
+      btop
       coreutils
       delta
       docker-compose
