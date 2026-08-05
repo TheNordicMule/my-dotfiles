@@ -26,7 +26,7 @@ in {
       wallsDir="$HOME/Pictures/walls-catppuccin-mocha"
 
       candidate="$(
-        ${pkgs.findutils}/bin/find "$wallsDir" \
+        ${pkgs.findutils}/bin/find -L "$wallsDir" \
           -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) \
           -print0 |
           ${pkgs.coreutils}/bin/shuf -z -n 1 |
@@ -177,24 +177,26 @@ in {
       source = walls-catppuccin-mocha;
     };
 
-    # Session-bound oneshot: set a random wallpaper once when the graphical
-    # session starts (the timer below re-runs it every 30 min while active).
+    # One-shot wallpaper setter, started ONLY by the timer below (no
+    # WantedBy). Pulling it in from graphical-session.target while it
+    # Requires/After= awww.service — which itself starts After that target —
+    # created an ordering cycle that systemd broke by dropping the job.
     systemd.user.services."awww-random-wallpaper" = {
       Unit = {
         Description = "Set a random wallpaper from walls-catppuccin-mocha";
         After = ["awww.service"];
         Requires = ["awww.service"];
-        PartOf = [config.wayland.systemd.target];
         ConditionEnvironment = "WAYLAND_DISPLAY";
       };
       Service = {
         Type = "oneshot";
         ExecStart = randomWallpaper;
       };
-      Install.WantedBy = [config.wayland.systemd.target];
     };
 
     # Rotate the wallpaper every 30 minutes while the graphical session is up.
+    # OnActiveSec fires once ~10s after the session target starts (daemon is
+    # up, no ordering cycle); OnCalendar re-rotates every 30 min after that.
     # WantedBy/PartOf the session target (not default.target), so it never
     # fires at user-manager/boot time or outside a Wayland session.
     systemd.user.timers."awww-random-wallpaper" = {
@@ -203,6 +205,7 @@ in {
         PartOf = [config.wayland.systemd.target];
       };
       Timer = {
+        OnActiveSec = "10s";
         OnCalendar = "*:0/30";
         Unit = "awww-random-wallpaper.service";
       };
