@@ -31,7 +31,7 @@ in {
 
         monitor = {
           output = "";
-          mode = "3840x2160";
+          mode = "3840x2160@160";
           position = "auto";
           scale = "2";
         };
