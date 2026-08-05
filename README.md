@@ -85,7 +85,7 @@ my-dotfiles/
 │       ├── nvidia.nix        #     nixos: NVIDIA GPU (open modules, modesetting, stable driver)
 │       ├── hyprland.nix      #     nixos: Hyprland/UWSM/portals/greetd + wallpapers; HM: Hyprland user session
 │       ├── fans.nix          #     nixos: fan monitoring (it87 driver, lm-sensors)
-│       ├── printing.nix      #     nixos: driverless printing (CUPS, Avahi mDNS, IPP-over-USB)
+│       ├── printing.nix      #     nixos: driverless printing (CUPS, Avahi mDNS discovery)
 │       ├── gtk.nix           #     HM: GTK dark theming (adw-gtk3 + prefer-dark)
 │       ├── git.nix           #     HM: git config
 │       ├── zsh.nix           #     HM: zsh (theme-aware autosuggest color)

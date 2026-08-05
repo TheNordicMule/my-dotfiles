@@ -135,9 +135,8 @@ sudo nixos-rebuild switch --flake path:.#nixos-desktop
 - Fan monitoring (`modules/features/fans.nix`) loads the `it87` kernel module
   (B650 GAMING X AX V2) and installs `lm_sensors`.
 - Driverless printing (`modules/features/printing.nix`) enables CUPS with Avahi
-  mDNS discovery (NSS + firewall for UDP 5353) and IPP-over-USB, plus
-  `system-config-printer`. It adds **no** vendor/model drivers or queues — add
-  those at runtime in `system-config-printer`.
+  mDNS discovery (NSS + firewall for UDP 5353). It adds **no** vendor/model
+  drivers or queues — add those at runtime via CUPS (web UI or `lpadmin`).
 - Firefox and Vesktop are **user-scoped**: both are installed into the
   `mingshiwang` home-manager profile (`modules/features/firefox.nix`,
   `modules/features/vesktop.nix`) rather than system-wide. This mirrors the
