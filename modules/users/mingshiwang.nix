@@ -43,13 +43,13 @@ in {
       }: let
         isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
       in {
-        # Hyprland is a Linux-only (NixOS) module. `imports` cannot depend on
-        # config-derived args like `pkgs` (that recurses), but `osConfig` — the
-        # OS config — is passed as an external module argument, so branching on
-        # it here is safe and evaluates lazily (hm.hyprland is only forced when
-        # actually imported). `system.defaults` is a nix-darwin-only option, so
-        # its presence means this is a macOS host.
-        imports = lib.optional (!(osConfig.system or {}) ? defaults) hm.hyprland;
+        # Hyprland and Thunderbird are Linux-only (NixOS) modules. `imports`
+        # cannot depend on config-derived args like `pkgs` (that recurses), but
+        # `osConfig` — the OS config — is passed as an external module argument,
+        # so branching on it here is safe and evaluates lazily (the modules are
+        # only forced when actually imported). `system.defaults` is a
+        # nix-darwin-only option, so its presence means this is a macOS host.
+        imports = lib.optionals (!(osConfig.system or {}) ? defaults) [hm.hyprland hm.thunderbird];
         # mkForce: home-manager's darwin common module derives homeDirectory
         # from `users.users.<name>.home`, which is null on nix-darwin (existing
         # macOS users aren't declared in `users.users`). Override that

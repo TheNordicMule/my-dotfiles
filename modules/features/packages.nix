@@ -92,6 +92,8 @@
       xdg-desktop-portal-gtk
       # GUI
       gnome-system-monitor
+      # email client — default mailto/rfc822 handler (see thunderbird.nix)
+      thunderbird
     ];
   };
 }
