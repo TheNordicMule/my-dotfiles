@@ -63,6 +63,7 @@ window#waybar {
 
 /* Right-side status is one quiet instrument strip, not five competing pills. */
 #pulseaudio,
+#bluetooth,
 #network,
 #cpu,
 #memory,
@@ -85,6 +86,7 @@ window#waybar {
   border-radius: 9px 0 0 9px;
 }
 
+#bluetooth { color: @ACCENT@; }
 #network { color: @MUTED@; }
 #battery { color: @ACCENT@; }
 #tray { padding-left: 8px; padding-right: 8px; }
@@ -107,6 +109,8 @@ window#waybar {
 tooltip {
   background: alpha(@BASE@, 0.97);
   color: @TEXT@;
+  padding: 8px 10px;
   border: 1px solid alpha(@ACCENT@, 0.35);
   border-radius: 8px;
+  box-shadow: 0 6px 18px alpha(@BASE@, 0.45);
 }
