@@ -43,6 +43,7 @@ in {
         nixos.steam
         nixos.fans
         nixos.printing
+        nixos.localsend
 
         inputs.home-manager.nixosModules.home-manager
         {
