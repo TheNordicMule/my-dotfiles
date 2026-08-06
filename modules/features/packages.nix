@@ -2,7 +2,7 @@
 # - darwin.packages: installed via nix-darwin (the nixpkgs layer).
 # - nixos.packages: NixOS environment.systemPackages (common utilities/dev
 #   tools migrated from the Darwin set; darwin-only entries — colima,
-#   anki-bin, logseq, bitwarden-desktop, wezterm as desktop app, … — are
+#   anki-bin, bitwarden-desktop, wezterm as desktop app, … — are
 #   handled by the home-manager profile instead).
 {...}: let
   # Packages installed on both platforms. This is exactly the set that used to
@@ -51,7 +51,6 @@ in {
         bitwarden-desktop
         colima
         docker
-        logseq
         luajit
         opam
         pom

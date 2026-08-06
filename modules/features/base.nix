@@ -3,16 +3,10 @@
 # - nixos.base: common NixOS baseline shared by all NixOS hosts (networking,
 #   audio, containers, shell, nix settings/GC, fonts). Host-specific bits
 #   (boot, hostname, user, stateVersion) live in modules/hosts/*.
-# Folded in from the old inline `configuration` block in flake.nix plus the
-# electron permittedInsecurePackages inline module.
+# Folded in from the old inline `configuration` block in flake.nix.
 {...}: {
   config.flake.modules.darwin.base = {pkgs, ...}: {
     system.primaryUser = "mingshiwang";
-    # Bitwarden desktop currently packages electron-39, which is marked
-    # insecure in nixpkgs. Allow it until Bitwarden bumps their electron.
-    nixpkgs.config.permittedInsecurePackages = [
-      "electron-39.8.10"
-    ];
     fonts.packages = [
       pkgs.nerd-fonts.iosevka
       pkgs.sketchybar-app-font
