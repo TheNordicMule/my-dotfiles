@@ -112,7 +112,20 @@ in {
               render_power = 3;
             };
           };
-          animations = {enabled = true;};
+          animations = {
+            enabled = true;
+            animation = [
+              "windows, 1, 3, snappy, popin"
+              "windowsOut, 1, 3, snappy, popin"
+              "windowsMove, 1, 4, snappy"
+              "border, 1, 3, snappy"
+              "fade, 1, 3, snappy"
+              "workspaces, 1, 3, snappy, slide"
+            ];
+          };
+          bezier = [
+            "snappy, 0.16, 1, 0.3, 1.05"
+          ];
           dwindle = {
             preserve_split = true;
           };

@@ -103,7 +103,7 @@ my-dotfiles/
 │       ├── firefox.nix       #     HM: firefox (declarative policies; macOS cask duplicated — see TROUBLESHOOTING.md)
 │       ├── steam.nix         #     nixos: programs.steam (32-bit libs, hardware accel, gamepads)
 │       ├── vesktop.nix       #     HM: vesktop (Discord, home.packages)
-│       ├── static-configs.nix#     HM: aerospace, gh-dash (read-only nix-store)
+│       ├── static-configs.nix#     HM: aerospace (read-only nix-store)
 │       └── bins.nix          #     HM: switch, theme-switch, tmux-sessionizer on $PATH
 ├── bins/                     # Executable helpers (deployed to ~/bin by home-manager)
 │   ├── switch                #   Reformat, rebuild active OS (darwin/NixOS), commit
@@ -112,7 +112,6 @@ my-dotfiles/
 ├── config/                   # Deployed to ~/.config/ by home-manager
 │   ├── aerospace/            #   macOS tiling window manager (static-configs)
 │   ├── fuzzel/               #   NixOS launcher — theme-rendered by hyprland.nix
-│   ├── gh-dash/              #   GitHub CLI dashboard
 │   ├── hypr/                 #   NixOS Hyprland Lua bindings (binds.lua) + hypridle/hyprlock
 │   ├── mako/                 #   NixOS notification daemon — theme-rendered by hyprland.nix
 │   ├── nvim/                 #   Neovim (lazy.nvim) — out-of-store symlink (reads ~/.config/theme at startup)

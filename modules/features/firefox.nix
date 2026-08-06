@@ -8,7 +8,9 @@
 # HM bakes policies.json into the wrapped .app bundle's
 # Contents/Resources/distribution/, which is the canonical path Firefox
 # reads on macOS.
-{...}: {
+{config, ...}: let
+  palette = config.dotfiles.palettes.${config.dotfiles.theme};
+in {
   config.flake.modules.homeManager.firefox = {
     pkgs,
     firefox-addons,
@@ -67,7 +69,87 @@
           "browser.theme.colorScheme" = "dark";
           "browser.theme.toolbar-theme" = "dark";
           "browser.theme.content-theme" = "dark";
+          # Allow the declarative userChrome stylesheet below to apply.
+          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
         };
+
+        userChrome = ''
+          :root {
+            --theme-base: ${palette.base};
+            --theme-surface: ${palette.surface};
+            --theme-text: ${palette.text};
+            --theme-muted: ${palette.muted};
+            --theme-accent: ${palette.accent};
+            --theme-blue: ${palette.blue};
+            --theme-red: ${palette.red};
+            --toolbar-bgcolor: var(--theme-base) !important;
+            --toolbar-color: var(--theme-text) !important;
+            --lwt-accent-color: var(--theme-base) !important;
+            --lwt-text-color: var(--theme-text) !important;
+            --lwt-selected-tab-background-color: var(--theme-surface) !important;
+            --toolbar-field-background-color: var(--theme-surface) !important;
+            --toolbar-field-color: var(--theme-text) !important;
+            --toolbar-field-focus-background-color: var(--theme-base) !important;
+            --toolbar-field-focus-color: var(--theme-text) !important;
+          }
+
+          #navigator-toolbox,
+          #TabsToolbar,
+          #nav-bar,
+          #PersonalToolbar {
+            background: var(--theme-base) !important;
+            color: var(--theme-text) !important;
+          }
+
+          .tabbrowser-tab { color: var(--theme-muted) !important; }
+          .tabbrowser-tab[selected] { color: var(--theme-text) !important; }
+          .tabbrowser-tab:hover .tab-background,
+          .tabbrowser-tab[selected] .tab-background {
+            background: var(--theme-surface) !important;
+          }
+          .tabbrowser-tab[selected] .tab-background {
+            border-bottom: 2px solid var(--theme-accent) !important;
+          }
+
+          #urlbar,
+          #searchbar {
+            background: var(--theme-surface) !important;
+            color: var(--theme-text) !important;
+            border-color: var(--theme-surface) !important;
+          }
+          #urlbar[focused],
+          #searchbar:focus-within {
+            border-color: var(--theme-accent) !important;
+          }
+          #urlbar-input,
+          .searchbar-textbox {
+            color: var(--theme-text) !important;
+          }
+
+          menupopup,
+          panel {
+            --panel-background: var(--theme-surface) !important;
+            --panel-color: var(--theme-text) !important;
+            background: var(--theme-surface) !important;
+            color: var(--theme-text) !important;
+            border: 1px solid var(--theme-muted) !important;
+          }
+          menuitem:hover,
+          menuitem[highlight="true"],
+          toolbarbutton:hover {
+            background: var(--theme-accent) !important;
+            color: var(--theme-base) !important;
+          }
+          menuitem[disabled="true"] { color: var(--theme-muted) !important; }
+          .urlbarView-row[selected],
+          .urlbarView-row:hover {
+            background: var(--theme-accent) !important;
+            color: var(--theme-base) !important;
+          }
+          .urlbarView-url { color: var(--theme-blue) !important; }
+          .notification-message { color: var(--theme-text) !important; }
+          .identity-color-red { color: var(--theme-red) !important; }
+        '';
       };
     };
   };

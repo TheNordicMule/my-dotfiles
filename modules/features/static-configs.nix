@@ -2,6 +2,5 @@
 {...}: {
   config.flake.modules.homeManager.static-configs = {
     xdg.configFile."aerospace".source = ../../config/aerospace;
-    xdg.configFile."gh-dash".source = ../../config/gh-dash;
   };
 }
