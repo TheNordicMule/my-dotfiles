@@ -121,7 +121,8 @@
         "import-tree": "import-tree",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs",
-        "walls-catppuccin-mocha": "walls-catppuccin-mocha"
+        "walls-catppuccin-mocha": "walls-catppuccin-mocha",
+        "walls-nordic": "walls-nordic"
       }
     },
     "walls-catppuccin-mocha": {
@@ -138,6 +139,23 @@
         "owner": "orangci",
         "repo": "walls-catppuccin-mocha",
         "rev": "7bfdf10d16ad3a689f9f0cf3a0930da3d1a245a8",
+        "type": "github"
+      }
+    },
+    "walls-nordic": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767157522,
+        "narHash": "sha256-clRGfUqKD4/v5bNj/lI5pKDdf6qraZXJBWZtBLLqF50=",
+        "owner": "linuxdotexe",
+        "repo": "nordic-wallpapers",
+        "rev": "7a8e3bcabafbefd1c5b19229841b9bf377a4b765",
+        "type": "github"
+      },
+      "original": {
+        "owner": "linuxdotexe",
+        "repo": "nordic-wallpapers",
+        "rev": "7a8e3bcabafbefd1c5b19229841b9bf377a4b765",
         "type": "github"
       }
     }

@@ -7,6 +7,17 @@
 # Colors come from config.dotfiles.palettes.${theme} (defined in theme.nix).
 {config, ...}: let
   palette = config.dotfiles.palettes.${config.dotfiles.theme};
+  # Theme is captured from the flake-parts top-level config (theme.nix);
+  # bins/theme-switch seds it in place and rebuilds, so the wallpaper
+  # collection linked/scanned below follows the active theme.
+  theme = config.dotfiles.theme;
+  # Active wallpaper collection dir name: Nord → nordic-wallpapers, anything
+  # else → Catppuccin (preserves the previous default). Only the active
+  # theme's collection is linked into the home tree (see home.file below).
+  wallsDirName =
+    if theme == "nord"
+    then "walls-nordic"
+    else "walls-catppuccin-mocha";
   render = file: builtins.replaceStrings ["@BASE@" "@SURFACE@" "@TEXT@" "@MUTED@" "@ACCENT@" "@BLUE@" "@RED@"] [palette.base palette.surface palette.text palette.muted palette.accent palette.blue palette.red] (builtins.readFile file);
   renderHyprlock = file: builtins.replaceStrings ["#"] [""] (render file);
 in {
@@ -15,15 +26,22 @@ in {
     lib,
     config,
     walls-catppuccin-mocha,
+    walls-nordic,
     ...
   }: let
+    # Only the active theme's collection is linked and scanned (the inactive
+    # input stays in the flake store, untouched).
+    walls =
+      if theme == "nord"
+      then walls-nordic
+      else walls-catppuccin-mocha;
     # Pick one random image (recursively) from the pinned wallpaper collection
     # and apply it through the awww daemon. NUL-delimited records keep
     # filenames with spaces (or any bytes) intact end-to-end.
     randomWallpaper = pkgs.writeShellScript "awww-random-wallpaper" ''
       set -euo pipefail
 
-      wallsDir="$HOME/Pictures/walls-catppuccin-mocha"
+      wallsDir="$HOME/Pictures/${wallsDirName}"
 
       candidate="$(
         ${pkgs.findutils}/bin/find -L "$wallsDir" \
@@ -184,10 +202,10 @@ in {
       package = pkgs.awww;
     };
 
-    # Pin the wallpaper collection into the home tree (managed by HM — a
-    # symlink into the flake store, no manual clone).
-    home.file."Pictures/walls-catppuccin-mocha" = {
-      source = walls-catppuccin-mocha;
+    # Pin the active theme's wallpaper collection into the home tree (managed
+    # by HM — a symlink into the flake store, no manual clone).
+    home.file."Pictures/${wallsDirName}" = {
+      source = walls;
     };
 
     # One-shot wallpaper setter, started ONLY by the timer below (no
@@ -196,7 +214,7 @@ in {
     # created an ordering cycle that systemd broke by dropping the job.
     systemd.user.services."awww-random-wallpaper" = {
       Unit = {
-        Description = "Set a random wallpaper from walls-catppuccin-mocha";
+        Description = "Set a random wallpaper from ${wallsDirName}";
         After = ["awww.service"];
         Requires = ["awww.service"];
         ConditionEnvironment = "WAYLAND_DISPLAY";
