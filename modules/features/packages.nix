@@ -64,7 +64,6 @@ in {
       ++ (with pkgs; [
         # NixOS-only dev tooling
         gcc
-        git
         gnumake
         python3
         # CLI utilities
