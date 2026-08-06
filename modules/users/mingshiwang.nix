@@ -25,6 +25,7 @@ in {
       hm.firefox
       hm.gtk
       hm.vesktop
+      hm.localsend
       # macOS-only: SketchyBar bar + AeroSpace window-manager configs. Imported
       # unconditionally because an HM `imports` list cannot branch on `pkgs`
       # (that recurses); their xdg.configFile entries are disabled on Linux by
