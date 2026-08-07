@@ -76,15 +76,9 @@ format = "{:%H:%M} · {:%a, %b %d}"
 font_weight = 700
 
 [widget.workspaces]
-style = "regular"
-show_labels = false
+style = "minimal"
+show_labels = true
 hide_when_empty = true
-pill_scale = 0.7
-active_pill_size = 2.0
-inactive_pill_size = 0.8
-focused_color = "primary"
-occupied_color = "secondary"
-empty_color = "surface_variant"
 
 [widget.privacy]
 hide_inactive = true
