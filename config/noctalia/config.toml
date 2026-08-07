@@ -13,6 +13,9 @@ action = "suspend"
 [[shell.session.actions]]
 action = "shutdown"
 
+[shell.launcher.providers.session]
+global = true
+
 [shell.screenshot]
 save_to_file = true
 pipe_to_command = false
