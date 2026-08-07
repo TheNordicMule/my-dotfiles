@@ -21,8 +21,8 @@ recursive = true
 
 [theme]
 mode = "dark"
-source = "builtin"
-builtin = "@NOCTALIA_THEME@"
+source = "wallpaper"
+wallpaper_scheme = "m3-content"
 
 [backdrop]
 enabled = false
@@ -55,6 +55,7 @@ enabled = true
 position = "top"
 thickness = 36
 scale = 1.25
+font_family = "Iosevka Nerd Font"
 background_opacity = 1.0
 radius = 12
 margin_ends = 10
@@ -68,7 +69,7 @@ capsule = false
 
 start = ["workspaces"]
 center = ["clock"]
-end = ["cpu", "memory" ,"volume", "notifications",   "bluetooth", "control-center", "session"]
+end = ["privacy", "cpu", "memory", "tray", "notifications", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "control-center", "session"]
 
 [widget.clock]
 format = "{:%H:%M} · {:%a, %b %d}"
@@ -77,12 +78,16 @@ font_weight = 700
 [widget.workspaces]
 style = "regular"
 show_labels = false
+hide_when_empty = true
 pill_scale = 0.7
 active_pill_size = 2.0
 inactive_pill_size = 0.8
 focused_color = "primary"
 occupied_color = "secondary"
 empty_color = "surface_variant"
+
+[widget.privacy]
+hide_inactive = true
 
 [widget.cpu]
 type = "sysmon"
