@@ -69,7 +69,7 @@ capsule = false
 
 start = ["workspaces"]
 center = ["clock"]
-end = ["privacy", "cpu", "memory", "tray", "notifications", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "control-center", "session"]
+end = ["privacy", "cpu", "memory", "tray",  "volume",  "control-center", "session"]
 
 [widget.clock]
 format = "{:%H:%M} · {:%a, %b %d}"
