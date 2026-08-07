@@ -69,6 +69,13 @@ in {
           "browser.theme.colorScheme" = "dark";
           "browser.theme.toolbar-theme" = "dark";
           "browser.theme.content-theme" = "dark";
+          # Use the installed Nerd Font for every standard web font role.
+          "font.name.serif.x-west" = "Iosevka Nerd Font";
+          "font.name.sans-serif.x-west" = "Iosevka Nerd Font";
+          "font.name.monospace.x-west" = "Iosevka Nerd Font Mono";
+          "font.name-list.serif.x-west" = "Iosevka Nerd Font";
+          "font.name-list.sans-serif.x-west" = "Iosevka Nerd Font";
+          "font.name-list.monospace.x-west" = "Iosevka Nerd Font Mono";
           # Allow the declarative userChrome stylesheet below to apply.
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
         };
@@ -91,6 +98,19 @@ in {
             --toolbar-field-color: var(--theme-text) !important;
             --toolbar-field-focus-background-color: var(--theme-base) !important;
             --toolbar-field-focus-color: var(--theme-text) !important;
+          }
+
+          # Keep Firefox's own controls on the same typeface without styling
+          # arbitrary chrome content globally.
+          #navigator-toolbox button,
+          #navigator-toolbox input,
+          #navigator-toolbox label,
+          #navigator-toolbox toolbarbutton,
+          menupopup menu,
+          menupopup menuitem,
+          panel button,
+          panel input {
+            font-family: "Iosevka Nerd Font", sans-serif !important;
           }
 
           #navigator-toolbox,

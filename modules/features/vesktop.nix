@@ -9,6 +9,7 @@ in {
         themes = {
           "palette.css" = ''
             :root {
+              --font-primary: "Iosevka Nerd Font", "gg sans", "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
               --background-primary: ${palette.base};
               --background-secondary: ${palette.surface};
               --background-secondary-alt: ${palette.base};

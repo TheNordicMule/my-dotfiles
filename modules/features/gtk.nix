@@ -9,6 +9,10 @@
   config.flake.modules.homeManager.gtk = {pkgs, ...}: {
     gtk = {
       enable = true;
+      font = {
+        name = "Iosevka Nerd Font";
+        size = 11;
+      };
       theme = {
         package = pkgs.adw-gtk3;
         name = "adw-gtk3-dark";
