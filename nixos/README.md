@@ -37,7 +37,7 @@ Boot the NixOS **unstable** minimal ISO (must match the flake's
 # Example: GPT + systemd-boot, swap optional. Adjust to your disks.
 lsblk
 sudo -i
-gdisk /dev/nvme0n1        # create a 1G EFI partition (ef00) + a root partition
+cfdisk /dev/nvme0n1       # create a 1G EFI System partition + a root partition
 mkfs.fat -F32 /dev/nvme0n1p1
 mkfs.ext4 /dev/nvme0n1p2
 ```
