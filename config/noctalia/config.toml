@@ -4,6 +4,15 @@
 polkit_agent = true
 clipboard_enabled = true
 
+[[shell.session.actions]]
+action = "lock"
+
+[[shell.session.actions]]
+action = "suspend"
+
+[[shell.session.actions]]
+action = "shutdown"
+
 [shell.screenshot]
 save_to_file = true
 pipe_to_command = false
