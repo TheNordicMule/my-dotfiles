@@ -51,19 +51,6 @@ hl.bind(mod .. " + 8", hl.dsp.focus({ workspace = 8 }))
 hl.bind(mod .. " + 9", hl.dsp.focus({ workspace = 9 }))
 hl.bind(mod .. " + 0", hl.dsp.focus({ workspace = 10 }))
 
--- Persistent workspaces on the active monitor (DP-4) so Noctalia's
--- per-output workspace bar shows empty workspaces.
-hl.workspace_rule({ workspace = "1", persistent = true, monitor = "DP-4" })
-hl.workspace_rule({ workspace = "2", persistent = true, monitor = "DP-4" })
-hl.workspace_rule({ workspace = "3", persistent = true, monitor = "DP-4" })
-hl.workspace_rule({ workspace = "4", persistent = true, monitor = "DP-4" })
-hl.workspace_rule({ workspace = "5", persistent = true, monitor = "DP-4" })
-hl.workspace_rule({ workspace = "6", persistent = true, monitor = "DP-4" })
-hl.workspace_rule({ workspace = "7", persistent = true, monitor = "DP-4" })
-hl.workspace_rule({ workspace = "8", persistent = true, monitor = "DP-4" })
-hl.workspace_rule({ workspace = "9", persistent = true, monitor = "DP-4" })
-hl.workspace_rule({ workspace = "10", persistent = true, monitor = "DP-4" })
-
 -- Move window to workspace
 hl.bind(mod .. " + SHIFT + 1", hl.dsp.window.move({ workspace = 1 }))
 hl.bind(mod .. " + SHIFT + 2", hl.dsp.window.move({ workspace = 2 }))
