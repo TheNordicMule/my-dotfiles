@@ -40,6 +40,7 @@ in {
         nixos.packages
         nixos.nvidia
         nixos.hyprland
+        nixos.noctalia
         nixos.steam
         nixos.fans
         nixos.printing
@@ -47,12 +48,16 @@ in {
 
         inputs.home-manager.nixosModules.home-manager
         {
-          # Same home-manager wiring as modules/hosts/mac-that-vim.nix.
+          # Same home-manager wiring as modules/hosts/mac-that-vim.nix, plus
+          # `noctalia` (the upstream flake input) so modules/features/noctalia.nix
+          # can import its official homeModules.default.
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.backupFileExtension = "backup";
-          home-manager.extraSpecialArgs = {inherit (inputs) firefox-addons walls-catppuccin-mocha walls-nordic;};
-          home-manager.users.mingshiwang = hm.mingshiwang;
+          home-manager.extraSpecialArgs = {inherit (inputs) firefox-addons walls-catppuccin-mocha walls-nordic noctalia;};
+          home-manager.users.mingshiwang = {
+            imports = [hm.mingshiwang hm.noctalia];
+          };
         }
 
         # ─── Host-specific settings (proper NixOS module: pkgs/config resolve

@@ -30,6 +30,14 @@
       url = "github:linuxdotexe/nordic-wallpapers/7a8e3bcabafbefd1c5b19229841b9bf377a4b765";
       flake = false;
     };
+    # Noctalia v5 (Wayland shell/bar) — official cachix branch.
+    # Deliberately NOT following this flake's nixpkgs: Noctalia's own
+    # nixos/home modules build its package from the pinned upstream nixpkgs,
+    # keeping the cachix-cache-compatible derivation. No overlay or Nix
+    # settings are wired up. Used only by the nixos-desktop host, which imports
+    # the official nixosModules.default / homeModules.default
+    # (modules/features/noctalia.nix).
+    noctalia.url = "github:noctalia-dev/noctalia/cachix";
   };
 
   # Thin root: every .nix file under ./modules is auto-imported as a

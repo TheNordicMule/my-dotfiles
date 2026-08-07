@@ -9,17 +9,17 @@
   palette = config.dotfiles.palettes.${config.dotfiles.theme};
   # Theme is captured from the flake-parts top-level config (theme.nix);
   # bins/theme-switch seds it in place and rebuilds, so the wallpaper
-  # collection linked/scanned below follows the active theme.
+  # collection linked below follows the active theme.
   theme = config.dotfiles.theme;
   # Active wallpaper collection dir name: Nord → nordic-wallpapers, anything
   # else → Catppuccin (preserves the previous default). Only the active
-  # theme's collection is linked into the home tree (see home.file below).
+  # theme's collection is linked into the home tree (see home.file below);
+  # Noctalia reads it from ~/Pictures (config/noctalia/config.toml's
+  # @WALLPAPER_DIR@, rendered in modules/features/noctalia.nix).
   wallsDirName =
     if theme == "nord"
     then "walls-nordic"
     else "walls-catppuccin-mocha";
-  render = file: builtins.replaceStrings ["@BASE@" "@SURFACE@" "@TEXT@" "@MUTED@" "@ACCENT@" "@BLUE@" "@RED@"] [palette.base palette.surface palette.text palette.muted palette.accent palette.blue palette.red] (builtins.readFile file);
-  renderHyprlock = file: builtins.replaceStrings ["#"] [""] (render file);
 in {
   config.flake.modules.homeManager.hyprland = {
     pkgs,
@@ -29,36 +29,12 @@ in {
     walls-nordic,
     ...
   }: let
-    # Only the active theme's collection is linked and scanned (the inactive
-    # input stays in the flake store, untouched).
+    # Only the active theme's collection is linked (the inactive input stays
+    # in the flake store, untouched).
     walls =
       if theme == "nord"
       then walls-nordic
       else walls-catppuccin-mocha;
-    # Pick one random image (recursively) from the pinned wallpaper collection
-    # and apply it through the awww daemon. NUL-delimited records keep
-    # filenames with spaces (or any bytes) intact end-to-end.
-    randomWallpaper = pkgs.writeShellScript "awww-random-wallpaper" ''
-      set -euo pipefail
-
-      wallsDir="$HOME/Pictures/${wallsDirName}"
-
-      candidate="$(
-        ${pkgs.findutils}/bin/find -L "$wallsDir" \
-          -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) \
-          -print0 |
-          ${pkgs.coreutils}/bin/shuf -z -n 1 |
-          ${pkgs.coreutils}/bin/tr -d '\0' \
-          || true
-      )"
-
-      # No candidates present — succeed quietly.
-      if [[ -z "$candidate" ]]; then
-        exit 0
-      fi
-
-      exec ${pkgs.awww}/bin/awww img --resize crop "$candidate"
-    '';
   in {
     wayland.windowManager.hyprland = {
       enable = true;
@@ -72,7 +48,9 @@ in {
       settings = {
         mod = {_var = "SUPER";};
         terminal = {_var = "wezterm";};
-        menu = {_var = "fuzzel";};
+        # Launcher local used by binds.lua (Alt+Space) → Noctalia's launcher
+        # panel (see config/hypr/binds.lua for the other Noctalia bindings).
+        menu = {_var = "noctalia msg panel-toggle launcher";};
 
         monitor = {
           output = "";
@@ -85,15 +63,16 @@ in {
           {_args = ["HYPRCURSOR_SIZE" "24"];}
         ];
 
-        # Autostart (the Lua equivalent of exec-once).
+        # Autostart (the Lua equivalent of exec-once). `noctalia` is the one
+        # Noctalia process: it provides the bar, notification daemon, polkit
+        # agent and clipboard watcher (see config/noctalia/config.toml), so no
+        # legacy agents/watchers are started here.
         on = {
           _args = [
             "hyprland.start"
             (lib.generators.mkLuaInline ''
               function()
-                hl.exec_cmd("wl-paste --watch cliphist store")
-                hl.exec_cmd("waybar")
-                hl.exec_cmd("hyprpolkitagent")
+                hl.exec_cmd("noctalia")
               end
             '')
           ];
@@ -155,99 +134,15 @@ in {
       };
       extraConfig = builtins.readFile ../../config/hypr/binds.lua;
     };
-    programs.waybar = {
-      enable = true;
-      systemd.enable = false;
-    };
-    services.swaync = {
-      enable = true;
-      settings = {
-        positionX = "right";
-        positionY = "top";
-        control-center-positionX = "right";
-        control-center-positionY = "top";
-        control-center-margin-top = 42;
-        control-center-margin-right = 12;
-        control-center-layer = "overlay";
-        control-center-exclusive-zone = false;
-        layer = "overlay";
-        layer-shell = true;
-        fit-to-screen = false;
-        control-center-width = 360;
-        control-center-height = -1;
-        notification-window-width = 360;
-        widgets = ["title" "dnd" "mpris" "notifications"];
-        widget-config = {
-          title = {
-            text = "Control Center";
-            clear-all-button = true;
-            button-text = "Clear";
-          };
-          dnd = {text = "Do Not Disturb";};
-          mpris = {
-            autohide = true;
-            show-album-art = "when-available";
-          };
-        };
-      };
-      style = render ../../config/swaync/style.css;
-    };
-    programs.fuzzel.enable = true;
-    programs.hyprlock.enable = true;
-    services.hypridle.enable = true;
-    # awww wallpaper daemon (swww successor, same options renamed). The module
-    # also puts `awww` on PATH and wires the daemon into the Wayland session.
-    services.awww = {
-      enable = true;
-      package = pkgs.awww;
-    };
 
     # Pin the active theme's wallpaper collection into the home tree (managed
-    # by HM — a symlink into the flake store, no manual clone).
+    # by HM — a symlink into the flake store, no manual clone). Noctalia's
+    # wallpaper module points at this directory (config/noctalia/config.toml).
     home.file."Pictures/${wallsDirName}" = {
       source = walls;
     };
 
-    # One-shot wallpaper setter, started ONLY by the timer below (no
-    # WantedBy). Pulling it in from graphical-session.target while it
-    # Requires/After= awww.service — which itself starts After that target —
-    # created an ordering cycle that systemd broke by dropping the job.
-    systemd.user.services."awww-random-wallpaper" = {
-      Unit = {
-        Description = "Set a random wallpaper from ${wallsDirName}";
-        After = ["awww.service"];
-        Requires = ["awww.service"];
-        ConditionEnvironment = "WAYLAND_DISPLAY";
-      };
-      Service = {
-        Type = "oneshot";
-        ExecStart = randomWallpaper;
-      };
-    };
-
-    # Rotate the wallpaper every 30 minutes while the graphical session is up.
-    # OnActiveSec fires once ~10s after the session target starts (daemon is
-    # up, no ordering cycle); OnCalendar re-rotates every 30 min after that.
-    # WantedBy/PartOf the session target (not default.target), so it never
-    # fires at user-manager/boot time or outside a Wayland session.
-    systemd.user.timers."awww-random-wallpaper" = {
-      Unit = {
-        Description = "Rotate the awww wallpaper every 30 minutes";
-        PartOf = [config.wayland.systemd.target];
-      };
-      Timer = {
-        OnActiveSec = "10s";
-        OnCalendar = "*:0/30";
-        Unit = "awww-random-wallpaper.service";
-      };
-      Install.WantedBy = [config.wayland.systemd.target];
-    };
-    home.packages = with pkgs; [brightnessctl cliphist grim hyprpolkitagent mangohud playerctl slurp wl-clipboard wev pavucontrol wireplumber];
-    xdg.configFile."waybar/config".source = ../../config/waybar/config;
-    xdg.configFile."waybar/style.css".text = render ../../config/waybar/style.css;
-    xdg.configFile."fuzzel/fuzzel.ini".text = render ../../config/fuzzel/fuzzel.ini;
-    xdg.configFile."hypr/hypridle.conf".source = ../../config/hypr/hypridle.conf;
-    xdg.configFile."hypr/hyprlock.conf".text = renderHyprlock ../../config/hypr/hyprlock.conf;
+    home.packages = with pkgs; [brightnessctl mangohud playerctl wev wireplumber];
   };
 
   # System side: compositor under UWSM, portals, and the greetd+tuigreet login.

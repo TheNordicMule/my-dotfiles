@@ -1,0 +1,104 @@
+# Noctalia v5 desktop-shell replacement.
+
+[shell]
+polkit_agent = true
+clipboard_enabled = true
+
+[shell.screenshot]
+save_to_file = true
+pipe_to_command = false
+directory = "~/Pictures"
+
+[wallpaper]
+enabled = true
+directory = "~/Pictures/@WALLPAPER_DIR@"
+
+[wallpaper.automation]
+enabled = true
+interval_seconds = 1800
+order = "random"
+recursive = true
+
+[theme]
+mode = "dark"
+source = "builtin"
+builtin = "@NOCTALIA_THEME@"
+
+[backdrop]
+enabled = false
+
+[notification]
+enable_daemon = true
+
+[lockscreen]
+enabled = true
+
+[idle]
+behavior_order = ["lock", "screen-off", "suspend"]
+
+[idle.behavior.lock]
+timeout = 300
+action = "lock"
+enabled = true
+
+[idle.behavior.screen-off]
+timeout = 330
+action = "screen_off"
+enabled = true
+
+[idle.behavior.suspend]
+timeout = 1800
+action = "lock_and_suspend"
+enabled = true
+
+[bar.main]
+position = "top"
+thickness = 36
+scale = 1.25
+background_opacity = 1.0
+radius = 12
+margin_ends = 10
+margin_edge = 10
+padding = 16
+widget_spacing = 8
+shadow = true
+auto_hide = false
+reserve_space = true
+capsule = false
+
+start = ["workspaces"]
+center = ["clock"]
+end = ["cpu", "memory" ,"volume", "notifications",   "bluetooth", "control-center", "session"]
+
+[widget.clock]
+format = "{:%H:%M} · {:%a, %b %d}"
+font_weight = 700
+
+[widget.workspaces]
+style = "regular"
+show_labels = false
+pill_scale = 0.7
+active_pill_size = 2.0
+inactive_pill_size = 0.8
+focused_color = "primary"
+occupied_color = "secondary"
+empty_color = "surface_variant"
+
+[widget.cpu]
+type = "sysmon"
+stat = "cpu_usage"
+visualization = "none"
+show_value = true
+label_show_units = false
+show_glyph = true
+
+[widget.memory]
+type = "sysmon"
+stat = "ram_pct"
+visualization = "none"
+show_value = true
+label_show_units = false
+show_glyph = true
+
+[widget.network]
+show_label = false

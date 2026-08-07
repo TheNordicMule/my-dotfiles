@@ -15,8 +15,9 @@
   config.dotfiles.theme = "catppuccin";
 
   # All palettes, keyed by theme name. Consumers:
-  # - base/surface/text/muted/accent/blue/red  → hyprland (borders, waybar,
-  #   mako, fuzzel, hyprlock, swaync)
+  # - base/surface/text/muted/accent/blue/red  → hyprland (borders); Noctalia
+  #   bar/wallpaper theming reads the active theme's wallpaper collection via
+  #   config/noctalia/config.toml (see modules/features/noctalia.nix)
   # - autosuggest                              → zsh autosuggestion color
   # - starship                                 → full starship palette attrset
   # - spotify                                  → spotify-player palette +

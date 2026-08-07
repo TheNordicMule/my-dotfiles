@@ -6,7 +6,7 @@ A curated set of dotfiles for **macOS** (nix-darwin) and **NixOS** (Hyprland des
 
 - **Unified theme system** — toggle between Nord, Catppuccin, and Gruvbox across all apps with a single command
 - **macOS desktop** — AeroSpace (tiling WM), SketchyBar (menu bar), WezTerm, and nix-darwin
-- **NixOS desktop** — Hyprland (Lua config, AeroSpace-inspired bindings), Waybar (Bluetooth/network/audio status with hover tooltips and manager clicks), Mako, SwayNC control center, Fuzzel, hyprlock, BlueZ + Blueman, fan monitoring, driverless printing, auto-rotating wallpaper, Steam, and nixos-rebuild (see `nixos/README.md`)
+- **NixOS desktop** — Hyprland (Lua config, AeroSpace-inspired bindings), Noctalia v5 (Wayland shell/bar: launcher, clipboard, notifications, control center, lock/idle, wallpaper rotation), BlueZ, fan monitoring, driverless printing, Steam, and nixos-rebuild (see `nixos/README.md`)
 - **Newer user-facing apps** — Firefox (declarative policies via Home Manager), Vesktop (Discord), Steam (NixOS), Obsidian and Logseq (notes)
 - **Minimal Neovim IDE** — lazy.nvim with LSP, DAP, autocompletion, test runner, git integration, and AI copilot
 - **WezTerm multiplexer** — WezTerm handles multiplexing natively (tabs, splits, workspaces, copy mode) with tmux-style keybindings (`C-a` leader, `h/j/k/l` navigation). The `tmux/` config is kept as legacy and is not actively used.
@@ -53,15 +53,16 @@ with `alejandra`, and rebuilds the active OS:
 
 The rebuild propagates the theme to starship, wezterm, bat, nvim, sketchybar
 (macOS), opencode's TUI theme, spotify-player, and zsh's autosuggestion color —
-and, on NixOS, to Hyprland's borders plus the Waybar, Mako, Fuzzel, hyprlock,
-and SwayNC control center colors (all rendered from the theme palette in
-`modules/features/hyprland.nix`).
+and, on NixOS, to Hyprland's borders (rendered from the theme palette in
+`modules/features/hyprland.nix`) and to the active wallpaper collection Noctalia
+reads from `~/Pictures` (`config/noctalia/config.toml`, rendered in
+`modules/features/noctalia.nix`).
 WezTerm picks up its config change via file watching. `theme-switch` reloads
-SketchyBar automatically (macOS) and, on NixOS, runs `hyprctl reload` plus a
-Waybar/SwayNC user-unit restart automatically; these reloads are best-effort so
-a failed reload never blocks a successful rebuild. A restart of Neovim,
-OpenCode, and spotify-player is required; the Zsh autosuggestion color applies
-in newly started Zsh sessions.
+SketchyBar automatically (macOS) and, on NixOS, runs `hyprctl reload` so the new
+border colors apply; Noctalia hot-reloads its own config, so no bar/wallpaper
+restart is needed. These reloads are best-effort so a failed reload never blocks
+a successful rebuild. A restart of Neovim, OpenCode, and spotify-player is
+required; the Zsh autosuggestion color applies in newly started Zsh sessions.
 
 ## Structure
 
@@ -85,6 +86,7 @@ my-dotfiles/
 │       ├── homebrew.nix      #     darwin: taps / brews / casks
 │       ├── nvidia.nix        #     nixos: NVIDIA GPU (open modules, modesetting, stable driver)
 │       ├── hyprland.nix      #     nixos: Hyprland/UWSM/portals/greetd + wallpapers; HM: Hyprland user session
+│       ├── noctalia.nix      #     nixos: Noctalia v5 shell/bar (programs.noctalia + recommended services); HM: Noctalia user config
 │       ├── fans.nix          #     nixos: fan monitoring (it87 driver, lm-sensors)
 │       ├── printing.nix      #     nixos: driverless printing (CUPS, Avahi mDNS discovery)
 │       ├── gtk.nix           #     HM: GTK dark theming (adw-gtk3 + prefer-dark)
@@ -111,14 +113,11 @@ my-dotfiles/
 │   └── tmux-sessionizer      #   Fuzzy tmux workspace selector (legacy)
 ├── config/                   # Deployed to ~/.config/ by home-manager
 │   ├── aerospace/            #   macOS tiling window manager (static-configs)
-│   ├── fuzzel/               #   NixOS launcher — theme-rendered by hyprland.nix
-│   ├── hypr/                 #   NixOS Hyprland Lua bindings (binds.lua) + hypridle/hyprlock
-│   ├── mako/                 #   NixOS notification daemon — theme-rendered by hyprland.nix
+│   ├── hypr/                 #   NixOS Hyprland Lua bindings (binds.lua)
+│   ├── noctalia/             #   NixOS shell/bar — config.toml (@WALLPAPER_DIR@ rendered by noctalia.nix)
 │   ├── nvim/                 #   Neovim (lazy.nvim) — out-of-store symlink (reads ~/.config/theme at startup)
 │   ├── opencode/             #   OpenCode AI — oh-my-opencode-slim preset (out-of-store symlink); config via programs.opencode
-│   ├── sketchybar/           #   macOS menu bar — out-of-store symlink (reads ~/.config/theme at runtime)
-│   ├── swaync/               #   NixOS notification center — theme-rendered by hyprland.nix
-│   └── waybar/               #   NixOS status bar — theme-rendered by hyprland.nix
+│   └── sketchybar/           #   macOS menu bar — out-of-store symlink (reads ~/.config/theme at runtime)
 ├── wezterm/                  # WezTerm Lua config (Nix injects scheme_name based on `theme`)
 ├── tmux/                     # Tmux config (legacy — WezTerm multiplexer is active; not deployed)
 ├── nixos/                    # NixOS host: README + hardware-configuration.nix.example (real file is gitignored)
@@ -132,15 +131,20 @@ The config uses the **dendritic pattern**: every `.nix` file under `modules/` is
 
 ### Hyprland (NixOS)
 
-`mod` is `SUPER`; `terminal` is `wezterm` and `menu` is `fuzzel`. Bindings are
-loaded from `config/hypr/binds.lua` (see also the AeroSpace section below —
-the layout is intentionally AeroSpace-inspired).
+`mod` is `SUPER`; `terminal` is `wezterm` and `menu` is Noctalia's launcher
+(`noctalia msg panel-toggle launcher`). Bindings are loaded from
+`config/hypr/binds.lua` (see also the AeroSpace section below — the layout is
+intentionally AeroSpace-inspired). Shell actions — launcher, clipboard,
+screenshots, volume, brightness, lock-and-suspend — go through `noctalia msg`
+(Noctalia IPC); media playback has no Noctalia IPC command, so it stays on
+`playerctl`.
 
 | Binding                      | Action                                       |
 | ---------------------------- | -------------------------------------------- |
 | `Alt-Return`                 | Terminal (`wezterm`)                         |
-| `Alt-Space`                  | Launcher (`fuzzel`)                          |
+| `Alt-Space`                  | Noctalia launcher panel (`panel-toggle launcher`) |
 | `Alt-Q`                      | Close window                                 |
+| `Alt-Ctrl-Q`                 | Lock and suspend (`noctalia msg session lock-and-suspend`) |
 | `Alt-R`                      | Reload Hyprland (`hyprctl reload`)           |
 | `mod-f` / `mod-t` / `mod-p`  | Fullscreen (maximized) / toggle float / pseudo-tiling |
 | `mod-s`                      | Toggle split (dwindle)                       |
@@ -149,12 +153,12 @@ the layout is intentionally AeroSpace-inspired).
 | `mod--` / `mod-=`            | Resize active window narrower / wider        |
 | `mod-tab`                    | Previous workspace                           |
 | `mod-1…0` / `mod-shift-1…0`  | Switch to / move window to workspace 1–10    |
-| `Print`                      | Region screenshot to clipboard (`grim` + `slurp`) |
-| `Shift-Print`                | Fullscreen screenshot to clipboard           |
-| `Ctrl-Print`                 | Region screenshot to `~/Pictures`            |
-| `Alt-v`                      | Clipboard history (`cliphist` + `fuzzel`)    |
+| `Print`                      | Region screenshot (`noctalia msg screenshot-region`) |
+| `Shift-Print`                | Screenshot all outputs (`screenshot-fullscreen all`) |
+| `Ctrl-Print`                 | Screenshot monitor picker (`screenshot-fullscreen pick`) |
+| `Alt-v`                      | Clipboard history (`noctalia msg panel-toggle clipboard`) |
 | `Alt-m`                      | Play/pause (`playerctl`)                     |
-| `XF86Audio*` / `XF86MonBrightness*` | Volume (`wpctl`) / brightness (`brightnessctl`) |
+| `XF86Audio*` / `XF86MonBrightness*` | Volume (`noctalia msg volume-*`) / brightness (`noctalia msg brightness-*`) |
 
 ### AeroSpace (Window Manager)
 
@@ -208,9 +212,10 @@ installed by home-manager into the user profile.
 > runtime-theme-read files (sketchybar colors, nvim looks) as writable
 > out-of-store symlinks to this repo. Nix drives starship, wezterm, bat, nvim,
 > sketchybar, opencode, spotify-player, and zsh (autosuggestion color) — and,
-> on NixOS, Hyprland's borders plus the Waybar/Mako/Fuzzel/hyprlock/SwayNC
-> colors — via the `theme` value (`dotfiles.theme` option); `theme-switch` only
-> reloads sketchybar (macOS).
+> on NixOS, Hyprland's borders plus the active wallpaper collection Noctalia
+> reads from `~/Pictures` — via the `theme` value (`dotfiles.theme` option);
+> `theme-switch` reloads sketchybar (macOS) or Hyprland (NixOS; Noctalia
+> hot-reloads its own config).
 
 ## Adding a New App to the Theme System
 
@@ -226,9 +231,10 @@ installed by home-manager into the user profile.
    files), add a `jq`/`sed` block to `bins/theme-switch` under the app's config
    path.
 4. For the NixOS desktop, extend the `palettes` set in
-   `modules/features/hyprland.nix` (or add the app's template file to its
-   `render` calls) so Hyprland borders and the Waybar/Mako/Fuzzel/hyprlock/SwayNC
-   colors are themed at build time.
+   `modules/features/hyprland.nix` so Hyprland borders are themed at build
+   time, and — for Noctalia — point its wallpaper directory at the active
+   theme's collection via `@WALLPAPER_DIR@` in `config/noctalia/config.toml`
+   (rendered in `modules/features/noctalia.nix`).
 
 ## Requirements
 

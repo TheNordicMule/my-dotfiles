@@ -7,7 +7,7 @@
 hl.bind("ALT + Return", hl.dsp.exec_cmd(terminal))
 hl.bind("ALT + Space", hl.dsp.exec_cmd(menu))
 hl.bind("ALT + Q", hl.dsp.window.close())
-hl.bind("CTRL + ALT + Q", hl.dsp.exec_cmd("systemctl suspend"))
+hl.bind("CTRL + ALT + Q", hl.dsp.exec_cmd("noctalia msg session lock-and-suspend"))
 
 -- Fullscreen (maximized), float, pseudo
 hl.bind(mod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized" }))
@@ -51,6 +51,19 @@ hl.bind(mod .. " + 8", hl.dsp.focus({ workspace = 8 }))
 hl.bind(mod .. " + 9", hl.dsp.focus({ workspace = 9 }))
 hl.bind(mod .. " + 0", hl.dsp.focus({ workspace = 10 }))
 
+-- Persistent workspaces on the active monitor (DP-4) so Noctalia's
+-- per-output workspace bar shows empty workspaces.
+hl.workspace_rule({ workspace = "1", persistent = true, monitor = "DP-4" })
+hl.workspace_rule({ workspace = "2", persistent = true, monitor = "DP-4" })
+hl.workspace_rule({ workspace = "3", persistent = true, monitor = "DP-4" })
+hl.workspace_rule({ workspace = "4", persistent = true, monitor = "DP-4" })
+hl.workspace_rule({ workspace = "5", persistent = true, monitor = "DP-4" })
+hl.workspace_rule({ workspace = "6", persistent = true, monitor = "DP-4" })
+hl.workspace_rule({ workspace = "7", persistent = true, monitor = "DP-4" })
+hl.workspace_rule({ workspace = "8", persistent = true, monitor = "DP-4" })
+hl.workspace_rule({ workspace = "9", persistent = true, monitor = "DP-4" })
+hl.workspace_rule({ workspace = "10", persistent = true, monitor = "DP-4" })
+
 -- Move window to workspace
 hl.bind(mod .. " + SHIFT + 1", hl.dsp.window.move({ workspace = 1 }))
 hl.bind(mod .. " + SHIFT + 2", hl.dsp.window.move({ workspace = 2 }))
@@ -63,23 +76,23 @@ hl.bind(mod .. " + SHIFT + 8", hl.dsp.window.move({ workspace = 8 }))
 hl.bind(mod .. " + SHIFT + 9", hl.dsp.window.move({ workspace = 9 }))
 hl.bind(mod .. " + SHIFT + 0", hl.dsp.window.move({ workspace = 10 }))
 
--- Screenshots
-hl.bind("Print", hl.dsp.exec_cmd('grim -g "$(slurp)" - | wl-copy'))
-hl.bind("SHIFT + Print", hl.dsp.exec_cmd("grim - | wl-copy"))
-hl.bind("CTRL + Print", hl.dsp.exec_cmd('grim -g "$(slurp)" ~/Pictures/Screenshot-$(date +%Y%m%d-%H%M%S).png'))
+-- Screenshots (Noctalia IPC)
+hl.bind("Print", hl.dsp.exec_cmd("noctalia msg screenshot-region"))
+hl.bind("SHIFT + Print", hl.dsp.exec_cmd("noctalia msg screenshot-fullscreen all"))
+hl.bind("CTRL + Print", hl.dsp.exec_cmd("noctalia msg screenshot-fullscreen pick"))
 
 -- Clipboard / media
-hl.bind("ALT + V", hl.dsp.exec_cmd("cliphist list | fuzzel --dmenu | cliphist decode | wl-copy"))
+hl.bind("ALT + V", hl.dsp.exec_cmd("noctalia msg panel-toggle clipboard"))
 hl.bind("ALT + M", hl.dsp.exec_cmd("playerctl play-pause"))
 
--- Media keys
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"), { repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { repeating = true })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true })
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set 5%+"), { repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"), { repeating = true })
+-- Media keys (volume/brightness go through Noctalia IPC; media playback has no
+-- Noctalia IPC command, so it stays on playerctl)
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("noctalia msg volume-up"), { repeating = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("noctalia msg volume-down"), { repeating = true })
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd("noctalia msg volume-mute"), { locked = true })
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("noctalia msg brightness-up"), { repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("noctalia msg brightness-down"), { repeating = true })
 
 -- Window rules
 hl.window_rule({ match = { class = ".*" }, suppress_event = "maximize" })
-hl.window_rule({ match = { class = "^(pavucontrol)$" }, float = true })
 hl.window_rule({ match = { title = "^(Picture-in-Picture)$" }, float = true })

@@ -2,9 +2,9 @@
 
 x86_64-linux desktop host: UEFI + systemd-boot, NetworkManager, PipeWire,
 Docker, zsh, NVIDIA (open kernel modules, RTX 20-series or newer), Bluetooth
-(BlueZ + Blueman), fan monitoring, driverless printing, Steam, Hyprland under
-UWSM, greetd + tuigreet login, and home-manager wired exactly like the Darwin
-host (`modules/hosts/mac-that-vim.nix`).
+(BlueZ), fan monitoring, driverless printing, Steam, Hyprland under UWSM,
+greetd + tuigreet login, the Noctalia v5 shell/bar, and home-manager wired
+exactly like the Darwin host (`modules/hosts/mac-that-vim.nix`).
 
 The host is assembled in `modules/hosts/nixos-desktop.nix`; the system
 configuration lives in class-keyed feature modules under `modules/features/`
@@ -128,10 +128,10 @@ sudo nixos-rebuild switch --flake path:.#nixos-desktop
 - WezTerm is installed system-wide (`environment.systemPackages`); the HM
   wezterm module only deploys `.wezterm.lua`. Hyprland's `$terminal` is
   `wezterm`.
-- Bluetooth is enabled in the shared baseline (`hardware.bluetooth.enable` +
-  `services.blueman.enable`); the Waybar `bluetooth` module opens
-  `blueman-manager` on click, and the `network` module opens `nmtui` in
-  WezTerm.
+- Bluetooth is enabled in the shared baseline (`hardware.bluetooth.enable`);
+  the Blueman GUI is not installed — Noctalia's bluetooth widget (v5
+  recommended services) replaces it. `nmtui` remains available as part of the
+  NetworkManager package (no separate GUI is added).
 - Fan monitoring (`modules/features/fans.nix`) loads the `it87` kernel module
   (B650 GAMING X AX V2) and installs `lm_sensors`.
 - Driverless printing (`modules/features/printing.nix`) enables CUPS with Avahi

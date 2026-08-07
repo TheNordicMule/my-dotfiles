@@ -36,12 +36,11 @@
       jack.enable = true;
     };
 
-    # ─── Bluetooth: BlueZ + blueman ────────────────────────────────────────
-    # BlueZ provides the bluetoothd daemon / D-Bus API that Waybar's bluetooth
-    # module reads; services.blueman installs the blueman package (blueman-manager
-    # GUI for the module's on-click) and wires its DBus mechanism + applet units.
+    # ─── Bluetooth: BlueZ ──────────────────────────────────────────────────
+    # BlueZ provides the bluetoothd daemon / D-Bus API that Noctalia's
+    # bluetooth widget reads. The Blueman GUI/applet is intentionally not
+    # enabled — Noctalia (v5 recommended services) owns the bluetooth UI.
     hardware.bluetooth.enable = true;
-    services.blueman.enable = true;
 
     # ─── Containers: Docker ────────────────────────────────────────────────
     virtualisation.docker.enable = true;
