@@ -20,6 +20,7 @@
       gopls
       rust-analyzer
       nixd
+      nixfmt
       lua-language-server
       stylua
       vscode-js-debug
@@ -30,6 +31,5 @@
       copilot-language-server
       vscode-json-languageserver
     ];
-
   };
 }

@@ -139,7 +139,7 @@ return {
 				clangd = {},
 				gopls = {},
 				rust_analyzer = {},
-				nil_ls = {}, -- lspconfig id differs from the Nix package name (`nil`)
+				nixd = {}, -- lspconfig id differs from the Nix package name (`nil`)
 				ocamllsp = {},
 				vtsls = {},
 				copilot = {},

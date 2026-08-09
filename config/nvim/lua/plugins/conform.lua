@@ -33,7 +33,7 @@ return {
 				json = { "prettierd" },
 				markdown = { "prettierd" },
 				lua = { "stylua" },
-				nix = { "alejandra" },
+				nix = { "nixfmt" },
 				ocaml = { "ocamlformat" },
 			},
 		})

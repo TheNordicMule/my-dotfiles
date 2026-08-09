@@ -10,8 +10,6 @@
   # is `shared` plus its own platform-specific entries.
   shared = {pkgs, ...}:
     with pkgs; [
-      # formatting / dev tooling
-      alejandra
       cmake
       gh
       go
@@ -61,16 +59,11 @@ in {
       shared {inherit pkgs;}
       ++ (with pkgs; [
         # NixOS-only dev tooling
-        gcc
         gnumake
-        python3
         # CLI utilities
         docker-compose
         zip
         unzip
-        # hyprland ecosystem
-        # GUI
-        gnome-system-monitor
         # email client — default mailto/rfc822 handler (see thunderbird.nix)
         thunderbird
       ]);

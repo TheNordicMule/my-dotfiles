@@ -23,7 +23,6 @@ in {
       hm.opencode
       hm.bins
       hm.firefox
-      hm.gtk
       hm.vesktop
       hm.localsend
       # macOS-only: SketchyBar bar + AeroSpace window-manager configs. Imported
