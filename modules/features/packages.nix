@@ -18,7 +18,6 @@
       nodejs
       # rust toolchain
       cargo
-      rust-analyzer
       rustc
       rustfmt
       # CLI utilities

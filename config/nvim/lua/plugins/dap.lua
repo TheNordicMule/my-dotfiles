@@ -57,18 +57,14 @@ return {
 
 		require("dapui").setup()
 
-		local home = vim.env.HOME
+		-- js-debug is provided by the Nix `vscode-js-debug` package (see nvim.nix).
 		require("dap").adapters["pwa-node"] = {
 			type = "server",
 			host = "localhost",
 			port = "${port}",
 			executable = {
-				command = "node",
-				-- 💀 Make sure to update this path to point to your installation
-				args = {
-					home .. "/.local/share/nvim/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
-					"${port}",
-				},
+				command = "js-debug",
+				args = { "${port}" },
 			},
 		}
 
@@ -95,29 +91,5 @@ return {
 				{ text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
 			)
 		end
-
-		-- codelldb is installed by mason under the Neovim data dir; derive the
-		-- path from stdpath("data") so it works on any machine/OS without a
-		-- hardcoded macOS home directory.
-		dap.adapters.codelldb = {
-			type = "server",
-			port = "${port}",
-			executable = {
-				command = vim.fn.stdpath("data") .. "/mason/packages/codelldb/codelldb",
-				args = { "--port", "${port}" },
-			},
-		}
-		dap.configurations.rust = {
-			{
-				name = "Launch file",
-				type = "codelldb",
-				request = "launch",
-				program = function()
-					return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-				end,
-				cwd = "${workspaceFolder}",
-				stopOnEntry = false,
-			},
-		}
 	end,
 }

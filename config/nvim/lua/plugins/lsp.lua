@@ -3,9 +3,6 @@ return {
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			{ "j-hui/fidget.nvim", opts = {} },
-			{ "mason-org/mason.nvim", opts = {} },
-			{ "mason-org/mason-lspconfig.nvim" },
-			{ "WhoIsSethDaniel/mason-tool-installer.nvim" },
 			"saghen/blink.cmp",
 		},
 		config = function()
@@ -124,49 +121,33 @@ return {
 			})
 
 			local servers = {
-				mason = {
-					lua_ls = {
-						-- cmd = { ... },
-						-- filetypes = { ... },
-						-- capabilities = {},
-						settings = {
-							Lua = {
-								completion = {
-									callSnippet = "Replace",
-								},
+				lua_ls = {
+					-- cmd = { ... },
+					-- filetypes = { ... },
+					-- capabilities = {},
+					settings = {
+						Lua = {
+							completion = {
+								callSnippet = "Replace",
 							},
 						},
 					},
 				},
-				others = {
-					-- dartls = {},
-				},
+				-- All language servers are installed by Nix/Home Manager (see
+				-- modules/features/nvim.nix); empty maps just get enabled.
+				pyright = {},
+				clangd = {},
+				gopls = {},
+				rust_analyzer = {},
+				nil_ls = {}, -- lspconfig id differs from the Nix package name (`nil`)
+				ocamllsp = {},
+				vtsls = {},
+				copilot = {},
+				jsonls = {},
 			}
 
-			local ensure_installed = vim.tbl_keys(servers.mason or {})
-			vim.list_extend(ensure_installed, {
-				"pyright",
-				"clangd",
-				"gopls",
-				"rust_analyzer",
-				"nil",
-				{ "ocamllsp", version = "1.19.0" },
-				"lua_ls",
-				"stylua", -- Used to format Lua code
-				"js-debug-adapter",
-				"eslint_d",
-				"prettierd",
-				"vtsls",
-				"copilot",
-				"jsonls",
-			})
-
-			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-
-			-- Either merge all additional server configs from the `servers.mason` and `servers.others` tables
-			-- to the default language server configs as provided by nvim-lspconfig or
-			-- define a custom server config that's unavailable on nvim-lspconfig.
-			for server, config in pairs(vim.tbl_extend("keep", servers.mason, servers.others)) do
+			-- Configure nonempty entries; empty maps use the lspconfig defaults.
+			for server, config in pairs(servers) do
 				if not vim.tbl_isempty(config) then
 					vim.lsp.config(server, config)
 				end
@@ -189,15 +170,9 @@ return {
 				},
 			})
 
-			require("mason-lspconfig").setup({
-				ensure_installed = {},
-				automatic_enable = true,
-			})
-
-			-- Manually run vim.lsp.enable for all language servers that are *not* installed via Mason
-			if not vim.tbl_isempty(servers.others) then
-				vim.lsp.enable(vim.tbl_keys(servers.others))
-			end
+			-- Enable every server directly; all are installed by Nix/Home Manager
+			-- (see modules/features/nvim.nix).
+			vim.lsp.enable(vim.tbl_keys(servers))
 			-- Mappings.
 			-- See `:help vim.diagnostic.*` for documentation on any of the below functions
 			local opts = { noremap = true, silent = true }
