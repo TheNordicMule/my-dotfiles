@@ -5,6 +5,8 @@
   config.flake.modules.nixos.nvidia = {config, ...}: {
     services.xserver.videoDrivers = ["nvidia"];
     hardware.graphics.enable = true;
+    # I2C bus access for DDC/CI monitor control (e.g. via ddcutil).
+    hardware.i2c.enable = true;
     hardware.nvidia = {
       open = true;
       modesetting.enable = true;

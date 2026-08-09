@@ -63,6 +63,9 @@ timeout = 1800
 action = "lock_and_suspend"
 enabled = true
 
+[brightness]
+enable_ddcutil = true
+
 [bar.main]
 position = "top"
 thickness = 36

@@ -82,7 +82,7 @@ in {
             isNormalUser = true;
             description = "Mingshi Wang";
             shell = pkgs.zsh;
-            extraGroups = ["wheel" "networkmanager" "docker"];
+            extraGroups = ["wheel" "networkmanager" "docker" "i2c"];
           };
 
           # Require a real root filesystem. The generated, gitignored

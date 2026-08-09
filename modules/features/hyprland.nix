@@ -142,7 +142,7 @@ in {
       source = walls;
     };
 
-    home.packages = with pkgs; [brightnessctl mangohud playerctl wev wireplumber];
+    home.packages = with pkgs; [brightnessctl ddcutil mangohud playerctl wev wireplumber];
   };
 
   # System side: compositor under UWSM, portals, and the greetd+tuigreet login.
