@@ -7,7 +7,7 @@ A curated set of dotfiles for **macOS** (nix-darwin) and **NixOS** (Hyprland des
 - **Unified theme system** — toggle between Nord, Catppuccin, and Gruvbox across all apps with a single command
 - **macOS desktop** — AeroSpace (tiling WM), SketchyBar (menu bar), WezTerm, and nix-darwin
 - **NixOS desktop** — Hyprland (Lua config, AeroSpace-inspired bindings), Noctalia v5 (Wayland shell/bar: launcher, clipboard, notifications, control center, lock/idle, wallpaper rotation), BlueZ, fan monitoring, driverless printing, Steam, and nixos-rebuild (see `nixos/README.md`)
-- **Newer user-facing apps** — Firefox (declarative policies via Home Manager), Vesktop (Discord), Steam (NixOS), Obsidian and Logseq (notes)
+- **Newer user-facing apps** — Firefox (declarative policies via Home Manager), Vesktop (Discord), Steam (NixOS), Obsidian (notes)
 - **Minimal Neovim IDE** — lazy.nvim with LSP, DAP, autocompletion, test runner, git integration, and AI copilot
 - **WezTerm multiplexer** — WezTerm handles multiplexing natively (tabs, splits, workspaces, copy mode) with tmux-style keybindings (`C-a` leader, `h/j/k/l` navigation). The `tmux/` config is kept as legacy and is not actively used.
 - **spotify-player** — terminal Spotify client (requires Spotify Premium), theme-aware via Nix
@@ -45,7 +45,7 @@ theme-switch gruvbox     # apply Gruvbox everywhere
 ```
 
 This seds the `theme` value in `modules/theme.nix` to the new theme, reformats
-with `alejandra`, and rebuilds the active OS:
+with `nixfmt`, and rebuilds the active OS:
 
 - **macOS:** `sudo darwin-rebuild switch --flake .`, then reloads SketchyBar.
 - **NixOS:** `sudo nixos-rebuild switch --flake path:.#nixos-desktop` (`path:`
@@ -54,7 +54,7 @@ with `alejandra`, and rebuilds the active OS:
 The rebuild propagates the theme to starship, wezterm, bat, nvim, sketchybar
 (macOS), opencode's TUI theme, spotify-player, and zsh's autosuggestion color —
 and, on NixOS, to Hyprland's borders (rendered from the theme palette in
-`modules/features/hyprland.nix`) and to the active wallpaper collection Noctalia
+`modules/theme.nix`) and to the active wallpaper collection Noctalia
 reads from `~/Pictures` (`config/noctalia/config.toml`, rendered in
 `modules/features/noctalia.nix`).
 WezTerm picks up its config change via file watching. `theme-switch` reloads
@@ -89,7 +89,6 @@ my-dotfiles/
 │       ├── noctalia.nix      #     nixos: Noctalia v5 shell/bar (programs.noctalia + recommended services); HM: Noctalia user config
 │       ├── fans.nix          #     nixos: fan monitoring (it87 driver, lm-sensors)
 │       ├── printing.nix      #     nixos: driverless printing (CUPS, Avahi mDNS discovery)
-│       ├── gtk.nix           #     HM: GTK dark theming (adw-gtk3 + prefer-dark)
 │       ├── git.nix           #     HM: git config
 │       ├── zsh.nix           #     HM: zsh (theme-aware autosuggest color)
 │       ├── fzf.nix           #     HM: fzf
@@ -105,6 +104,9 @@ my-dotfiles/
 │       ├── firefox.nix       #     HM: firefox (declarative policies; macOS cask duplicated — see TROUBLESHOOTING.md)
 │       ├── steam.nix         #     nixos: programs.steam (32-bit libs, hardware accel, gamepads)
 │       ├── vesktop.nix       #     HM: vesktop (Discord, home.packages)
+│       ├── localsend.nix     #     HM/nixos: LocalSend — LAN file sharing (home.packages; opens port 53317 on NixOS)
+│       ├── swayimg.nix       #     HM: swayimg — Wayland image viewer (home.packages + xdg.mimeApps; Linux-only)
+│       ├── thunderbird.nix   #     HM: thunderbird — mailto/email default handler via xdg.mimeApps (Linux-only)
 │       ├── static-configs.nix#     HM: aerospace (read-only nix-store)
 │       └── bins.nix          #     HM: switch, theme-switch, tmux-sessionizer on $PATH
 ├── bins/                     # Executable helpers (deployed to ~/bin by home-manager)
@@ -117,7 +119,7 @@ my-dotfiles/
 │   ├── noctalia/             #   NixOS shell/bar — config.toml (@WALLPAPER_DIR@ rendered by noctalia.nix)
 │   ├── nvim/                 #   Neovim (lazy.nvim) — out-of-store symlink (reads ~/.config/theme at startup)
 │   ├── opencode/             #   OpenCode AI — oh-my-opencode-slim preset (out-of-store symlink); config via programs.opencode
-│   └── sketchybar/           #   macOS menu bar — out-of-store symlink (reads ~/.config/theme at runtime)
+│   └── sketchybar/           #   macOS menu bar — read-only nix-store config (reads ~/.config/theme at runtime)
 ├── wezterm/                  # WezTerm Lua config (Nix injects scheme_name based on `theme`)
 ├── tmux/                     # Tmux config (legacy — WezTerm multiplexer is active; not deployed)
 ├── nixos/                    # NixOS host: README + hardware-configuration.nix.example (real file is gitignored)
@@ -208,9 +210,9 @@ On NixOS, system packages come from `environment.systemPackages`
 (`modules/features/steam.nix`); user-scoped apps (Firefox, Vesktop, …) are
 installed by home-manager into the user profile.
 
-> home-manager deploys static configs as read-only nix-store symlinks and the
-> runtime-theme-read files (sketchybar colors, nvim looks) as writable
-> out-of-store symlinks to this repo. Nix drives starship, wezterm, bat, nvim,
+> home-manager deploys static configs as read-only nix-store symlinks; the
+> runtime-theme-read files (nvim looks) are writable out-of-store symlinks to
+> this repo. Nix drives starship, wezterm, bat, nvim,
 > sketchybar, opencode, spotify-player, and zsh (autosuggestion color) — and,
 > on NixOS, Hyprland's borders plus the active wallpaper collection Noctalia
 > reads from `~/Pictures` — via the `theme` value (`dotfiles.theme` option);
@@ -231,7 +233,7 @@ installed by home-manager into the user profile.
    files), add a `jq`/`sed` block to `bins/theme-switch` under the app's config
    path.
 4. For the NixOS desktop, extend the `palettes` set in
-   `modules/features/hyprland.nix` so Hyprland borders are themed at build
+   `modules/theme.nix` so Hyprland borders are themed at build
    time, and — for Noctalia — point its wallpaper directory at the active
    theme's collection via `@WALLPAPER_DIR@` in `config/noctalia/config.toml`
    (rendered in `modules/features/noctalia.nix`).

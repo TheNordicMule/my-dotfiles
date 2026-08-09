@@ -160,7 +160,6 @@ in
       };
 
       home.packages = with pkgs; [
-        brightnessctl
         ddcutil
         mangohud
         playerctl

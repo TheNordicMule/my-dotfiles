@@ -44,7 +44,7 @@ sed "$SED_INPLACE[@]" "s/^  config.dotfiles.theme = \".*\";/  config.dotfiles.th
 #    opencode (tui theme via programs.opencode), spotify-player, and zsh
 #    (autosuggestion color; applies in newly started Zsh sessions).
 pushd "$REPO"
-alejandra . &>/dev/null
+nixfmt . &>/dev/null
 
 # Rebuild the active OS: darwin-rebuild on macOS, nixos-rebuild (host
 # nixos-desktop) on Linux. darwin-rebuild must keep its --flake . form; the

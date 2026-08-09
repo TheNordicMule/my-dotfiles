@@ -24,7 +24,6 @@ let
       # CLI utilities
       bandwhich
       bitwarden-cli
-      bottom
       btop
       coreutils
       delta
