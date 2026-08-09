@@ -1,7 +1,9 @@
 # fzf (typed home-manager module — absorbs FZF_* env vars + zsh integration).
-{config, ...}: let
+{ config, ... }:
+let
   palette = config.dotfiles.palettes.${config.dotfiles.theme};
-in {
+in
+{
   config.flake.modules.homeManager.fzf = {
     programs.fzf = {
       enable = true;

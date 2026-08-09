@@ -1,6 +1,6 @@
 # Darwin system settings — platform, touch-id, keyboard remaps, dock, menu bar.
 # `self` is captured from the flake-parts scope (no specialArgs needed).
-{self, ...}: {
+{ self, ... }: {
   config.flake.modules.darwin.system = {
     # The platform the configuration will be used on.
     nixpkgs.hostPlatform = "aarch64-darwin";

@@ -6,7 +6,7 @@
 # flake-parts eval time) and bakes the result into its home-manager module.
 # All palettes live here too (`config.dotfiles.palettes`), so adding a theme
 # means adding one entry to this file — every consumer picks it up.
-{config, ...}: {
+{ config, ... }: {
   # ────────────────────────────────────────────────────────────────────────────
   # Theme — change this one variable to switch all themed tools.
   # Valid values: "nord" | "catppuccin" | "gruvbox"
@@ -84,34 +84,38 @@
         component_style = {
           block_title = {
             fg = "#88c0d0";
-            modifiers = ["Bold"];
+            modifiers = [ "Bold" ];
           };
-          border = {fg = "#4c566a";};
+          border = {
+            fg = "#4c566a";
+          };
           selection = {
             bg = "#434c5e";
             fg = "#eceff4";
-            modifiers = ["Bold"];
+            modifiers = [ "Bold" ];
           };
           playback_status = {
             fg = "#a3be8c";
-            modifiers = ["Bold"];
+            modifiers = [ "Bold" ];
           };
           playback_track = {
             fg = "#88c0d0";
-            modifiers = ["Bold"];
+            modifiers = [ "Bold" ];
           };
-          playback_artists = {fg = "#81a1c1";};
+          playback_artists = {
+            fg = "#81a1c1";
+          };
           playback_progress_bar = {
             bg = "#434c5e";
             fg = "#a3be8c";
           };
           current_playing = {
             fg = "#a3be8c";
-            modifiers = ["Bold"];
+            modifiers = [ "Bold" ];
           };
           table_header = {
             fg = "#81a1c1";
-            modifiers = ["Bold"];
+            modifiers = [ "Bold" ];
           };
         };
       };
@@ -177,34 +181,38 @@
         component_style = {
           block_title = {
             fg = "#cba6f7";
-            modifiers = ["Bold"];
+            modifiers = [ "Bold" ];
           };
-          border = {fg = "#585b70";};
+          border = {
+            fg = "#585b70";
+          };
           selection = {
             bg = "#45475a";
             fg = "#cdd6f4";
-            modifiers = ["Bold"];
+            modifiers = [ "Bold" ];
           };
           playback_status = {
             fg = "#a6e3a1";
-            modifiers = ["Bold"];
+            modifiers = [ "Bold" ];
           };
           playback_track = {
             fg = "#cba6f7";
-            modifiers = ["Bold"];
+            modifiers = [ "Bold" ];
           };
-          playback_artists = {fg = "#89b4fa";};
+          playback_artists = {
+            fg = "#89b4fa";
+          };
           playback_progress_bar = {
             bg = "#45475a";
             fg = "#a6e3a1";
           };
           current_playing = {
             fg = "#a6e3a1";
-            modifiers = ["Bold"];
+            modifiers = [ "Bold" ];
           };
           table_header = {
             fg = "#89dceb";
-            modifiers = ["Bold"];
+            modifiers = [ "Bold" ];
           };
         };
       };
@@ -270,34 +278,38 @@
         component_style = {
           block_title = {
             fg = "#fabd2f";
-            modifiers = ["Bold"];
+            modifiers = [ "Bold" ];
           };
-          border = {fg = "#665c54";};
+          border = {
+            fg = "#665c54";
+          };
           selection = {
             bg = "#504945";
             fg = "#ebdbb2";
-            modifiers = ["Bold"];
+            modifiers = [ "Bold" ];
           };
           playback_status = {
             fg = "#b8bb26";
-            modifiers = ["Bold"];
+            modifiers = [ "Bold" ];
           };
           playback_track = {
             fg = "#fabd2f";
-            modifiers = ["Bold"];
+            modifiers = [ "Bold" ];
           };
-          playback_artists = {fg = "#83a598";};
+          playback_artists = {
+            fg = "#83a598";
+          };
           playback_progress_bar = {
             bg = "#504945";
             fg = "#b8bb26";
           };
           current_playing = {
             fg = "#b8bb26";
-            modifiers = ["Bold"];
+            modifiers = [ "Bold" ];
           };
           table_header = {
             fg = "#83a598";
-            modifiers = ["Bold"];
+            modifiers = [ "Bold" ];
           };
         };
       };

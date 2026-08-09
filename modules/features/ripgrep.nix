@@ -1,5 +1,5 @@
 # ripgrep (typed home-manager module).
-{...}: {
+{ ... }: {
   config.flake.modules.homeManager.ripgrep = {
     programs.ripgrep = {
       enable = true;

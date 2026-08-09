@@ -1,17 +1,17 @@
 # Shared option declarations used across the dendritic module tree.
-{lib, ...}: {
+{ lib, ... }: {
   # flake-parts does not declare darwinConfigurations by default (nix-darwin's
   # own flake-module would, but we don't import it). Declare it here so the
   # host module can set it cleanly without relying on the freeform `flake`
   # attrset.
   options.flake.darwinConfigurations = lib.mkOption {
     type = lib.types.attrsOf lib.types.raw;
-    default = {};
+    default = { };
   };
 
   options.flake.darwinPackages = lib.mkOption {
     type = lib.types.raw;
-    default = {};
+    default = { };
   };
 
   # The single source of truth for theming. Read by every themed feature
@@ -19,7 +19,11 @@
   # value is set in modules/theme.nix on one sed-editable line so
   # bins/theme-switch can rewrite it in place.
   options.dotfiles.theme = lib.mkOption {
-    type = lib.types.enum ["nord" "catppuccin" "gruvbox"];
+    type = lib.types.enum [
+      "nord"
+      "catppuccin"
+      "gruvbox"
+    ];
   };
 
   # All color palettes, keyed by theme, defined once in modules/theme.nix.
@@ -27,6 +31,6 @@
   # (core colors, starship palette, spotify-player theme, zsh autosuggest).
   options.dotfiles.palettes = lib.mkOption {
     type = lib.types.raw;
-    default = {};
+    default = { };
   };
 }

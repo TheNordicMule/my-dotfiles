@@ -26,47 +26,60 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   nixos = config.flake.modules.nixos;
   hm = config.flake.modules.homeManager;
   hardware-configuration = ../../nixos/hardware-configuration.nix;
-in {
+in
+{
   config.flake.nixosConfigurations.nixos-desktop = inputs.nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
-    modules =
-      [
-        # Common NixOS baseline + feature modules (dendritic, class-keyed).
-        nixos.base
-        nixos.packages
-        nixos.nvidia
-        nixos.hyprland
-        nixos.noctalia
-        nixos.steam
-        nixos.fans
-        nixos.printing
-        nixos.localsend
+    modules = [
+      # Common NixOS baseline + feature modules (dendritic, class-keyed).
+      nixos.base
+      nixos.packages
+      nixos.nvidia
+      nixos.hyprland
+      nixos.noctalia
+      nixos.steam
+      nixos.fans
+      nixos.printing
+      nixos.localsend
 
-        inputs.home-manager.nixosModules.home-manager
+      inputs.home-manager.nixosModules.home-manager
+      {
+        # Same home-manager wiring as modules/hosts/mac-that-vim.nix, plus
+        # `noctalia` (the upstream flake input) so modules/features/noctalia.nix
+        # can import its official homeModules.default.
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.backupFileExtension = "backup";
+        home-manager.extraSpecialArgs = {
+          inherit (inputs)
+            firefox-addons
+            walls-catppuccin-mocha
+            walls-nordic
+            noctalia
+            ;
+        };
+        home-manager.users.mingshiwang = {
+          imports = [
+            hm.mingshiwang
+            hm.noctalia
+          ];
+        };
+      }
+
+      # ─── Host-specific settings (proper NixOS module: pkgs/config resolve
+      # from the NixOS module system, not flake-parts) ─────────────────────
+      (
         {
-          # Same home-manager wiring as modules/hosts/mac-that-vim.nix, plus
-          # `noctalia` (the upstream flake input) so modules/features/noctalia.nix
-          # can import its official homeModules.default.
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.backupFileExtension = "backup";
-          home-manager.extraSpecialArgs = {inherit (inputs) firefox-addons walls-catppuccin-mocha walls-nordic noctalia;};
-          home-manager.users.mingshiwang = {
-            imports = [hm.mingshiwang hm.noctalia];
-          };
-        }
-
-        # ─── Host-specific settings (proper NixOS module: pkgs/config resolve
-        # from the NixOS module system, not flake-parts) ─────────────────────
-        ({
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           # Clean UEFI systemd-boot install.
           boot.loader.systemd-boot.enable = true;
           boot.loader.efi.canTouchEfiVariables = true;
@@ -82,7 +95,12 @@ in {
             isNormalUser = true;
             description = "Mingshi Wang";
             shell = pkgs.zsh;
-            extraGroups = ["wheel" "networkmanager" "docker" "i2c"];
+            extraGroups = [
+              "wheel"
+              "networkmanager"
+              "docker"
+              "i2c"
+            ];
           };
 
           # Require a real root filesystem. The generated, gitignored
@@ -111,11 +129,12 @@ in {
           # meant to be installed; change it only by bumping stateVersion on a
           # fresh install.
           system.stateVersion = "26.05";
-        })
-      ]
-      # Import the generated, gitignored hardware config only once it exists
-      # (callers must use a `path:` flake ref so it is visible — see header);
-      # the assertion above fails loudly if the target is built without it.
-      ++ lib.optionals (builtins.pathExists hardware-configuration) [hardware-configuration];
+        }
+      )
+    ]
+    # Import the generated, gitignored hardware config only once it exists
+    # (callers must use a `path:` flake ref so it is visible — see header);
+    # the assertion above fails loudly if the target is built without it.
+    ++ lib.optionals (builtins.pathExists hardware-configuration) [ hardware-configuration ];
   };
 }

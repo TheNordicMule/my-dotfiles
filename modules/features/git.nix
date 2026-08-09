@@ -1,5 +1,5 @@
 # git (typed home-manager module).
-{...}: {
+{ ... }: {
   config.flake.modules.homeManager.git = {
     programs.git = {
       enable = true;

@@ -4,8 +4,8 @@
 #   audio, containers, shell, nix settings/GC, fonts). Host-specific bits
 #   (boot, hostname, user, stateVersion) live in modules/hosts/*.
 # Folded in from the old inline `configuration` block in flake.nix.
-{...}: {
-  config.flake.modules.darwin.base = {pkgs, ...}: {
+{ ... }: {
+  config.flake.modules.darwin.base = { pkgs, ... }: {
     system.primaryUser = "mingshiwang";
     fonts.packages = [
       pkgs.nerd-fonts.iosevka
@@ -16,18 +16,20 @@
     nix.enable = true;
 
     # Necessary for using flakes on this system.
-    nix.settings.experimental-features = ["nix-command" "flakes"];
+    nix.settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
 
     # Create /etc/zshrc that loads the nix-darwin environment.
     programs.zsh.enable = true; # default shell on catalina
 
     # Allow exactly copilot-language-server (unfree on Darwin) to evaluate.
     # NixOS global policy (allowUnfree) is unchanged.
-    nixpkgs.config.allowUnfreePredicate = pkg:
-      pkgs.lib.getName pkg == "copilot-language-server";
+    nixpkgs.config.allowUnfreePredicate = pkg: pkgs.lib.getName pkg == "copilot-language-server";
   };
 
-  config.flake.modules.nixos.base = {pkgs, ...}: {
+  config.flake.modules.nixos.base = { pkgs, ... }: {
     # ─── Networking: NetworkManager ────────────────────────────────────────
     networking.networkmanager.enable = true;
 
@@ -59,12 +61,18 @@
     nixpkgs.config.allowUnfree = true;
 
     nix.settings = {
-      experimental-features = ["nix-command" "flakes"];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       auto-optimise-store = true;
       warn-dirty = false;
       # Only root and the wheel group may manage the daemon / substitute.
-      trusted-users = ["root" "@wheel"];
-      allowed-users = ["@wheel"];
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
+      allowed-users = [ "@wheel" ];
     };
     nix.gc = {
       automatic = true;

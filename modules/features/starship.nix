@@ -1,15 +1,18 @@
 # starship (typed home-manager module, theme-aware via `palette`).
 # `theme` is captured from the flake-parts top-level config; the palette
 # definition comes from config.dotfiles.palettes (theme.nix).
-{config, ...}: let
+{ config, ... }:
+let
   theme = config.dotfiles.theme;
   paletteName =
-    if theme == "catppuccin"
-    then "catppuccin_mocha"
-    else if theme == "gruvbox"
-    then "gruvbox"
-    else "nord";
-in {
+    if theme == "catppuccin" then
+      "catppuccin_mocha"
+    else if theme == "gruvbox" then
+      "gruvbox"
+    else
+      "nord";
+in
+{
   config.flake.modules.homeManager.starship = {
     programs.starship = {
       enable = true;
@@ -20,8 +23,8 @@ in {
 
         git_status = {
           conflicted = "🏳";
-          ahead = ''🏎💨''${count}'';
-          behind = ''🐢''${count}'';
+          ahead = "🏎💨\${count}";
+          behind = "🐢\${count}";
           diverged = "😵";
           untracked = "🤷";
           stashed = "📦";

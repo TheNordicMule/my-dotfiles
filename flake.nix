@@ -42,6 +42,5 @@
 
   # Thin root: every .nix file under ./modules is auto-imported as a
   # flake-parts module by import-tree. No manual imports list to maintain.
-  outputs = inputs:
-    inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 }

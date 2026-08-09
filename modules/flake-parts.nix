@@ -3,7 +3,7 @@
 # `flake.modules.darwin.<name>` / `flake.modules.homeManager.<name>` as
 # arbitrary class-keyed module values. Required: without this import the
 # `flake.modules` option is not declared.
-{inputs, ...}: {
+{ inputs, ... }: {
   imports = [
     inputs.flake-parts.flakeModules.modules
   ];

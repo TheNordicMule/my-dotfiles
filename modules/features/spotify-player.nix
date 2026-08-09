@@ -1,8 +1,8 @@
 # spotify-player — terminal Spotify client (requires Spotify Premium).
 # Theme palettes come from config.dotfiles.palettes (theme.nix); all three are
 # baked in so the in-app theme can be cycled, with the active one preselected.
-{config, ...}: {
-  config.flake.modules.homeManager.spotify-player = {...}: {
+{ config, ... }: {
+  config.flake.modules.homeManager.spotify-player = { ... }: {
     programs.spotify-player = {
       enable = true;
       themes = [

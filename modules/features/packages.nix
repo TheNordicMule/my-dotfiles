@@ -4,12 +4,15 @@
 #   tools migrated from the Darwin set; darwin-only entries — colima,
 #   anki-bin, bitwarden-desktop, wezterm as desktop app, … — are
 #   handled by the home-manager profile instead).
-{...}: let
+{ ... }:
+let
   # Packages installed on both platforms. This is exactly the set that used to
   # be duplicated between the darwin and nixos lists below; each platform set
   # is `shared` plus its own platform-specific entries.
-  shared = {pkgs, ...}:
-    with pkgs; [
+  shared =
+    { pkgs, ... }:
+    with pkgs;
+    [
       cmake
       gh
       go
@@ -38,10 +41,11 @@
       # .wezterm.lua — the package itself is installed here)
       wezterm
     ];
-in {
-  config.flake.modules.darwin.packages = {pkgs, ...}: {
+in
+{
+  config.flake.modules.darwin.packages = { pkgs, ... }: {
     environment.systemPackages =
-      shared {inherit pkgs;}
+      shared { inherit pkgs; }
       ++ (with pkgs; [
         # macOS-only desktop apps / dev tools
         anki-bin
@@ -54,9 +58,9 @@ in {
       ]);
   };
 
-  config.flake.modules.nixos.packages = {pkgs, ...}: {
+  config.flake.modules.nixos.packages = { pkgs, ... }: {
     environment.systemPackages =
-      shared {inherit pkgs;}
+      shared { inherit pkgs; }
       ++ (with pkgs; [
         # NixOS-only dev tooling
         gnumake

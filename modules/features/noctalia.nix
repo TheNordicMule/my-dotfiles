@@ -20,27 +20,24 @@
   config,
   inputs,
   ...
-}: let
-  wallsDirName =
-    if config.dotfiles.theme == "nord"
-    then "walls-nordic"
-    else "walls-catppuccin-mocha";
-in {
-  config.flake.modules.homeManager.noctalia = {noctalia, ...}: {
-    imports = [noctalia.homeModules.default];
+}:
+let
+  wallsDirName = if config.dotfiles.theme == "nord" then "walls-nordic" else "walls-catppuccin-mocha";
+in
+{
+  config.flake.modules.homeManager.noctalia = { noctalia, ... }: {
+    imports = [ noctalia.homeModules.default ];
     programs.noctalia = {
       enable = true;
       systemd.enable = false;
-      settings =
-        builtins.replaceStrings
-        ["@WALLPAPER_DIR@"]
-        [wallsDirName]
-        (builtins.readFile ../../config/noctalia/config.toml);
+      settings = builtins.replaceStrings [ "@WALLPAPER_DIR@" ] [ wallsDirName ] (
+        builtins.readFile ../../config/noctalia/config.toml
+      );
     };
   };
 
   config.flake.modules.nixos.noctalia = {
-    imports = [inputs.noctalia.nixosModules.default];
+    imports = [ inputs.noctalia.nixosModules.default ];
     programs.noctalia = {
       enable = true;
       systemd.enable = false;

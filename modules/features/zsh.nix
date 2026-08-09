@@ -6,16 +6,22 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   autosuggest = config.dotfiles.palettes.${config.dotfiles.theme}.autosuggest;
-in {
-  config.flake.modules.homeManager.zsh = {config, ...}: {
+in
+{
+  config.flake.modules.homeManager.zsh = { config, ... }: {
     programs.zsh = {
       enable = true;
       dotDir = "${config.xdg.configHome}/zsh";
       oh-my-zsh = {
         enable = true;
-        plugins = ["colored-man-pages" "git" "vi-mode"];
+        plugins = [
+          "colored-man-pages"
+          "git"
+          "vi-mode"
+        ];
       };
       syntaxHighlighting.enable = true;
       autosuggestion.enable = true;

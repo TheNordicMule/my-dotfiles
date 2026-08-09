@@ -6,8 +6,8 @@
 # - Avahi: mDNS/DNS-SD so CUPS auto-discovers network printers, with the mDNS
 #   NSS module so `.local` hostnames resolve and the firewall opened for mDNS
 #   (UDP 5353).
-{...}: {
-  config.flake.modules.nixos.printing = {...}: {
+{ ... }: {
+  config.flake.modules.nixos.printing = { ... }: {
     # CUPS printing service (driverless/IPP Everywhere baseline).
     services.printing.enable = true;
 

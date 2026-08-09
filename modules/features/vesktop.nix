@@ -1,7 +1,9 @@
 # Vesktop — Discord client with a declarative Vencord CSS theme.
-{config, ...}: let
+{ config, ... }:
+let
   palette = config.dotfiles.palettes.${config.dotfiles.theme};
-in {
+in
+{
   config.flake.modules.homeManager.vesktop = {
     programs.vesktop = {
       enable = true;
@@ -38,7 +40,7 @@ in {
           '';
         };
         settings = {
-          enabledThemes = ["palette.css"];
+          enabledThemes = [ "palette.css" ];
         };
       };
     };

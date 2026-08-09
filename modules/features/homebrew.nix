@@ -1,6 +1,6 @@
 # Homebrew — casks and brews not in nixpkgs.
 # you still need to install brew manually.
-{...}: {
+{ ... }: {
   config.flake.modules.darwin.homebrew = {
     homebrew = {
       enable = true;

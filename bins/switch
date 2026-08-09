@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 set -e
 pushd ~/my-dotfiles
-alejandra . &>/dev/null
+nixfmt . &>/dev/null
 
 # Rebuild the active OS: darwin-rebuild on macOS, nixos-rebuild (host
 # nixos-desktop) on Linux. darwin-rebuild must keep its --flake . form; the
