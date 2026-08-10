@@ -33,6 +33,7 @@ in
       shellAliases = {
         cf1 = "cf 3600";
         cf2 = "cf 7200";
+        ns = "nix-search-tv print | fzf --preview 'nix-search-tv preview {}' --scheme history";
         v = "nvim";
         vim = "nvim";
         npmg = "npm list -g --depth 0";

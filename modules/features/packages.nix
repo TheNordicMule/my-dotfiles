@@ -16,6 +16,7 @@ let
       cmake
       gh
       go
+      nix-search-tv
       nodejs
       # rust toolchain
       cargo
