@@ -49,9 +49,9 @@ record):
       `nix flake lock --update-input nixpkgs`
 - [ ] Run a full host build (including Home Manager and OpenCode):
       `nix build .#darwinConfigurations.Mac-that-vim.system --no-link`
-      or `sudo darwin-rebuild build --flake .#Mac-that-vim`.
+      or `nh darwin build . -H Mac-that-vim`.
 - [ ] Only after the full build passes, activate with:
-      `sudo darwin-rebuild switch --flake .#Mac-that-vim`
+      `nh darwin switch . -H Mac-that-vim`
 - [ ] Verify OpenCode reports `1.17.13` and launches successfully after the
       candidate update.
 

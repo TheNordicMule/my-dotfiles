@@ -3,7 +3,8 @@
 # darwinConfiguration.
 #
 # Build with:
-#   darwin-rebuild switch --flake .#Mac-that-vim
+#   nh darwin switch . -H Mac-that-vim
+# (`nh` self-elevates internally.)
 {
   inputs,
   config,

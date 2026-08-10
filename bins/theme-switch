@@ -46,16 +46,16 @@ sed "$SED_INPLACE[@]" "s/^  config.dotfiles.theme = \".*\";/  config.dotfiles.th
 pushd "$REPO"
 nixfmt . &>/dev/null
 
-# Rebuild the active OS: darwin-rebuild on macOS, nixos-rebuild (host
-# nixos-desktop) on Linux. darwin-rebuild must keep its --flake . form; the
-# Linux branch uses `path:.` so the untracked, gitignored
-# nixos/hardware-configuration.nix is visible to Nix.
+# Rebuild the active OS: `nh darwin switch` on macOS, `nh os switch` (host
+# nixos-desktop) on Linux. nh self-elevates internally, so no `sudo` here. The
+# Linux branch keeps the `path:.` flake reference so the untracked, gitignored
+# nixos/hardware-configuration.nix is visible to Nix (a git ref would hide it).
 case "$(uname -s)" in
   Darwin)
-    sudo darwin-rebuild switch --flake .
+    nh darwin switch . -H Mac-that-vim
     ;;
   Linux)
-    sudo nixos-rebuild switch --flake path:.#nixos-desktop
+    nh os switch path:. -H nixos-desktop
     ;;
   *)
     echo "theme-switch: unsupported OS $(uname -s)" >&2

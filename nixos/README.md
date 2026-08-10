@@ -99,11 +99,12 @@ reboot
 ```
 
 After first boot, day-to-day switches use the same flake from the repo home.
-Again use `path:.` so the untracked, gitignored hardware config stays visible:
+Again use `path:.` so the untracked, gitignored hardware config stays visible
+(`nh` self-elevates internally, so no `sudo` is needed):
 
 ```bash
 cd ~/my-dotfiles
-sudo nixos-rebuild switch --flake path:.#nixos-desktop
+nh os switch path:. -H nixos-desktop
 ```
 
 ## Notes
@@ -112,7 +113,7 @@ sudo nixos-rebuild switch --flake path:.#nixos-desktop
   `nixos/hardware-configuration.nix` fails loudly (assertion in
   `modules/hosts/nixos-desktop.nix`). There is no silent fallback layout.
 - **Use `path:` flake refs for anything that must see the hardware config** —
-  `nixos-install`/`nixos-rebuild` with `path:/mnt/home/mingshiwang/my-dotfiles`
+  `nixos-install`/`nh os switch` with `path:/mnt/home/mingshiwang/my-dotfiles`
   or `path:.` from the repo. A conventional `git+file` ref (`.`, `.#…`) hides
   the untracked/ignored file and would hit the missing-hardware assertion.
 - **Never `git add` the hardware config** — it is generated per machine and

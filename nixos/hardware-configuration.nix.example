@@ -5,7 +5,8 @@
 # The real file is produced on the target by
 # `nixos-generate-config --root /mnt --dir <repo>/nixos`, is listed in
 # .gitignore, and is never staged/committed. Commands that must see it
-# (nixos-install / nixos-rebuild) use explicit `path:` flake refs
+# (nixos-install, or the day-to-day `nh os switch path:. -H nixos-desktop`)
+# use explicit `path:` flake refs
 # (`path:/mnt/home/mingshiwang/my-dotfiles#nixos-desktop`, or `path:.` from
 # inside the repo). See nixos/README.md.
 #

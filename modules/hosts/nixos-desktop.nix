@@ -20,7 +20,9 @@
 # → nixos/hardware-configuration.nix.
 #
 # Build with:
-#   sudo nixos-rebuild switch --flake path:.#nixos-desktop
+#   nh os switch path:. -H nixos-desktop
+# (`nh` self-elevates internally; `path:.` keeps the gitignored
+# hardware-configuration.nix visible — a git ref would hide it.)
 {
   inputs,
   config,
@@ -113,7 +115,7 @@ in
                 Missing root filesystem: nixos/hardware-configuration.nix is not present.
                 Generate it on the target with
                 `nixos-generate-config --root /mnt --dir <repo>/nixos` and use a `path:` flake
-                ref (e.g. `nixos-rebuild switch --flake path:.#nixos-desktop`) so the
+                ref (e.g. `nh os switch path:. -H nixos-desktop`) so the
                 untracked, gitignored file is visible — never `git add` it. See nixos/README.md.
                 For a pre-install dry-run, copy nixos/hardware-configuration.nix.example
                 to nixos/hardware-configuration.nix.
