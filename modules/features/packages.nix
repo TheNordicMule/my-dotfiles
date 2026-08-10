@@ -32,6 +32,7 @@ let
       jq
       lsd
       neovim
+      nh
       procs
       tokei
       tree-sitter
