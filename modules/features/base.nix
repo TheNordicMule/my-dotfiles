@@ -46,7 +46,7 @@
     # ─── Bluetooth: BlueZ ──────────────────────────────────────────────────
     # BlueZ provides the bluetoothd daemon / D-Bus API that Noctalia's
     # bluetooth widget reads. The Blueman GUI/applet is intentionally not
-    # enabled — Noctalia (v5 recommended services) owns the bluetooth UI.
+    # enabled because Noctalia owns the bluetooth UI.
     hardware.bluetooth.enable = true;
 
     # ─── Containers: Docker ────────────────────────────────────────────────
