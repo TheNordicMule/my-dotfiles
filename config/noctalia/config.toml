@@ -1,4 +1,5 @@
 # Noctalia v5 desktop-shell replacement.
+config_version = 8
 
 [shell]
 polkit_agent = true
@@ -101,18 +102,12 @@ hide_inactive = true
 [widget.cpu]
 type = "sysmon"
 stat = "cpu_usage"
-visualization = "none"
 show_value = true
-label_show_units = false
-show_glyph = true
 
 [widget.memory]
 type = "sysmon"
 stat = "ram_pct"
-visualization = "none"
 show_value = true
-label_show_units = false
-show_glyph = true
 
 [widget.network]
 show_label = false

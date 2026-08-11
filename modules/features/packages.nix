@@ -64,6 +64,7 @@ in
       shared { inherit pkgs; }
       ++ (with pkgs; [
         # NixOS-only dev tooling
+        python3
         gnumake
         # CLI utilities
         docker-compose

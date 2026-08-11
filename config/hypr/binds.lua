@@ -9,6 +9,12 @@ hl.bind("ALT + Space", hl.dsp.exec_cmd(menu))
 hl.bind("ALT + Q", hl.dsp.window.close())
 hl.bind("CTRL + ALT + Q", hl.dsp.exec_cmd("noctalia msg session lock-and-suspend"))
 
+-- Input method: Ctrl+` toggles fcitx5's IM state (activate/deactivate).
+hl.bind(
+  "CTRL + grave",
+  hl.dsp.exec_cmd("fcitx5-remote -t")
+)
+
 -- Fullscreen (maximized), float, pseudo
 hl.bind(mod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized" }))
 hl.bind(mod .. " + T", hl.dsp.window.float({ action = "toggle" }))

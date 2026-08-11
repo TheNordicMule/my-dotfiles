@@ -170,6 +170,14 @@ in
 
   # System side: compositor under UWSM, portals, and the greetd+tuigreet login.
   config.flake.modules.nixos.hyprland = { pkgs, ... }: {
+    # Input method: fcitx5 with the Chinese addons (Ctrl+` toggles fcitx5's IM
+    # state in config/hypr/binds.lua).
+    i18n.inputMethod = {
+      enable = true;
+      type = "fcitx5";
+      fcitx5.addons = [ pkgs.qt6Packages.fcitx5-chinese-addons ];
+    };
+
     # Hyprland (UWSM + XWayland).
     programs.hyprland = {
       enable = true;
