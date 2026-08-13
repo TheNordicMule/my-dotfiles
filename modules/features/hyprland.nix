@@ -199,10 +199,16 @@ in
       enable = true;
       settings = {
         default_session = {
-          command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd 'uwsm start Hyprland'";
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd 'uwsm start Hyprland'";
           user = "greeter";
         };
       };
     };
+
+    # Seed tuigreet's remembered-user cache so the first prompt after applying
+    # this configuration asks only for the password.
+    systemd.tmpfiles.rules = [
+      "f '/var/cache/tuigreet/lastuser' 0600 greeter greeter - mingshiwang"
+    ];
   };
 }

@@ -24,7 +24,7 @@
         device = {
           audio_cache = true;
           normalization = true;
-          volume = 70;
+          volume = 100;
           bitrate = 320;
         };
       };

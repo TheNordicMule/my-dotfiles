@@ -32,6 +32,9 @@
   config.flake.modules.nixos.base = { pkgs, ... }: {
     # ─── Networking: NetworkManager ────────────────────────────────────────
     networking.networkmanager.enable = true;
+    # Nothing at boot needs a fully configured connection. In particular,
+    # Docker can start while NetworkManager connects in the background.
+    systemd.services.NetworkManager-wait-online.enable = false;
 
     # ─── Audio: PipeWire + rtkit ───────────────────────────────────────────
     security.rtkit.enable = true;
