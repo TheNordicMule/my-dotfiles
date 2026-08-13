@@ -9,66 +9,108 @@ exactly like the Darwin host (`modules/hosts/mac-that-vim.nix`).
 The host is assembled in `modules/hosts/nixos-desktop.nix`; the system
 configuration lives in class-keyed feature modules under `modules/features/`
 (`flake.modules.nixos.{base,packages,nvidia,hyprland,steam,fans,printing}`).
+The disk layout is declared declaratively in `nixos/disko.nix` (see below).
 
 ## Hardware config policy
 
 `nixos/hardware-configuration.nix` is a **generated, local, ignored
-per-machine file**:
+per-machine file** that contains **hardware discovery only**:
 
-- It is produced on the target by `nixos-generate-config` (see below) and is
-  listed in `.gitignore` — it is **never staged or committed**.
+- It is produced on the target by `nixos-generate-config --no-filesystems`
+  (see below) and is listed in `.gitignore` — it is **never staged or
+  committed**.
 - Because it is untracked/ignored, `git+file` flake refs (`.`, `.#…`) would
   silently hide it. **Every installer/rebuild command that must see it uses an
   explicit `path:` flake reference** (`path:/mnt/home/…/my-dotfiles`, or
   `path:.` from inside the repo), which copies the working directory verbatim
   including ignored files.
-- No Windows or disk layout is baked into the Nix files. The NixOS
-  configuration **requires** that file: there is no silent placeholder root
-  filesystem, so evaluating the target without it fails with a clear assertion.
+- **Filesystems are Disko's job, not this file's.** The root and `/boot`
+  filesystems (and swap, if any) are declared in `nixos/disko.nix`
+  (`disko.devices.disk.main`); hardware-config generation **must** pass
+  `--no-filesystems` and must not re-declare them.
+- The NixOS configuration **requires** this file: there is no silent
+  placeholder root filesystem, so evaluating the target without it fails with
+  a clear assertion.
 
 ## Installer overview
 
-### 1. Boot the NixOS installer and partition
+### 1. Stage the repo, then wipe/partition with Disko
 
 Boot the NixOS **unstable** minimal ISO (must match the flake's
 `nixpkgs-unstable`). For a clean single-OS UEFI install:
 
 ```bash
-# Example: GPT + systemd-boot, swap optional. Adjust to your disks.
 lsblk
 sudo -i
-cfdisk /dev/nvme0n1       # create a 1G EFI System partition + a root partition
-mkfs.fat -F32 /dev/nvme0n1p1
-mkfs.ext4 /dev/nvme0n1p2
 ```
 
-### 2. Mount, clone the repo, and generate the hardware config
+> ⚠️ **The Disko command below is intentionally destructive and erases ALL
+> data on `/dev/nvme0n1`.** Inspect `lsblk` first to confirm which disk you
+> want to wipe. The tracked module targets `/dev/nvme0n1`; if you want to use
+> **any other disk**, you **must edit `nixos/disko.nix`**
+> (`disko.devices.disk.main.device`) before proceeding.
+
+Clone or copy the repo to somewhere accessible from the installer (the
+installed system is empty at this point), for example `/tmp/my-dotfiles`:
 
 ```bash
-mount /dev/nvme0n1p2 /mnt
-mkdir -p /mnt/boot
-mount /dev/nvme0n1p1 /mnt/boot
-# swap (optional):
-# mkswap /dev/nvme0n1p3 && swapon /dev/nvme0n1p3
-
-# Create the target user's home before cloning — the repo must live there so
-# the absolute out-of-store config links (config/nvim, config/opencode, …)
-# resolve after first boot:
-mkdir -p /mnt/home/mingshiwang
-git clone https://github.com/TheNordicMule/my-dotfiles /mnt/home/mingshiwang/my-dotfiles
-# (or copy the repo from the booted installer: cp -r /path/to/my-dotfiles /mnt/home/mingshiwang/)
-
-# Generate the hardware config directly into the persistent repo. It is a
-# generated, local, gitignored per-machine file — never stage or commit it:
-nixos-generate-config --root /mnt --dir /mnt/home/mingshiwang/my-dotfiles/nixos
+cp -r /path/to/my-dotfiles /tmp/my-dotfiles   # or: git clone … /tmp/my-dotfiles
 ```
+
+Partition and mount using a direct Disko CLI run against the repo's tracked
+declarative module `nixos/disko.nix`:
+
+```bash
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- \
+  --mode destroy,format,mount \
+  --root-mountpoint /mnt \
+  /tmp/my-dotfiles/nixos/disko.nix
+```
+
+This runs the repo's tracked `nixos/disko.nix` directly: it **intentionally
+destructively** destroys and formats `/dev/nvme0n1`, then mounts the resulting
+filesystems under `/mnt`. It does **not** invoke `nixos-install` (that is a
+separate step below), and it does **not** add Disko to the installed system —
+Disko is already a flake input/module used for the NixOS configuration.
+
+The module targets `disko.devices.disk.main.device = "/dev/nvme0n1"`. Before
+using any other disk, you **must** edit that `device` in `nixos/disko.nix`.
+
+Disko mounts the filesystems under `/mnt`. It does **not** copy the `/tmp`
+staging source anywhere — the repo must be placed into the installed system
+explicitly (next step).
+
+### 2. Place the repo in the installed system
+
+The repo must end up at `/mnt/home/mingshiwang/my-dotfiles` so the absolute
+out-of-store config links (`config/nvim`, `config/opencode`, …) resolve after
+first boot:
+
+```bash
+mkdir -p /mnt/home/mingshiwang
+cp -r /tmp/my-dotfiles /mnt/home/mingshiwang/my-dotfiles
+```
+
+### 3. Generate the hardware config
+
+```bash
+nixos-generate-config --no-filesystems --show-hardware-config --root /mnt \
+  > /mnt/home/mingshiwang/my-dotfiles/nixos/hardware-configuration.nix
+```
+
+`--show-hardware-config` writes **only** the hardware configuration: it prints
+the discovery output to stdout and cannot generate a stray `configuration.nix`,
+so the redirect above drops it straight into the gitignored, per-machine
+`hardware-configuration.nix` — never stage or commit it. `--no-filesystems` is
+required: Disko already declares the root and `/boot` filesystems in
+`nixos/disko.nix`, so the file carries **hardware discovery only**.
 
 `modules/hosts/nixos-desktop.nix` imports `nixos/hardware-configuration.nix`
 once it is present. Before it is, only lazy evaluations (`nix flake show` over
 a `path:` ref) work; forcing the target build fails with an assertion pointing
 here.
 
-### 3. Install, then set the password
+### 4. Install, then set the password
 
 The `mingshiwang` user is defined as a normal `wheel`/`networkmanager`/`docker`
 user with **no plaintext password** in the flake. Install first, then set the
@@ -90,7 +132,7 @@ nixos-enter --root /mnt -c 'chown -R mingshiwang:users /home/mingshiwang/my-dotf
 
 > Without the `passwd` step you cannot log in at the greetd screen.
 
-### 4. Reboot
+### 5. Reboot
 
 ```bash
 cd /
@@ -112,6 +154,17 @@ nh os switch path:. -H nixos-desktop
 - **Hardware config is mandatory** — evaluating the target without
   `nixos/hardware-configuration.nix` fails loudly (assertion in
   `modules/hosts/nixos-desktop.nix`). There is no silent fallback layout.
+- **No duplicate filesystem declarations** — root, `/boot`, and swap are owned
+  by Disko (`nixos/disko.nix`); the generated hardware config only adds
+  hardware discovery (`nixos-generate-config --no-filesystems`). Do not
+  declare filesystems in both places.
+- **No manual partitioning** — direct Disko provisioning
+  (`nix run github:nix-community/disko/latest … --mode destroy,format,mount`)
+  replaces manual cfdisk/mkfs/mount steps and owns the disk layout, including
+  mounts under `/mnt`. Don't partition or mount manually.
+- **Disko erases the disk** — the direct Disko provision step destroys all
+  data on `/dev/nvme0n1`; verify with `lsblk` and edit `nixos/disko.nix`
+  before targeting any other disk.
 - **Use `path:` flake refs for anything that must see the hardware config** —
   `nixos-install`/`nh os switch` with `path:/mnt/home/mingshiwang/my-dotfiles`
   or `path:.` from the repo. A conventional `git+file` ref (`.`, `.#…`) hides

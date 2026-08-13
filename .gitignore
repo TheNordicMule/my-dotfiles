@@ -2,8 +2,11 @@
 config/opencode/.oh-my-opencode-slim/
 result
 
-# NixOS per-machine hardware config — generated locally by the installer
-# (nixos-generate-config --root /mnt --dir <repo>/nixos), used via `path:`
-# flake refs, and never staged or committed. The tracked example lives in
+# NixOS per-machine hardware config — generated locally by the installer with
+# hardware discovery only (`nixos-generate-config --no-filesystems
+# --show-hardware-config --root /mnt > <repo>/nixos/hardware-configuration.nix`).
+# Filesystems (root, /boot, swap) are owned by Disko (nixos/disko.nix), so it
+# is generated without `fileSystems` and used via `path:` flake refs. Never
+# staged or committed; the tracked example lives in
 # nixos/hardware-configuration.nix.example.
 nixos/hardware-configuration.nix

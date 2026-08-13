@@ -6,15 +6,21 @@
 # logic/assertion, hostname, user, stateVersion); everything generic is in
 # modules/features/ under flake.modules.nixos.{base,packages,nvidia,hyprland,steam,fans,printing}.
 #
-# nixos/hardware-configuration.nix is a generated, local, IGNORED per-machine
-# file (see .gitignore): produced on the target by `nixos-generate-config
-# --root /mnt --dir <repo>/nixos` and never staged/committed. Because it is
-# untracked/ignored, git+file flake refs (`.#…`) would silently hide it, so
-# every installer/rebuild command uses an explicit `path:` flake ref
-# (path:/mnt/…/my-dotfiles#nixos-desktop, or path:. from inside the repo),
+# The root filesystem and /boot are declared by Disko (nixos/disko.nix,
+# imported below), so the generated, gitignored
+# nixos/hardware-configuration.nix is mandatory only for generated hardware
+# settings (kernel modules, microcode, etc.), NOT for filesystems. It is
+# produced on the target with `nixos-generate-config --no-filesystems
+# --show-hardware-config --root /mnt >
+# <repo>/nixos/hardware-configuration.nix` (--no-filesystems is essential:
+# Disko owns fileSystems/swapDevices) and never staged/committed (see
+# .gitignore).
+# Because it is untracked/ignored, git+file flake refs (`.#…`) would silently
+# hide it, so every installer/rebuild command uses an explicit `path:` flake
+# ref (path:/mnt/…/my-dotfiles#nixos-desktop, or path:. from inside the repo),
 # which copies the working directory verbatim including ignored files. Until
 # the file exists, evaluating the target's `system.build.toplevel` fails with
-# a clear assertion below — there is no silent placeholder root filesystem.
+# a clear assertion below — there is no silent fallback hardware config.
 # `nix flake show` over a path: ref still works before install; for a
 # deliberate pre-install dry-run, copy nixos/hardware-configuration.nix.example
 # → nixos/hardware-configuration.nix.
@@ -33,6 +39,7 @@ let
   nixos = config.flake.modules.nixos;
   hm = config.flake.modules.homeManager;
   hardware-configuration = ../../nixos/hardware-configuration.nix;
+  disko-configuration = ../../nixos/disko.nix;
 in
 {
   config.flake.nixosConfigurations.nixos-desktop = inputs.nixpkgs.lib.nixosSystem {
@@ -47,6 +54,11 @@ in
       nixos.fans
       nixos.printing
       nixos.localsend
+
+      # Disko declares the disk layout (root filesystem + /boot, mounted by
+      # Disko); see nixos/disko.nix.
+      inputs.disko.nixosModules.disko
+      disko-configuration
 
       inputs.home-manager.nixosModules.home-manager
       {
@@ -101,22 +113,28 @@ in
             ];
           };
 
-          # Require a real root filesystem. The generated, gitignored
-          # nixos/hardware-configuration.nix defines fileSystems (and is
-          # imported below once present via a `path:` flake ref). Failing here
-          # is intentional: without it we would silently evaluate against a
-          # bogus disk layout. For a pre-install dry-run, copy
+          # Require the generated, gitignored hardware config. Disko
+          # (nixos/disko.nix, imported above) supplies the root filesystem and
+          # /boot, so this file is mandatory only for generated hardware
+          # settings (kernel modules, microcode). Failing here is intentional:
+          # without it we would silently evaluate without hardware detection.
+          # Generate it on the target with `nixos-generate-config
+          # --no-filesystems --show-hardware-config --root /mnt >
+          # <repo>/nixos/hardware-configuration.nix` and never commit it. For
+          # a pre-install dry-run, copy
           # nixos/hardware-configuration.nix.example →
           # nixos/hardware-configuration.nix (see nixos/README.md).
           assertions = [
             {
-              assertion = config.fileSystems ? "/";
+              assertion = builtins.pathExists hardware-configuration;
               message = ''
-                Missing root filesystem: nixos/hardware-configuration.nix is not present.
+                Missing hardware configuration: nixos/hardware-configuration.nix is not present.
                 Generate it on the target with
-                `nixos-generate-config --root /mnt --dir <repo>/nixos` and use a `path:` flake
-                ref (e.g. `nh os switch path:. -H nixos-desktop`) so the
-                untracked, gitignored file is visible — never `git add` it. See nixos/README.md.
+                `nixos-generate-config --no-filesystems --show-hardware-config --root /mnt >
+                <repo>/nixos/hardware-configuration.nix` (--no-filesystems because Disko
+                declares fileSystems/swapDevices) and use a `path:` flake ref (e.g.
+                `nh os switch path:. -H nixos-desktop`) so the untracked, gitignored file is
+                visible — never commit it. See nixos/README.md.
                 For a pre-install dry-run, copy nixos/hardware-configuration.nix.example
                 to nixos/hardware-configuration.nix.
               '';
@@ -132,7 +150,9 @@ in
     ]
     # Import the generated, gitignored hardware config only once it exists
     # (callers must use a `path:` flake ref so it is visible — see header);
-    # the assertion above fails loudly if the target is built without it.
+    # the assertion above fails loudly if the target is built without it. It
+    # contributes generated hardware settings only — Disko already declared
+    # the filesystems.
     ++ lib.optionals (builtins.pathExists hardware-configuration) [ hardware-configuration ];
   };
 }
