@@ -1,5 +1,4 @@
 .git
-config/opencode/.oh-my-opencode-slim/
 result
 
 # NixOS per-machine hardware config — generated locally by the installer with

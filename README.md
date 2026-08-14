@@ -120,7 +120,7 @@ my-dotfiles/
 │   ├── hypr/                 #   NixOS Hyprland Lua bindings (binds.lua)
 │   ├── noctalia/             #   NixOS shell/bar — config.toml (@WALLPAPER_DIR@ rendered by noctalia.nix)
 │   ├── nvim/                 #   Neovim (lazy.nvim) — out-of-store symlink (reads ~/.config/theme at startup)
-│   ├── opencode/             #   OpenCode AI — oh-my-opencode-slim preset (out-of-store symlink); config via programs.opencode
+│   ├── opencode/             #   OpenCode AI — config and personal skills via programs.opencode
 │   └── sketchybar/           #   macOS menu bar — read-only nix-store config (reads ~/.config/theme at runtime)
 ├── wezterm/                  # WezTerm Lua config (Nix injects scheme_name based on `theme`)
 ├── tmux/                     # Tmux config (legacy — WezTerm multiplexer is active; not deployed)
