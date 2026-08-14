@@ -80,6 +80,24 @@ in
         settings = {
           autoupdate = false;
           lsp = true;
+          agent = {
+            general.model = "opencode/gpt-5.6-luna";
+            general.variant = "medium";
+            explore.model = "opencode/gpt-5.6-luna";
+            explore.variant = "medium";
+            review = {
+              mode = "subagent";
+              description = "Reviews changes for correctness and regressions.";
+              model = "opencode/gpt-5.6-sol";
+              variant = "xhigh";
+              permission.edit = "deny";
+              prompt = ''
+                Review the requested changes for correctness, regressions, and
+                missing tests. Report findings by severity with file references.
+                Do not modify files.
+              '';
+            };
+          };
         };
         tui.theme = theme;
       };
