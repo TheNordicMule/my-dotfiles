@@ -29,6 +29,7 @@ let
       coreutils
       delta
       dust
+      fastfetch
       fd
       jq
       lsd
