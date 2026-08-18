@@ -6,6 +6,9 @@
 { ... }: {
   config.flake.modules.nixos.steam = { pkgs, ... }: {
     programs.steam.enable = true;
-    environment.systemPackages = [ pkgs.lutris ];
+    environment.systemPackages = with pkgs; [
+      lutris
+      gamescope
+    ];
   };
 }
