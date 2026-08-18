@@ -80,15 +80,16 @@ in
         settings = {
           autoupdate = false;
           lsp = true;
+          enabled_providers = [
+            "opencode-go"
+          ];
           agent = {
-            general.model = "opencode/gpt-5.6-luna";
-            general.variant = "medium";
-            explore.model = "opencode/gpt-5.6-luna";
-            explore.variant = "medium";
+            general.model = "opencode-go/deepseek-v4-flash";
+            explore.model = "opencode-go/deepseek-v4-flash";
             review = {
               mode = "subagent";
               description = "Reviews changes for correctness and regressions.";
-              model = "opencode/gpt-5.6-sol";
+              model = "opencode-go/glm-5.3";
               variant = "xhigh";
               permission.edit = "deny";
               prompt = ''
