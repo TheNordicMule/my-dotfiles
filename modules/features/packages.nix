@@ -31,6 +31,8 @@ let
       dust
       fastfetch
       fd
+      ghostscript
+      imagemagick
       jq
       lsd
       neovim
