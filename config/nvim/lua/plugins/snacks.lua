@@ -11,6 +11,7 @@ return {
 		explorer = { enabled = false },
 		indent = { enabled = false },
 		input = { enabled = true },
+		images = { enabled = true },
 		picker = {
 			enabled = true,
 		},
