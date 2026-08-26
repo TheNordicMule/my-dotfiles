@@ -75,10 +75,6 @@ return { -- Autocompletion
 									})
 								end
 
-								if ctx.source_name == "copilot" then
-									icon = ""
-								end
-
 								return icon .. ctx.icon_gap
 							end,
 
@@ -104,7 +100,7 @@ return { -- Autocompletion
 		},
 
 		sources = {
-			default = { "lsp", "path", "snippets", "lazydev", "buffer", "copilot" },
+			default = { "lsp", "path", "snippets", "lazydev", "buffer" },
 			per_filetype = {
 				["dap-repl"] = { "dap" },
 				["dapui_watches"] = { "dap" },
@@ -113,12 +109,6 @@ return { -- Autocompletion
 			providers = {
 				dap = { name = "dap", module = "blink.compat.source" },
 				lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
-				copilot = {
-					name = "copilot",
-					module = "blink-cmp-copilot",
-					score_offset = 100,
-					async = true,
-				},
 			},
 		},
 

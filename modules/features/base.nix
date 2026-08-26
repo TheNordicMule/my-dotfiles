@@ -23,10 +23,6 @@
 
     # Create /etc/zshrc that loads the nix-darwin environment.
     programs.zsh.enable = true; # default shell on catalina
-
-    # Allow exactly copilot-language-server (unfree on Darwin) to evaluate.
-    # NixOS global policy (allowUnfree) is unchanged.
-    nixpkgs.config.allowUnfreePredicate = pkg: pkgs.lib.getName pkg == "copilot-language-server";
   };
 
   config.flake.modules.nixos.base = { pkgs, ... }: {

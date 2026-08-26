@@ -142,7 +142,6 @@ return {
 				nixd = {}, -- lspconfig id differs from the Nix package name (`nil`)
 				ocamllsp = {},
 				vtsls = {},
-				copilot = {},
 				jsonls = {},
 			}
 

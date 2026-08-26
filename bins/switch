@@ -20,5 +20,10 @@ case "$(uname -s)" in
     ;;
 esac
 
-git commit -a
+# Commit changes with the Nix generation number of the rebuild that was
+# just activated (last line of the system profile's generation list).
+gen=$(nix-env -p /nix/var/nix/profiles/system --list-generations | tail -n 1 | awk '{print $1}')
+if ! git diff --quiet || ! git diff --cached --quiet; then
+  git commit -am "chore: update dotfiles (generation ${gen})"
+fi
 popd

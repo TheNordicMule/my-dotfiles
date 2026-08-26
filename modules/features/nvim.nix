@@ -31,7 +31,6 @@
         eslint_d
         prettierd
         vtsls
-        copilot-language-server
         vscode-json-languageserver
       ];
     };
