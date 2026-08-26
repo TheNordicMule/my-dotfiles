@@ -21,8 +21,10 @@ case "$(uname -s)" in
 esac
 
 # Commit changes with the Nix generation number of the rebuild that was
-# just activated (last line of the system profile's generation list).
-gen=$(nix-env -p /nix/var/nix/profiles/system --list-generations | tail -n 1 | awk '{print $1}')
+# just activated (read from the system profile symlink).
+# The system profile symlink itself (e.g. system-122-link) encodes the
+# generation number, and reading it needs no root/lock access.
+gen=$(basename "$(readlink /nix/var/nix/profiles/system)" | tr -dc '0-9')
 if ! git diff --quiet || ! git diff --cached --quiet; then
   git commit -am "chore: update dotfiles (generation ${gen})"
 fi
