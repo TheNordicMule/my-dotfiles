@@ -15,10 +15,11 @@ return { -- Autocompletion
 		"rcarriga/cmp-dap",
 		{ "nvim-tree/nvim-web-devicons", opts = {} },
 		-- Snippet Engine
+		-- (no `build` step: LuaSnip is loaded from the Nix store, which is read-only;
+		-- jsregexp is optional and LuaSnip falls back to its Lua regex engine)
 		{
 			"L3MON4D3/LuaSnip",
 			version = "2.*",
-			build = "make install_jsregexp",
 			dependencies = {
 				{
 					"rafamadriz/friendly-snippets",

@@ -27,4 +27,14 @@ require("lazy").setup({
 		-- import your plugins
 		{ import = "plugins" },
 	},
+	-- Hybrid Nix setup: plugins present in the linkFarm built by
+	-- modules/features/nvim.nix (at ~/.local/share/nvim/nix-plugins) are loaded
+	-- from the Nix store instead of being cloned from GitHub. The pattern
+	-- matches every plugin's URL; plugins not found in the store fall back to
+	-- the regular lazy.nvim git install.
+	dev = {
+		path = vim.fn.stdpath("data") .. "/nix-plugins",
+		patterns = { "https://github.com/" },
+		fallback = true,
+	},
 })
