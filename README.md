@@ -8,8 +8,8 @@ A curated set of dotfiles for **macOS** (nix-darwin) and **NixOS** (Hyprland des
 - **macOS desktop** — AeroSpace (tiling WM), SketchyBar (menu bar), WezTerm, and nix-darwin
 - **NixOS desktop** — Hyprland (Lua config, AeroSpace-inspired bindings), Noctalia v5 (Wayland shell/bar: launcher, clipboard, notifications, control center, lock/idle, wallpaper rotation), BlueZ, fan monitoring, driverless printing, Steam, and `nh os switch` (see `nixos/README.md`)
 - **Newer user-facing apps** — Firefox (declarative policies via Home Manager), Vesktop (Discord), Steam (NixOS), Obsidian (notes)
-- **Minimal Neovim IDE** — lazy.nvim with LSP, DAP, autocompletion, test runner, git integration, and AI copilot
-- **WezTerm multiplexer** — WezTerm handles multiplexing natively (tabs, splits, workspaces, copy mode) with tmux-style keybindings (`C-a` leader, `h/j/k/l` navigation). The `tmux/` config is kept as legacy and is not actively used.
+- **Minimal Neovim IDE** — lazy.nvim with LSP, DAP, autocompletion, test runner, git integration, and AI assistance (sidekick.nvim); plugins are served from the Nix store with lazy.nvim as fallback
+- **WezTerm multiplexer** — WezTerm handles multiplexing natively (tabs, splits, workspaces, copy mode) with tmux-style keybindings (`C-a` leader, `h/j/k/l` navigation)
 - **spotify-player** — terminal Spotify client (requires Spotify Premium), theme-aware via Nix
 - **nix-darwin / NixOS + home-manager** — declarative system *and* user config (packages, fonts, system settings, dotfiles, bins)
 
@@ -203,7 +203,7 @@ screenshots, volume, brightness, lock-and-suspend — go through `noctalia msg`
 | System   | nix-darwin      | Packages, fonts, system settings, Homebrew casks   |
 | User     | Homebrew        | Casks not in nixpkgs (AeroSpace, SketchyBar, etc.) |
 | Dotfiles | home-manager    | Symlinks configs + bins to `~/` and `~/.config/`   |
-| Plugins  | lazy.nvim       | Neovim plugins                                     |
+| Plugins  | Nix + lazy.nvim | Neovim plugins — core plugins from `vimPlugins` via a Nix linkFarm (`modules/features/nvim.nix`), anything else installed by lazy.nvim |
 
 On NixOS, system packages come from `environment.systemPackages`
 (`modules/features/packages.nix`) and Steam via `programs.steam`
