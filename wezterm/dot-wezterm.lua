@@ -32,8 +32,6 @@ config.font_size = 16
 -- ────────────────────────────────────────────────────────────────────────────
 -- Keybindings (tmux-style)
 -- ────────────────────────────────────────────────────────────────────────────
--- Sessionizer: fuzzy-pick a project dir and jump to a per-directory workspace
--- (native-workspace port of bins/tmux-sessionizer).
 
 -- Resolve fd (fuzzy-finder) from common per-platform install locations.
 -- The wezterm GUI on macOS launches with a minimal PATH that often omits

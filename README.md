@@ -110,11 +110,10 @@ my-dotfiles/
 │       ├── swayimg.nix       #     HM: swayimg — Wayland image viewer (home.packages + xdg.mimeApps; Linux-only)
 │       ├── thunderbird.nix   #     HM: thunderbird — mailto/email default handler via xdg.mimeApps (Linux-only)
 │       ├── static-configs.nix#     HM: aerospace (read-only nix-store)
-│       └── bins.nix          #     HM: switch, theme-switch, tmux-sessionizer on $PATH
+│       └── bins.nix          #     HM: switch, theme-switch on $PATH
 ├── bins/                     # Executable helpers (deployed to ~/bin by home-manager)
 │   ├── switch                #   Reformat, rebuild active OS via nh (darwin/os switch), commit
 │   ├── theme-switch          #   Theme toggle (Nord / Catppuccin / Gruvbox)
-│   └── tmux-sessionizer      #   Fuzzy tmux workspace selector (legacy)
 ├── config/                   # Deployed to ~/.config/ by home-manager
 │   ├── aerospace/            #   macOS tiling window manager (static-configs)
 │   ├── hypr/                 #   NixOS Hyprland Lua bindings (binds.lua)
@@ -123,7 +122,6 @@ my-dotfiles/
 │   ├── opencode/             #   OpenCode AI — config and personal skills via programs.opencode
 │   └── sketchybar/           #   macOS menu bar — read-only nix-store config (reads ~/.config/theme at runtime)
 ├── wezterm/                  # WezTerm Lua config (Nix injects scheme_name based on `theme`)
-├── tmux/                     # Tmux config (legacy — WezTerm multiplexer is active; not deployed)
 ├── nixos/                    # NixOS host: README + hardware-configuration.nix.example (real file is gitignored)
 ├── TROUBLESHOOTING.md        # Record: local overrides, known issues, update checklist
 └── README.md
