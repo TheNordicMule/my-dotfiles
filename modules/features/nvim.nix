@@ -178,6 +178,8 @@
       home.packages = with pkgs; [
         pyright
         clang-tools
+        # C compiler for nvim-treesitter runtime parser builds (provides `cc`)
+        gcc
         gopls
         rust-analyzer
         nixd
