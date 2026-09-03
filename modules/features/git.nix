@@ -14,6 +14,10 @@
           navigate = true;
           light = false;
         };
+        credential."https://github.com".helper = [
+          ""
+          "!gh auth git-credential"
+        ];
         merge.conflictstyle = "diff3";
         diff.colorMoved = "default";
       };
