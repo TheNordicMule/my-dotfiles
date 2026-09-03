@@ -108,6 +108,7 @@ my-dotfiles/
 │       ├── vesktop.nix       #     HM: vesktop (Discord, home.packages)
 │       ├── localsend.nix     #     HM/nixos: LocalSend — LAN file sharing (home.packages; opens port 53317 on NixOS)
 │       ├── swayimg.nix       #     HM: swayimg — Wayland image viewer (home.packages + xdg.mimeApps; Linux-only)
+│       ├── nautilus.nix      #     HM: nautilus — GNOME file manager (home.packages + xdg.mimeApps; Linux-only)
 │       ├── thunderbird.nix   #     HM: thunderbird — mailto/email default handler via xdg.mimeApps (Linux-only)
 │       ├── static-configs.nix#     HM: aerospace (read-only nix-store)
 │       └── bins.nix          #     HM: switch, theme-switch on $PATH

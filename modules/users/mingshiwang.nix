@@ -47,7 +47,8 @@ in
           isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
         in
         {
-          # Hyprland, Thunderbird and Swayimg are Linux-only (NixOS) modules. `imports`
+          # Hyprland, Thunderbird, Swayimg and Nautilus are Linux-only (NixOS)
+          # modules. `imports`
           # cannot depend on config-derived args like `pkgs` (that recurses), but
           # `osConfig` — the OS config — is passed as an external module argument,
           # so branching on it here is safe and evaluates lazily (the modules are
@@ -57,6 +58,7 @@ in
             hm.hyprland
             hm.thunderbird
             hm.swayimg
+            hm.nautilus
           ];
           # mkForce: home-manager's darwin common module derives homeDirectory
           # from `users.users.<name>.home`, which is null on nix-darwin (existing
