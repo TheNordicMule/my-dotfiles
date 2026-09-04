@@ -44,6 +44,7 @@ let
       # terminal (Hyprland "$terminal" = wezterm; the HM module only deploys
       # .wezterm.lua — the package itself is installed here)
       wezterm
+      wechat-uos
     ];
 in
 {
