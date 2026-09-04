@@ -28,6 +28,7 @@ let
       btop
       coreutils
       delta
+      devenv
       dust
       fastfetch
       fd
