@@ -1,7 +1,7 @@
 # Hyprland desktop for a NixOS host using UWSM.
 # Two classes:
-# - nixos.hyprland: system-side compositor/UWSM/XWayland, XDG portals and
-#   greetd + tuigreet login (the host module enables UWSM/Hyprland via this).
+# - nixos.hyprland: system-side compositor/UWSM/XWayland and XDG portals (the
+#   host module enables UWSM/Hyprland via this); login lives in noctalia.nix.
 # - homeManager.hyprland: the user session; intentionally only owns the user
 #   config and disables Home Manager's competing systemd unit.
 # Colors come from config.dotfiles.palettes.${theme} (defined in theme.nix).
@@ -168,7 +168,7 @@ in
       ];
     };
 
-  # System side: compositor under UWSM, portals, and the greetd+tuigreet login.
+  # System side: compositor under UWSM and XDG portals (login: noctalia.nix).
   config.flake.modules.nixos.hyprland = { pkgs, ... }: {
     # Input method: fcitx5 with the Chinese addons (Ctrl+` toggles fcitx5's IM
     # state in config/hypr/binds.lua).
@@ -191,24 +191,5 @@ in
     # helper) into xdg.portal.extraPortals, so adding them here again would
     # duplicate them. Just make sure the portal machinery is enabled.
     xdg.portal.enable = true;
-
-    # Login: greetd + tuigreet (greetd module creates the `greeter` system
-    # user itself). Launch the actual `Hyprland` executable (case-sensitive)
-    # under UWSM.
-    services.greetd = {
-      enable = true;
-      settings = {
-        default_session = {
-          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd 'uwsm start Hyprland'";
-          user = "greeter";
-        };
-      };
-    };
-
-    # Seed tuigreet's remembered-user cache so the first prompt after applying
-    # this configuration asks only for the password.
-    systemd.tmpfiles.rules = [
-      "f '/var/cache/tuigreet/lastuser' 0600 greeter greeter - mingshiwang"
-    ];
   };
 }

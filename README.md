@@ -6,7 +6,7 @@ A curated set of dotfiles for **macOS** (nix-darwin) and **NixOS** (Hyprland des
 
 - **Unified theme system** — toggle between Nord, Catppuccin, and Gruvbox across all apps with a single command
 - **macOS desktop** — AeroSpace (tiling WM), SketchyBar (menu bar), WezTerm, and nix-darwin
-- **NixOS desktop** — Hyprland (Lua config, AeroSpace-inspired bindings), Noctalia v5 (Wayland shell/bar: launcher, clipboard, notifications, control center, lock/idle, wallpaper rotation), BlueZ, fan monitoring, driverless printing, Steam, and `nh os switch` (see `nixos/README.md`)
+- **NixOS desktop** — Hyprland (Lua config, AeroSpace-inspired bindings), Noctalia v5 (Wayland shell/bar: launcher, clipboard, notifications, control center, lock/idle, wallpaper rotation) with the matching **Noctalia Greeter** greetd login, BlueZ, fan monitoring, driverless printing, Steam, and `nh os switch` (see `nixos/README.md`)
 - **Newer user-facing apps** — Firefox (declarative policies via Home Manager), Vesktop (Discord), Steam (NixOS), Obsidian (notes)
 - **Minimal Neovim IDE** — lazy.nvim with LSP, DAP, autocompletion, test runner, git integration, and AI assistance (sidekick.nvim); plugins are served from the Nix store with lazy.nvim as fallback
 - **WezTerm multiplexer** — WezTerm handles multiplexing natively (tabs, splits, workspaces, copy mode) with tmux-style keybindings (`C-a` leader, `h/j/k/l` navigation)
@@ -87,8 +87,8 @@ my-dotfiles/
 │       ├── packages.nix      #     darwin/nixos: environment.systemPackages
 │       ├── homebrew.nix      #     darwin: taps / brews / casks
 │       ├── nvidia.nix        #     nixos: NVIDIA GPU (open modules, modesetting, stable driver)
-│       ├── hyprland.nix      #     nixos: Hyprland/UWSM/portals/greetd + wallpapers; HM: Hyprland user session
-│       ├── noctalia.nix      #     nixos: Noctalia v5 shell/bar (programs.noctalia + recommended services); HM: Noctalia user config
+│       ├── hyprland.nix      #     nixos: Hyprland/UWSM/portals + wallpapers; HM: Hyprland user session
+│       ├── noctalia.nix      #     nixos: Noctalia v5 shell/bar + Greeter over greetd (login); HM: Noctalia user config
 │       ├── fans.nix          #     nixos: fan monitoring (it87 driver, lm-sensors)
 │       ├── printing.nix      #     nixos: driverless printing (CUPS, Avahi mDNS discovery)
 │       ├── git.nix           #     HM: git config

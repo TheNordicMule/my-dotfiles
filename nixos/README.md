@@ -3,12 +3,12 @@
 x86_64-linux desktop host: UEFI + systemd-boot, NetworkManager, PipeWire,
 Docker, zsh, NVIDIA (open kernel modules, RTX 20-series or newer), Bluetooth
 (BlueZ), fan monitoring, driverless printing, Steam, Hyprland under UWSM,
-greetd + tuigreet login, the Noctalia v5 shell/bar, and home-manager wired
-exactly like the Darwin host (`modules/hosts/mac-that-vim.nix`).
+the Noctalia Greeter greetd login, the Noctalia v5 shell/bar, and home-manager
+wired exactly like the Darwin host (`modules/hosts/mac-that-vim.nix`).
 
 The host is assembled in `modules/hosts/nixos-desktop.nix`; the system
 configuration lives in class-keyed feature modules under `modules/features/`
-(`flake.modules.nixos.{base,packages,nvidia,hyprland,steam,fans,printing}`).
+(`flake.modules.nixos.{base,packages,nvidia,hyprland,noctalia,steam,fans,printing}`).
 The disk layout is declared declaratively in `nixos/disko.nix` (see below).
 
 ## Hardware config policy
@@ -198,5 +198,11 @@ nh os switch path:. -H nixos-desktop
   ownership note in `TROUBLESHOOTING.md`).
 - NVIDIA: open kernel modules (`hardware.nvidia.open = true`) require an RTX
   20-series or newer GPU; no PRIME is configured (single-GPU desktop).
-- Login is greetd + tuigreet; it launches the case-sensitive `Hyprland`
-  executable under UWSM (`uwsm start Hyprland`).
+- Login is **Noctalia Greeter** over greetd (the nixpkgs
+  `services.displayManager.noctalia-greeter` module, enabled in
+  `modules/features/noctalia.nix`). Its default session is the UWSM-managed
+  Hyprland desktop entry (`Hyprland (uwsm-managed)`), replacing the former
+  tuigreet login. `mingshiwang` is pre-selected, and
+  `passwordlessSyncUsers = [ "mingshiwang" ]` lets **Settings → Security →
+  Noctalia Greeter → Sync Now** copy the shell wallpaper/palette to the login
+  screen without an admin prompt (appearance only; never session commands).

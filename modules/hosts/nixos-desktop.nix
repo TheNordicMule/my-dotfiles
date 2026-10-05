@@ -4,7 +4,7 @@
 #
 # Host-specific settings only live here (UEFI boot, hardware-config path
 # logic/assertion, hostname, user, stateVersion); everything generic is in
-# modules/features/ under flake.modules.nixos.{base,packages,nvidia,hyprland,steam,fans,printing}.
+# modules/features/ under flake.modules.nixos.{base,packages,nvidia,hyprland,noctalia,steam,fans,printing}.
 #
 # The root filesystem and /boot are declared by Disko (nixos/disko.nix,
 # imported below), so the generated, gitignored
@@ -50,6 +50,7 @@ in
       nixos.packages
       nixos.nvidia
       nixos.hyprland
+      nixos.noctalia
       nixos.steam
       nixos.fans
       nixos.printing
