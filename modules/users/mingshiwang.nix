@@ -56,6 +56,7 @@ in
           # nix-darwin-only option, so its presence means this is a macOS host.
           imports = lib.optionals (!(osConfig.system or { }) ? defaults) [
             hm.hyprland
+            hm.fcitx5
             hm.thunderbird
             hm.swayimg
             hm.nautilus

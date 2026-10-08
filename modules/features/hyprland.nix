@@ -169,15 +169,9 @@ in
     };
 
   # System side: compositor under UWSM and XDG portals (login: noctalia.nix).
-  config.flake.modules.nixos.hyprland = { pkgs, ... }: {
-    # Input method: fcitx5 with the Chinese addons (Ctrl+` toggles fcitx5's IM
-    # state in config/hypr/binds.lua).
-    i18n.inputMethod = {
-      enable = true;
-      type = "fcitx5";
-      fcitx5.addons = [ pkgs.qt6Packages.fcitx5-chinese-addons ];
-    };
-
+  # Input method (fcitx5 + RIME) lives in fcitx5.nix; Ctrl+` toggles fcitx5's
+  # IM state in config/hypr/binds.lua.
+  config.flake.modules.nixos.hyprland = { ... }: {
     # Hyprland (UWSM + XWayland).
     programs.hyprland = {
       enable = true;

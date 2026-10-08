@@ -51,6 +51,7 @@ in
       nixos.nvidia
       nixos.hyprland
       nixos.noctalia
+      nixos.fcitx5
       nixos.steam
       nixos.fans
       nixos.printing
