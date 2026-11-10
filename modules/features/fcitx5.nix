@@ -23,6 +23,8 @@
     i18n.inputMethod = {
       enable = true;
       type = "fcitx5";
+      # Prefer Wayland's native input-method protocol in Firefox and GTK/Qt apps.
+      fcitx5.waylandFrontend = true;
       fcitx5.addons = [
         # 雾凇拼音: override the shared schema set baked into fcitx5-rime's
         # RIME_DATA_DIR (default is rime-data; rime-ice supersedes it).
